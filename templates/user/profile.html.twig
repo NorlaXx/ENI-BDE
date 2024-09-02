@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Log in!{% endblock %}
+
+{% block body %}
+
+    {{ user.pseudo }}
+    {{ user.email }}
+    {# This img will be source when upload system will ok #}
+    <img href="{{ user.PictureFileName }}" alt="ProfilePicture">
+    {{ user.getPhoneNumber }}
+    {{ user.campus.name }}
+{% endblock %}

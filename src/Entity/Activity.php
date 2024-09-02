@@ -40,7 +40,7 @@ class Activity
     private ?ActivityState $state = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
-    private ?\DateTimeInterface $dateTimeateDebut = null;
+    private ?\DateTimeInterface $dateDebut = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     private ?\DateTimeInterface $dateFinalInscription = null;
@@ -157,9 +157,9 @@ class Activity
         return $this->DateDebut;
     }
 
-    public function setDateDebut(\DateTimeInterface $DateDebut): static
+    public function setDateDebut(\DateTimeInterface $dateDebut): static
     {
-        $this->DateDebut = $DateDebut;
+        $this->DateDebut = $dateDebut;
 
         return $this;
     }
