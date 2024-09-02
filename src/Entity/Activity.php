@@ -97,31 +97,31 @@ class Activity
         return $this;
     }
 
-    public function removeInscrit(user $inscrit): static
+    public function removeInscrit(User $inscrit): static
     {
         $this->inscrits->removeElement($inscrit);
 
         return $this;
     }
 
-    public function getCampus(): ?campus
+    public function getCampus(): ?Campus
     {
         return $this->campus;
     }
 
-    public function setCampus(?campus $campus): static
+    public function setCampus(?Campus $campus): static
     {
         $this->campus = $campus;
 
         return $this;
     }
 
-    public function getLieu(): ?lieu
+    public function getLieu(): ?Lieu
     {
         return $this->lieu;
     }
 
-    public function setLieu(?lieu $lieu): static
+    public function setLieu(?Lieu $lieu): static
     {
         $this->lieu = $lieu;
 
@@ -176,12 +176,12 @@ class Activity
         return $this;
     }
 
-    public function getOrganisateur(): ?user
+    public function getOrganisateur(): ?User
     {
         return $this->organisateur;
     }
 
-    public function setOrganisateur(?user $organisateur): static
+    public function setOrganisateur(?User $organisateur): static
     {
         $this->organisateur = $organisateur;
 
