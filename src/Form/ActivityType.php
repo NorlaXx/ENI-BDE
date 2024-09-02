@@ -23,11 +23,11 @@ class ActivityType extends AbstractType
             ])
             ->add('campus', EntityType::class, [
                 'class' => Campus::class,
-                'label' => 'campus',
+                'choice_label' => 'name',
             ])
             ->add('lieu', EntityType::class, [
                 'class' => Lieu::class,
-                'label' => 'lieu',
+                'choice_label' => 'name',
             ])
             ->add('description', TextType::class, [
                 'label' => 'Description',

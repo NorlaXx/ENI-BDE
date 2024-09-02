@@ -26,5 +26,6 @@ class ActivityRepository extends ServiceEntityRepository
     public function createActivity($activity): void
     {
         $this->getEntityManager()->persist($activity);
+        $this->getEntityManager()->flush();
     }
 }

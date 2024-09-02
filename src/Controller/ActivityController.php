@@ -32,7 +32,7 @@ class ActivityController extends AbstractController
             $activity->setState($this->activityStateRepository->getDefautState());
             $activity->setDateCreation(new DateTime());
             $this->activityRepository->createActivity($activity);
-            //Redirection de la route
+            //TODO Redirection de la route
         }
 
         return $this->render('activity/create.html.twig', [

@@ -154,12 +154,12 @@ class Activity
 
     public function getDateDebut(): ?\DateTimeInterface
     {
-        return $this->DateDebut;
+        return $this->dateDebut;
     }
 
     public function setDateDebut(\DateTimeInterface $dateDebut): static
     {
-        $this->DateDebut = $dateDebut;
+        $this->dateDebut = $dateDebut;
 
         return $this;
     }
