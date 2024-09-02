@@ -3,11 +3,18 @@
 {% block title %}Log in!{% endblock %}
 
 {% block body %}
-
+<div style="text-align: center">
     {{ user.pseudo }}
     {{ user.email }}
     {# This img will be source when upload system will ok #}
     <img href="{{ user.PictureFileName }}" alt="ProfilePicture">
     {{ user.getPhoneNumber }}
     {{ user.campus.name }}
+    {# Here is display all the activities user is relation with #}
+    {# TODO  Get the code from the AllActivitiesPage for front#}
+    {% for activity in user.activities %}
+        {{ activity.name }}
+    {% endfor %}
+</div>
+
 {% endblock %}
