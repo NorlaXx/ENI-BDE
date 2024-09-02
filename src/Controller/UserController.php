@@ -43,7 +43,7 @@ class UserController extends AbstractController
             $form = $this->createFormBuilder($userData)
                 ->add('phone_number', TextType::class)
                 ->add('pseudo', TextType::class)
-                ->add('Campus', EntityType::class, ['class' => Campus::class, 'choice_name' => 'name', 'choice_value' => 'id'])
+                ->add('Campus', EntityType::class, ['class' => Campus::class, 'choice_label' => 'name', 'choice_value' => 'id'])
                 ->getForm();
             return $this->render('user/profileEdit.html.twig', [
                 'form' => $form,
