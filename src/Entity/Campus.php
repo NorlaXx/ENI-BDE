@@ -16,16 +16,16 @@ class Campus
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $Name = null;
+    private ?string $name = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $Lat = null;
+    private ?string $lat = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $Longitude = null;
+    private ?string $longitude = null;
 
     #[ORM\Column]
-    private ?int $NombrePlaceMax = null;
+    private ?int $nombrePlaceMax = null;
 
     /**
      * @var Collection<int, Activity>
@@ -52,48 +52,48 @@ class Campus
 
     public function getName(): ?string
     {
-        return $this->Name;
+        return $this->name;
     }
 
-    public function setName(string $Name): static
+    public function setName(string $name): static
     {
-        $this->Name = $Name;
+        $this->name = $name;
 
         return $this;
     }
 
     public function getLat(): ?string
     {
-        return $this->Lat;
+        return $this->lat;
     }
 
-    public function setLat(string $Lat): static
+    public function setLat(string $lat): static
     {
-        $this->Lat = $Lat;
+        $this->lat = $lat;
 
         return $this;
     }
 
     public function getLongitude(): ?string
     {
-        return $this->Longitude;
+        return $this->longitude;
     }
 
-    public function setLongitude(string $Longitude): static
+    public function setLongitude(string $longitude): static
     {
-        $this->Longitude = $Longitude;
+        $this->longitude = $longitude;
 
         return $this;
     }
 
     public function getNombrePlaceMax(): ?int
     {
-        return $this->NombrePlaceMax;
+        return $this->nombrePlaceMax;
     }
 
-    public function setNombrePlaceMax(int $NombrePlaceMax): static
+    public function setNombrePlaceMax(int $nombrePlaceMax): static
     {
-        $this->NombrePlaceMax = $NombrePlaceMax;
+        $this->nombrePlaceMax = $nombrePlaceMax;
 
         return $this;
     }

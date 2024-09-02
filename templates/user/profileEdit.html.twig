@@ -3,25 +3,24 @@
 {% block title %}Log in!{% endblock %}
 
 {% block body %}
+    <div style="text-align: center">
+        We have to add file upload system before add profil picture modification
 
-    <form method="post">
-        <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
-        <label for="username">Email</label>
-        <input type="email" value="{{ last_username }}" name="_username" id="username" class="form-control" autocomplete="email" required autofocus>
-        <label for="password">Password</label>
-        <input type="password" name="_password" id="password" class="form-control" autocomplete="current-password" required>
-
-        <input type="hidden" name="_csrf_token"
-               value="{{ csrf_token('authenticate') }}"
-        >
-
-        <div class="checkbox mb-3">
-            <input type="checkbox" name="_remember_me" id="_remember_me">
-            <label for="_remember_me">Remember me</label>
+        {{ form_start(form) }}
+        <div class="my-custom-class-for-errors">
+            {{ form_errors(form) }}
         </div>
 
-        <button class="btn btn-lg btn-primary" type="submit">
-            Sign in
-        </button>
-    </form>
+        <div class="row">
+            <div class="col">
+                {{ form_row(form.pseudo) }}
+            </div>
+            <div class="col" id="some-custom-id">
+                {{ form_row(form.phone_number) }}
+            </div>
+        </div>
+        <button type="submit">Valider</button>
+        {{ form_end(form) }}
+    </div>
+
 {% endblock %}

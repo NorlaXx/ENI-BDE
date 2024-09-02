@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
+
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -51,7 +53,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?Campus $Campus = null;
 
     #[ORM\Column(length: 255, nullable: true)]
-    private ?string $PictureFileName = null;
+    private ?string $pictureFileName = null;
 
     public function __construct()
     {
@@ -229,13 +231,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function getPictureFileName(): ?string
     {
-        return $this->PictureFileName;
+        return $this->pictureFileName;
     }
 
-    public function setPictureFileName(?string $PictureFileName): static
+    public function setPictureFileName(?string $pictureFileName): static
     {
-        $this->PictureFileName = $PictureFileName;
+        $this->pictureFileName = $pictureFileName;
 
         return $this;
     }
+
 }
