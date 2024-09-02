@@ -16,16 +16,16 @@ class Lieu
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $Name = null;
+    private ?string $name = null;
 
     #[ORM\Column(length: 255)]
     private ?string $Lat = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $Longitude = null;
+    private ?string $longitude = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $Ville = null;
+    private ?string $ville = null;
 
     #[ORM\Column(length: 255)]
     private ?string $cp = null;
@@ -51,12 +51,12 @@ class Lieu
 
     public function getName(): ?string
     {
-        return $this->Name;
+        return $this->name;
     }
 
-    public function setName(string $Name): static
+    public function setName(string $name): static
     {
-        $this->Name = $Name;
+        $this->name = $name;
 
         return $this;
     }
@@ -75,24 +75,24 @@ class Lieu
 
     public function getLongitude(): ?string
     {
-        return $this->Longitude;
+        return $this->longitude;
     }
 
-    public function setLongitude(string $Longitude): static
+    public function setLongitude(string $longitude): static
     {
-        $this->Longitude = $Longitude;
+        $this->longitude = $longitude;
 
         return $this;
     }
 
     public function getVille(): ?string
     {
-        return $this->Ville;
+        return $this->ville;
     }
 
-    public function setVille(string $Ville): static
+    public function setVille(string $ville): static
     {
-        $this->Ville = $Ville;
+        $this->ville = $ville;
 
         return $this;
     }
