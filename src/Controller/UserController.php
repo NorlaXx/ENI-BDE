@@ -24,12 +24,10 @@ class UserController extends AbstractController
     private $security;
     private $userProvider;
 
-    private EntityManager $entityManager;
 
-    public function __construct(Security $security, UserProvider $userProvider)
+    public function __construct(Security $security)
     {
         $this->security = $security;
-        $this->userProvider = $userProvider;
 
     }
 
@@ -37,7 +35,7 @@ class UserController extends AbstractController
     public function profile(): Response
     {
         if ($this->security->isGranted('ROLE_USER')) {
-            $user = $this->userProvider->getUser();
+            $user = $this->getUser();
             return $this->render('user/profile.html.twig', [
                 'user' => $user,
             ]);
@@ -55,7 +53,7 @@ class UserController extends AbstractController
     public function edit(EntityManagerInterface  $entityManager, Request $request, SluggerInterface $slugger): Response
     {
 
-        $user = $this->userProvider->getUser();
+        $user = $this->getUser();
 
 
         $form = $this->createForm(UserType::class, $user);
