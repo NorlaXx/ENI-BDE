@@ -50,10 +50,13 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\JoinColumn(nullable: false)]
     private ?Campus $Campus = null;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $PictureFileName = null;
+
     public function __construct()
     {
         $this->activities = new ArrayCollection();
-        $this->ActivitiesOwner = new ArrayCollection();
+/*        $this->ActivitiesOwner = new ArrayCollection();*/
     }
 
     public function getId(): ?int
@@ -220,6 +223,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setCampus(?Campus $Campus): static
     {
         $this->Campus = $Campus;
+
+        return $this;
+    }
+
+    public function getPictureFileName(): ?string
+    {
+        return $this->PictureFileName;
+    }
+
+    public function setPictureFileName(?string $PictureFileName): static
+    {
+        $this->PictureFileName = $PictureFileName;
 
         return $this;
     }
