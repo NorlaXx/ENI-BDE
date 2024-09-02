@@ -15,9 +15,6 @@ class ActivityState
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column]
-    private ?int $state = null;
-
     #[ORM\Column(length: 255)]
     private ?string $libelle = null;
 
@@ -35,18 +32,6 @@ class ActivityState
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getState(): ?int
-    {
-        return $this->state;
-    }
-
-    public function setState(int $state): static
-    {
-        $this->state = $state;
-
-        return $this;
     }
 
     public function getLibelle(): ?string
