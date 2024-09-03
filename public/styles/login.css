@@ -59,7 +59,17 @@ form button:hover {
 }
 
 .checkbox {
-  width: 435px;
+  width: 445px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.checkbox a {
+  color: #727683;
+  font-size: 18px;
+  text-decoration: none;
+  cursor: pointer;
 }
 
 .checkbox label {

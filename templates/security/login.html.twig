@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Log in!{% endblock %}
+{% block title %}BD-E-ni | Connexion{% endblock %}
 
 {% block stylesheets %}
     <link rel="stylesheet" href="/styles/login.css">
@@ -24,8 +24,11 @@
             >
 
                 <div class="checkbox mb-3">
-                    <input type="checkbox" name="_remember_me" id="_remember_me">
-                    <label for="_remember_me">Se souvenir de moi</label>
+                    <span id="bipbip">
+                        <input type="checkbox" name="_remember_me" id="_remember_me">
+                        <label for="_remember_me">Se souvenir de moi</label>
+                    </span>
+                    <a>mot de passe oublié</a>
                 </div>
 
             <button class="btn btn-lg btn-primary" type="submit">

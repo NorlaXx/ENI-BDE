@@ -58,7 +58,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function __construct()
     {
         $this->activities = new ArrayCollection();
-/*        $this->ActivitiesOwner = new ArrayCollection();*/
     }
 
     public function getId(): ?int
