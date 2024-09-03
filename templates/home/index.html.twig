@@ -5,6 +5,7 @@
 {% endblock %}
 
 {% block body %}
+<<<<<<< HEAD
     {{ form_start(form) }}
     {{ form_widget(form) }}
     <button>{{ button_label|default('Save') }}</button>
@@ -55,6 +56,37 @@
     <div style="background-color: blue; width: 200px; height: 100px">
         <div style="text-align: center; align-content: center">
             This is a map
+=======
+    <div class="content">
+        <div class="filter">
+            <h2>Filtres (0)</h2>
+            <div class="separator"></div>
+        </div>
+        <div class="list">
+            <h2>Evenements proposer par votre BDE / élèves</h2>
+            <div class="separator"></div>
+            <div class="activity-content" id="activityContent">
+                {% for activity in activities %}
+                    <div class="activity" data-lat="{{activity.lieu.Lat}}" data-long="{{activity.lieu.longitude}}">
+                        <img src={{ asset('thumbnails/' ~ activity.pictureFileName) }} alt="activity thumbnails"/>
+                        <span class="title-description">
+                            <p class="title">{{activity.name}}</p>
+                            <p class="description">{{activity.description}}</p>
+                        </span>
+                        <span class="information">
+                            <span class="information_text">
+                                <p>Date limite d'inscription : {{activity.dateFinalInscription|date('Y-m-d')}}</p>
+                                <p>Nombre d'inscrit : {{activity.inscrits|length}}</p> 
+                            </span>
+                            <button class="button">Rejoindre</button>
+                        </span>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="map">
+            <div id="map"></div>
+>>>>>>> Blizz
         </div>
     </div>
 
