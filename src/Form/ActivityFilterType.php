@@ -5,12 +5,15 @@ namespace App\Form;
 use App\Entity\Activity;
 use App\Entity\Campus;
 use App\Entity\Lieu;
+use App\Entity\User;
+use PHPUnit\Util\Filter;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class ActivityFilterType extends AbstractType
 {

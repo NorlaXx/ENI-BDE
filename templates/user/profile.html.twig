@@ -6,7 +6,7 @@
 <div style="text-align: center">
     {{ user.pseudo }}
     {{ user.email }}
-    <img src="{{ asset('profilePictures/'~ user.pictureFileName) }}" alt="ProfilePicture">
+    <img src="{{ asset('profilePictures/'~ app.user.pictureFileName) }}" alt="ProfilePicture">
     {{ user.getPhoneNumber }}
     {{ user.campus.name }}
     {# Here is display all the activities user is relation with #}

@@ -7,6 +7,8 @@ use App\Form\ActivityType;
 use App\Repository\ActivityRepository;
 use App\Repository\ActivityStateRepository;
 use DateTime;
+use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -18,9 +20,38 @@ class ActivityController extends AbstractController
 
     public function __construct(
         private ActivityRepository $activityRepository,
-        private ActivityStateRepository $activityStateRepository
+        private ActivityStateRepository $activityStateRepository,
+        private EntityManagerInterface $entityManager
     )
     {}
+
+    #[Route('/activity/add/inscrit', name: 'activity_add_inscrit')]
+    public function addInscrit(Activity $activity)
+    {
+        /** @var User */
+        $user = $this->getUser();
+        $activity->addInscrit($user);
+        $this->entityManager->persist($activity);
+        $this->entityManager->flush();
+        $this->redirectToRoute('app_home');
+    }
+    #[Route('/activity/remove/inscrit', name: 'activity_remove_inscrit')]
+    public function removeInscrit(Activity $activity)
+    {
+        /** @var User */
+        $user = $this->getUser();
+        $activity->removeInscrit($user);
+        $this->entityManager->persist($activity);
+        $this->entityManager->flush();
+        $this->redirectToRoute('app_home');
+    }
+    #[Route('/activity/update/{id}', name: 'activity_update')]
+    public function updateActivity(Activity $activity)
+    {
+        return $this->render('activity/update.html.twig', [
+            'activity' => $activity,
+        ]);
+    }
 
     #[Route('/activity/create', name: 'activity_create')]
     public function createActivity(Request $request, SluggerInterface $slugger){
