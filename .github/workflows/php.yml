@@ -1,0 +1,47 @@
+name: Symfony project
+
+on:
+  push:
+    branches: [ "main" ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: 8.3
+
+      - name: Validate composer.json and composer.lock
+        run: composer validate --strict
+
+      - name: Cache Composer packages
+        id: composer-cache
+        uses: actions/cache@v3
+        with:
+          path: vendor
+          key: ${{ runner.os }}-php-${{ hashFiles('**/composer.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-php-
+
+      - name: Install dependencies
+        run: composer install --prefer-dist --no-progress
+
+      - name: Deploy to servers
+        run: |
+          sudo apt-get install -y sshpass
+          sshpass -p ${{ secrets.SERVER_PASSWORD }} rsync -av --exclude='./vendor' --exclude='./var' --exclude='./.idea' -e 'ssh -p 22102' ./ root@private.blizzfull.fr:/var/www/enibde
+        env:
+          SERVER_PASSWORD: ${{ secrets.SERVER_PASSWORD }}
+          DATABASE_URL: "mysql://Blizz:7682Fe27@@@@@http://client.blizzfull.fr:201/phpmyadmin::5432/app?serverVersion=8.0.32&charset=utf8mb4"
+          APP_ENV: prod
+
+      - name: migrations
+        run: |
+          cd /var/www/enibde
+          php bin/console doctrine:migrations:migrate
