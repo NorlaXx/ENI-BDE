@@ -44,4 +44,4 @@ jobs:
 
       - name: migrations
         run: |
-          sshpass -p ${{ secrets.SERVER_PASSWORD }} ssh -o StrictHostKeyChecking=no root@api.manageti.fr "cd /var/www/enibde && php bin/console doctrine:migrations:migrate"
+          sshpass -p ${{ secrets.SERVER_PASSWORD }} ssh -o StrictHostKeyChecking=no root@private.blizzfull.fr "cd /var/www/enibde && php bin/console doctrine:migrations:migrate"
