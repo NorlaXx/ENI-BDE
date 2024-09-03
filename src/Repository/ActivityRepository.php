@@ -61,6 +61,18 @@ class ActivityRepository extends ServiceEntityRepository
         return $query->getResult();
     }
 
+    /**
+     * Return all activities using mutliple potential param
+     * @param int|null $idUser
+     * @param Campus|null $campus
+     * @param string|null $name
+     * @param DateTime|null $dateDebut
+     * @param DateTime|null $dateMax
+     * @param bool|null $organisateur
+     * @param bool|null $inscript
+     * @param bool|null $finis
+     * @return mixed
+     */
     public function filter(
         ?int      $idUser,
         ?Campus   $campus,
@@ -76,7 +88,7 @@ class ActivityRepository extends ServiceEntityRepository
         $qb = $this->entityManager->createQueryBuilder();
         $qb->select(array('a'))
             ->from('App\Entity\Activity', 'a');
-
+        /*OK return ativities if campusId is equal to param*/
         if ($campus) {
             $qb->andWhere($qb->expr()->eq('a.campus',
                 '?1'
@@ -85,52 +97,47 @@ class ActivityRepository extends ServiceEntityRepository
                 new Parameter('1', $campus->getId()),
             ]));
         }
+        /*OK return activities with like string in name*/
         if ($name) {
             $qb->andWhere($qb->expr()->like('a.name',
                 '?2'
             ));
             $qb->setParameters(new ArrayCollection([
-                new Parameter('2', $name),
+                new Parameter('2', '%' . $name . "%"),
             ]));
         }
-        if ($dateMax) {
-            $qb->andWhere($qb->expr()->lte("a.dateDebut", "?3"));
-            $qb->setParameters(new ArrayCollection([
-                new Parameter('3', $dateDebut),
-            ]));
-        }
-        if ($dateDebut) {
-            $qb->andWhere($qb->expr()->gte("a.dateDebut", "?3"));
-            $qb->setParameters(new ArrayCollection([
-                new Parameter('3', $dateDebut),
-            ]));
-        }
-/*TODO REVOIR LES DATES */
+
+        /* TODO revoir pour utiliser 1 seule date*/
         if ($dateDebut && $dateMax) {
             $qb->andWhere($qb->expr()->between('a.dateDebut',
                 '?3', '?4'
-            ));
-            $qb->setParameters(new ArrayCollection([
-            ]));
+            ))
+                ->setParameters(new ArrayCollection([
+                    new Parameter('3', $dateDebut),
+                    new Parameter('4', $dateMax),
+                ]));
         }
 
-
+        /* OK return activity if organisateurId id equal to idUser*/
         if ($organisateur) {
-            $qb->andWhere($qb->expr()->eq("a.organisateur", "?6"));
-            $qb->setParameters(new ArrayCollection([
-                new Parameter('6', $idUser),
-            ]));
+            $qb->andWhere($qb->expr()->eq("a.organisateur", "?6"))
+                ->setParameters(new ArrayCollection([
+                    new Parameter('6', $idUser),
+                ]));
         }
-        /*TODO JOINTURE PROBABLE*/
+        /* OK return all activities where idUser is present in activity.inscrits*/
         if ($inscript) {
-          /*  $qb->andWhere($qb->expr()->co("a.dateDebut", "?3", "?4"));
-            $qb->setParameters(new ArrayCollection([
-                new Parameter('6', $idUser),
-            ]));*/
+            $qb->innerJoin('a.inscrits', 'p', 'WITH', 'p.id = ?6')
+                ->setParameters(new ArrayCollection([
+                    new Parameter('6', $idUser),
+                ]));
         }
-
+        /* TODO revoir le fontionnement la clause ne fonctionne pas */
         if ($finis) {
-
+            $qb->andWhere($qb->expr()->orX(
+                $qb->expr()->eq("a.state", "1")),
+                $qb->expr()->eq("a.state ", "2"),
+            );
         }
         return $qb->getQuery()->getResult();
     }
