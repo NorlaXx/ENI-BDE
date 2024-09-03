@@ -37,10 +37,10 @@ jobs:
           sudo apt-get install -y sshpass
           sshpass -p "${{ secrets.SERVER_PASSWORD }}" rsync -av -e 'ssh -o StrictHostKeyChecking=no -p 22103' ./ root@private.blizzfull.fr:/var/www/enibde
 
-        env:
-          SERVER_PASSWORD: ${{ secrets.SERVER_PASSWORD }}
-          DATABASE_URL: "mysql://Blizz:password@localhost:3306/app?serverVersion=8.0.32&charset=utf8mb4"
-          APP_ENV: prod
+      - name: modify .env
+        run: |
+          sshpass -p ${{ secrets.SERVER_PASSWORD }} ssh -P 22103 -o StrictHostKeyChecking=no root@private.blizzfull.fr "echo 'DATABASE_URL="mysql://Blizz:password@localhost:3306/app?serverVersion=8.0.32&charset=utf8mb4"' >> /var/www/enibde/.env"
+          sshpass -p ${{ secrets.SERVER_PASSWORD }} ssh -P 22103 -o StrictHostKeyChecking=no root@private.blizzfull.fr "echo 'APP_ENV='prod' >> /var/www/enibde/.env"
 
       - name: migrations
         run: |
