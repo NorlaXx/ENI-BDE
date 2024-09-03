@@ -1,4 +1,6 @@
 {
+    "name": "symfony/enibde",
+    "description": "Projet de gestion d'évènement pour le BDE de l'ENI",
     "type": "project",
     "license": "proprietary",
     "minimum-stability": "stable",
