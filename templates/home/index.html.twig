@@ -39,13 +39,13 @@
         {% endif %}
         {# Si le user est déja participant à activité #}
         {% if  activity in user.activities %}
-            <a href="{{ path("activity_remove_inscrit", { 'activity': activity }) }}">
+            <a href="{{ path("activity_remove_inscrit", { 'id': activity .id}) }}">
                 <button> Se désister</button>
             </a>
         {% endif %}
         {# Si le user n'est pas inscrit #}
         {% if  activity not in user.activities %}
-            <a href="{{ path("activity_add_inscrit", { 'activity': activity }) }}">
+            <a href="{{ path("activity_add_inscrit", { 'id': activity.id }) }}">
                 <button> S'inscrire</button>
             </a>
         {% endif %}
