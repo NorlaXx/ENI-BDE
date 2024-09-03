@@ -10,60 +10,14 @@
 
         <div class="filter">
             <h2>Filtres (0)</h2>
-            <div class="separator">
-                {{ form_start(form) }}
-                {{ form_widget(form) }}
-                <button>{{ button_label|default('Save') }}</button>
-                {{ form_end(form) }}</div>
+            <div class="separator"></div>
         </div>
-        {# {% for activity in activities %}
-            <br>
-            Campus name :
-            {{ activity.campus.name }}
-            <br>
-            Nom :
-            {{ activity.name }}
-            <br>
-            Nom du Lieu :
-            {{ activity.lieu.name }}
-            <br>
-            Status de l'activité :
-            {{ activity.state.libelle }}
-            <br>
-            Date de l'activité :
-            {{ activity.dateDebut |date('d-m-Y') }}
-            <br>
-            Participants / places :
-            {{ activity.inscrits | length }} /
-            {{ activity.nbLimitParticipants }}
-            <br>
-            Date limite d'inscription :
-            {{ activity.dateFinalInscription | date('d-m-Y') }}
-        #}{# Si le user est l'organisateur de l'activité #}{#
-        {% if  activity.organisateur == user %}
-            <a href="{{ path("activity_update", { 'id': activity.id }) }}">
-                <button> Modifier</button>
-            </a>
-        {% endif %}
-        #}{# Si le user est déja participant à activité #}{#
-        {% if  activity in user.activities %}
-            <a href="{{ path("activity_remove_inscrit", { 'id': activity .id}) }}">
-                <button> Se désister</button>
-            </a>
-        {% endif %}
-        #}{# Si le user n'est pas inscrit #}{#
-        {% if  activity not in user.activities %}
-            <a href="{{ path("activity_add_inscrit", { 'id': activity.id }) }}">
-                <button> S'inscrire</button>
-            </a>
-        {% endif %}
-    {% endfor %} #}
         <div class="list">
             <h2>Evenements proposer par votre BDE / élèves</h2>
             <div class="separator"></div>
             <div class="activity-content" id="activityContent">
                 {% for activity in activities %}
-                    <div class="activity" data-lat="{{ activity.lieu.Lat }}" data-long="{{ activity.lieu.longitude }}">
+                    <div class="activity" data-lat="{{ activity.lieu.Lat }}" data-long="{{ activity.lieu.longitude }}" data-id="{{ activity.id }}">
                         <img src={{ asset('thumbnails/' ~ activity.pictureFileName) }} alt="activity thumbnails"/>
                         <span class="title-description">
                             <p class="title">{{ activity.name }}</p>
@@ -74,22 +28,23 @@
                                 <p>Date limite d'inscription : {{ activity.dateFinalInscription|date('Y-m-d') }}</p>
                                 <p>Nombre d'inscrit : {{ activity.inscrits|length }}</p>
                             </span>
-                            {#TODO ADD COLORS FOR BUTTONS#}
-                             {% if  activity.organisateur == user %}
-                                 <a href="{{ path("activity_update", { 'id': activity.id }) }}">
-                                    <button class="button"> Modifier </button>
-                                </a>
-                             {% endif %}
-                            {% if  activity in user.activities %}
-                                <a href="{{ path("activity_remove_inscrit", { 'id': activity .id}) }}">
-                                    <button class="button"> Se désister</button>
-                                </a>
-                            {% endif %}
-                            {% if  activity not in user.activities %}
-                                <a href="{{ path("activity_add_inscrit", { 'id': activity.id }) }}">
-                                    <button class="button"> S'inscrire</button>
-                                </a>
-                            {% endif %}
+                            <span class="buttons">
+                                {% if  activity.organisateur == user %}
+                                    <a href="{{ path("activity_update", { 'id': activity.id }) }}">
+                                        <button class="button modify">Modifier</button>
+                                    </a>
+                                {% endif %}
+                                {% if  activity in user.activities %}
+                                    <a href="{{ path("activity_remove_inscrit", { 'id': activity .id}) }}">
+                                        <button class="button cancel">Se désister</button>
+                                    </a>
+                                {% endif %}
+                                {% if  activity not in user.activities %}
+                                    <a href="{{ path("activity_add_inscrit", { 'id': activity.id }) }}">
+                                        <button class="button">S'inscrire</button>
+                                    </a>
+                                {% endif %}
+                            </span>
                         </span>
                     </div>
                 {% endfor %}
