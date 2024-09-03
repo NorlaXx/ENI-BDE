@@ -39,6 +39,9 @@ class Campus
     #[ORM\OneToMany(targetEntity: User::class, mappedBy: 'Campus')]
     private Collection $users;
 
+    #[ORM\Column(length: 255)]
+    private ?string $pictureFileName = null;
+
     public function __construct()
     {
         $this->activities = new ArrayCollection();
@@ -154,6 +157,18 @@ class Campus
                 $user->setCampus(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getPictureFileName(): ?string
+    {
+        return $this->pictureFileName;
+    }
+
+    public function setPictureFileName(string $pictureFileName): static
+    {
+        $this->pictureFileName = $pictureFileName;
 
         return $this;
     }

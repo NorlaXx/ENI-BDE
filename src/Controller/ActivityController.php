@@ -3,17 +3,14 @@
 namespace App\Controller;
 
 use App\Entity\Activity;
-use App\Form\ActivityFilterType;
 use App\Form\ActivityType;
 use App\Form\ActivityUpdateType;
 use App\Repository\ActivityRepository;
 use App\Repository\ActivityStateRepository;
 use DateTime;
-use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\String\Slugger\SluggerInterface;
 
