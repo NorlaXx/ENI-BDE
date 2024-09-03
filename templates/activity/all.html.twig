@@ -1,0 +1,17 @@
+{% include 'base.html.twig' %}
+
+{% block title %}Créer une sortie{% endblock %}
+
+{% block body %}
+    {{ include('activity/_form.html.twig') }}
+
+    {%for activity in activities %}
+        {{ activity.campus.name }}
+        {{ activity.name }}
+        {{ activity.lieu }}
+        {{ activity.state.libelle }}
+        {{ activity.dateDebut |date('d-m-Y') }}
+        {{ activity.dateFinalInscription |date('d-m-Y') }}
+    {% endfor  %}
+
+{% endblock %}
