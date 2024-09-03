@@ -1,0 +1,50 @@
+.main_ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 45px;
+  border-bottom: 1px solid #d9dadd;
+  height: 100px;
+}
+
+.title {
+  font-size: 34px;
+  color: black;
+  font-weight: bold;
+}
+
+.secondary_ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  align-items: center;
+}
+
+.secondary_ul li {
+  margin: 0 10px;
+}
+
+.secondary_ul li a {
+  text-decoration: none;
+  color: #3f4250;
+  font-size: 28px;
+  transition: 0.2s;
+}
+
+.secondary_ul li a:hover {
+  cursor: pointer;
+  color: #6c6f7d;
+  transform: scale(1.1);
+  transition: 0.2s;
+}
+
+.profil-picture {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  cursor: pointer;
+}

@@ -1,59 +1,47 @@
-{% include 'base.html.twig' %}
+{% include 'base_logged.html.twig' %}
 
-{% block title %}Filtrer{% endblock %}
+{% block stylesheets %}
+    <link rel="stylesheet" href="/styles/home.css">
+{% endblock %}
 
 {% block body %}
-    {{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button>{{ button_label|default('Save') }}</button>
-    {{ form_end(form) }}
-
-    {% for activity in activities %}
-        <br>
-        Campus name :
-        {{ activity.campus.name }}
-        <br>
-        Nom :
-        {{ activity.name }}
-        <br>
-        Nom du Lieu :
-        {{ activity.lieu.name }}
-        <br>
-        Status de l'activité :
-        {{ activity.state.libelle }}
-        <br>
-        Date de l'activité :
-        {{ activity.dateDebut |date('d-m-Y') }}
-        <br>
-        Participants / places :
-        {{ activity.inscrits | length }} /
-        {{ activity.nbLimitParticipants }}
-        <br>
-        Date limite d'inscription :
-        {{ activity.dateFinalInscription | date('d-m-Y') }}
-        {# Si le user est l'organisateur de l'activité #}
-        {% if  activity.organisateur == user %}
-            <a href="{{ path("activity_update", { 'id': activity.id }) }}">
-                <button> Modifier </button>
-            </a>
-        {% endif %}
-        {# Si le user est déja participant à activité #}
-        {% if  activity in user.activities %}
-            <a href="{{ path("activity_remove_inscrit", { 'activity': activity }) }}">
-                <button> Se désister</button>
-            </a>
-        {% endif %}
-        {# Si le user n'est pas inscrit #}
-        {% if  activity not in user.activities %}
-            <a href="{{ path("activity_add_inscrit", { 'activity': activity }) }}">
-                <button> S'inscrire</button>
-            </a>
-        {% endif %}
-    {% endfor %}
-    <div style="background-color: blue; width: 200px; height: 100px">
-        <div style="text-align: center; align-content: center">
-            This is a map
+    <div class="content">
+        <div class="filter">
+            <h2>Filtres (0)</h2>
+            <div class="separator"></div>
+        </div>
+        <div class="list">
+            <h2>Evenements proposer par votre BDE / élèves</h2>
+            <div class="separator"></div>
+            <div class="activity-content">
+                {% for activity in activities %}
+                    <div class="activity">
+                        <img src={{ asset('thumbnails/' ~ activity.pictureFileName) }} alt="activity thumbnails"/>
+                        <span class="title-description">
+                            <p class="title">{{activity.name}}</p>
+                            <p class="description">{{activity.description}}</p>
+                        </span>
+                        <span class="information">
+                            <span class="information_text">
+                                <p>Date limite d'inscription : {{activity.dateFinalInscription|date('Y-m-d')}}</p>
+                                <p>Nombre d'inscrit : {{activity.inscrits|length}}</p> 
+                            </span>
+                            <button class="button">Rejoindre</button>
+                        </span>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="map">
+            <div id="map"></div>
         </div>
     </div>
 
+    <script>
+        (g=>{var h,a,k,p="The Google Maps JavaScript API",c="google",l="importLibrary",q="__ib__",m=document,b=window;b=b[c]||(b[c]={});var d=b.maps||(b.maps={}),r=new Set,e=new URLSearchParams,u=()=>h||(h=new Promise(async(f,n)=>{await (a=m.createElement("script"));e.set("libraries",[...r]+"");for(k in g)e.set(k.replace(/[A-Z]/g,t=>"_"+t[0].toLowerCase()),g[k]);e.set("callback",c+".maps."+q);a.src=`https://maps.${c}apis.com/maps/api/js?`+e;d[q]=f;a.onerror=()=>h=n(Error(p+" could not load."));a.nonce=m.querySelector("script[nonce]")?.nonce||"";m.head.append(a)}));d[l]?console.warn(p+" only loads once. Ignoring:",g):d[l]=(f,...n)=>r.add(f)&&u().then(()=>d[l](f,...n))})({
+            key: "AIzaSyBMO3LVl_v7xhApZEBfLfG0N6oU5yQUHjA",
+            v: "weekly",
+        });
+    </script>
+    <script src="/scripts/home.js"></script>
 {% endblock %}
