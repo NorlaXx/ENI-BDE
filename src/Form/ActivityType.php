@@ -7,11 +7,13 @@ use App\Entity\Campus;
 use App\Entity\Lieu;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\File;
 
 class ActivityType extends AbstractType
 {
@@ -32,17 +34,31 @@ class ActivityType extends AbstractType
             ->add('description', TextType::class, [
                 'label' => 'Description',
             ])
-            ->add('dateDebut', DateType::class, [
+            ->add('dateDebut', DateTimeType::class, [
                 'label' => 'Date de début',
             ])
-            ->add('dateFinalInscription', DateType::class, [
+            ->add('dateFinalInscription', DateTimeType::class, [
                 'label' => 'Date de fin d\'inscription',
+            ])
+            ->add('nbLimitParticipants', IntegerType::class, [
+                'label' => 'nombre de place',
             ])
             ->add('duree', IntegerType::class, [
                 'label' => 'Durée',
             ])
-            ->add('pictureFileName', TextType::class, [
-                'label' => 'Image',
+            ->add('pictureFileName', FileType::class, [
+                'mapped' => 'false',
+                'required' => 'false',
+                'constraints' => [
+                    new File([
+                        'maxSize' => '1024k',
+                        'mimeTypes' => [
+                            'image/jpeg',
+                            'image/png',
+                        ],
+                        'mimeTypesMessage' => 'Fichiers accepetés: jpeg, png',
+                    ])
+                ]
             ]);
     }
 

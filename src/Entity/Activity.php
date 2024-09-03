@@ -39,10 +39,10 @@ class Activity
     #[ORM\JoinColumn(nullable: false)]
     private ?ActivityState $state = null;
 
-    #[ORM\Column(type: Types::DATE_MUTABLE)]
+    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private ?\DateTimeInterface $dateDebut = null;
 
-    #[ORM\Column(type: Types::DATE_MUTABLE)]
+    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private ?\DateTimeInterface $dateFinalInscription = null;
 
     #[ORM\ManyToOne(inversedBy: 'ActivitiesOwner')]
@@ -55,8 +55,11 @@ class Activity
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $pictureFileName = null;
 
-    #[ORM\Column(type: Types::DATE_MUTABLE)]
+    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private ?\DateTimeInterface $dateCreation = null;
+
+    #[ORM\Column]
+    private ?int $nbLimitParticipants = null;
 
     public function __construct()
     {
@@ -220,6 +223,18 @@ class Activity
     public function setDateCreation(\DateTimeInterface $dateCreation): static
     {
         $this->dateCreation = $dateCreation;
+
+        return $this;
+    }
+
+    public function getNbLimitParticipants(): ?int
+    {
+        return $this->nbLimitParticipants;
+    }
+
+    public function setNbLimitParticipants(int $nbLimitParticipants): static
+    {
+        $this->nbLimitParticipants = $nbLimitParticipants;
 
         return $this;
     }

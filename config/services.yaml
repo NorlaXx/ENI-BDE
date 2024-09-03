@@ -5,6 +5,7 @@
 # https://symfony.com/doc/current/best_practices.html#use-parameters-for-application-configuration
 parameters:
     avatars_directory: '%kernel.project_dir%/public/profilePictures'
+    thumbnail_directory: '%kernel.project_dir%/public/thumbnails'
 
 services:
     # default configuration for services in *this* file
