@@ -44,5 +44,5 @@ jobs:
 
       - name: migrations
         run: |
-          cd /var/www/enibde
-          php bin/console doctrine:migrations:migrate
+          sudo cd /var/www/enibde
+          sudo php bin/console doctrine:migrations:migrate
