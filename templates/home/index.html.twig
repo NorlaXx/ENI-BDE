@@ -13,9 +13,9 @@
         <div class="list">
             <h2>Evenements proposer par votre BDE / élèves</h2>
             <div class="separator"></div>
-            <div class="activity-content">
+            <div class="activity-content" id="activityContent">
                 {% for activity in activities %}
-                    <div class="activity">
+                    <div class="activity" data-lat="{{activity.lieu.Lat}}" data-long="{{activity.lieu.longitude}}">
                         <img src={{ asset('thumbnails/' ~ activity.pictureFileName) }} alt="activity thumbnails"/>
                         <span class="title-description">
                             <p class="title">{{activity.name}}</p>
