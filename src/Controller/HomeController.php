@@ -13,7 +13,7 @@ use Symfony\Component\Routing\Attribute\Route;
 class HomeController extends AbstractController
 {
     #[Route('/', name: 'app_home')]
-    public function homePage(ActivityRepository $activityRepository, Request $request, UserRepository $userRepository): Response
+    public function homePage(ActivityRepository $activityRepository, Request $request): Response
     {
         $form = $this->createForm(ActivityFilterType::class);
         $form->handleRequest($request);
@@ -31,7 +31,7 @@ class HomeController extends AbstractController
                 $form->get("inscrit")->getData(),
                 $form->get("finis")->getData()
             );
-            dd($activities);
+                        dd($activities);
         } else {
             $activities = $activityRepository->findAll();
         }

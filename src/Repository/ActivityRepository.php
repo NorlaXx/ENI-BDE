@@ -111,11 +111,11 @@ class ActivityRepository extends ServiceEntityRepository
         if ($dateDebut && $dateMax) {
             $qb->andWhere($qb->expr()->between('a.dateDebut',
                 '?3', '?4'
-            ))
-                ->setParameters(new ArrayCollection([
-                    new Parameter('3', $dateDebut),
-                    new Parameter('4', $dateMax),
-                ]));
+            ));
+            $qb->setParameters(new ArrayCollection([
+                new Parameter('3', $dateDebut),
+                new Parameter('4', $dateMax),
+            ]));
         }
 
         /* OK return activity if organisateurId id equal to idUser*/
@@ -127,17 +127,15 @@ class ActivityRepository extends ServiceEntityRepository
         }
         /* OK return all activities where idUser is present in activity.inscrits*/
         if ($inscript) {
-            $qb->innerJoin('a.inscrits', 'p', 'WITH', 'p.id = ?6')
-                ->setParameters(new ArrayCollection([
-                    new Parameter('6', $idUser),
-                ]));
+            $qb->innerJoin('a.inscrits', 'p', 'WITH', 'p.id = ?6');
+            $qb->setParameters(new ArrayCollection([
+                new Parameter('6', $idUser),
+            ]));
         }
-        /* TODO revoir le fontionnement la clause ne fonctionne pas */
+        /* TODO revoir les valeurs de status_id pour être claire */
+        /* OK return all activities with 1 or 2 in status_id*/
         if ($finis) {
-            $qb->andWhere($qb->expr()->orX(
-                $qb->expr()->eq("a.state", "1")),
-                $qb->expr()->eq("a.state ", "2"),
-            );
+            $qb->innerJoin('a.state', 's', 'WITH', 's.id = 1 OR s.id = 3 OR s.id = 5');
         }
         return $qb->getQuery()->getResult();
     }
