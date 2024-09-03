@@ -1,0 +1,84 @@
+body {
+  height: 100vh;
+  background-image: url("/images/background-login.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  margin: 0;
+  font-family: "Poppins";
+}
+
+.content {
+  background-color: white;
+  -webkit-box-shadow: 8px 4px 15px 0px rgba(0, 0, 0, 0.25);
+  box-shadow: 8px 4px 15px 0px rgba(0, 0, 0, 0.25);
+  height: 100%;
+  display: flex;
+  align-items: center;
+  padding: 0 80px;
+  width: fit-content;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+}
+
+form input {
+  width: 435px;
+  border: 1px solid #d9dadd;
+  border-radius: 5px;
+  height: 50px;
+  font-size: 24px;
+  color: #3f4250;
+  margin-top: 25px;
+  padding-left: 10px;
+}
+
+form h2 {
+  font-size: 28px;
+  color: #3f4250;
+  margin-bottom: 0;
+}
+
+form button {
+  width: 448px;
+  height: 50px;
+  background-color: #144a7f;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  color: white;
+  font-size: 24px;
+  transition: 0.2s;
+}
+
+form button:hover {
+  background-color: #0e3a5f;
+  transition: 0.2s;
+}
+
+.checkbox {
+  width: 435px;
+}
+
+.checkbox label {
+  color: #3f4250;
+  font-size: 18px;
+}
+
+.checkbox input {
+  width: fit-content;
+  height: fit-content;
+  margin-top: 15px;
+  margin-bottom: 15px;
+  padding-left: 0;
+}
+
+.icon {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  width: 100px;
+  height: 100px;
+}
