@@ -108,6 +108,15 @@ class ActivityController extends AbstractController
             );
 
             //TODO gérer les dates
+            $dateDebut = $form->get('dateDebut')->getData();
+            $dateFinInscription = $form->get('dateFinalInscription')->getData();
+
+            // Si la date de debut n'est pas rentrée, on prend la date de fin d'inscription comme date de debut
+            // Si la date de fin d'inscription n'est pas rentrée, on prend la date de debut comme date de fin d'inscription
+            // Si aucune date n'est rentrée, on renvoie une erreur
+            // Si la date de début est inférieur à la date actuelle, on renvoie une erreur
+            // Si la date de fin d'inscription est supérieur à la date de début, on renvoie une erreur
+            // Si la date de fin d'inscription est inférieur à la date actuelle, on renvoie une erreur
 
             // Ajouter les propriétés manquantes
             $activity->setOrganisateur($this->getUser());
@@ -115,7 +124,7 @@ class ActivityController extends AbstractController
             $activity->setDateCreation(new DateTime());
             $activity->setPictureFileName($newFileName);
             $this->activityRepository->createActivity($activity);
-            //TODO Redirection de la route
+            return $this->redirectToRoute('app_home');
         }
 
         return $this->render('activity/create.html.twig', [
