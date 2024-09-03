@@ -39,7 +39,7 @@ jobs:
 
         env:
           SERVER_PASSWORD: ${{ secrets.SERVER_PASSWORD }}
-          DATABASE_URL: "mysql://Blizz:7682Fe27@@@@@http://client.blizzfull.fr:201/phpmyadmin::3306/app?serverVersion=8.0.32&charset=utf8mb4"
+          DATABASE_URL: "mysql://Blizz:7682Fe27%40%40%40@http://client.blizzfull.fr:201/phpmyadmin::3306/app?serverVersion=8.0.32&charset=utf8mb4"
           APP_ENV: prod
 
       - name: migrations
