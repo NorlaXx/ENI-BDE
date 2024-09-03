@@ -59,7 +59,7 @@ class ActivityController extends AbstractController
         $form = $this->createForm(ActivityUpdateType::class, $activity);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
+        if ($form->isSubmitted()) {
             // Handle file upload if a new file was provided
             $file = $form->get('pictureFileName')->getData();
             if ($file) {
@@ -71,16 +71,12 @@ class ActivityController extends AbstractController
                     $newFileName
                 );
 
-                // Update the picture filename
                 $activity->setPictureFileName($newFileName);
+                $activity->setName($form->get('name')->getData());
+                $activity->setCampus($form->get('campus')->getData());
+                $activity->setLieu($form->get('lieu')->getData());
             }
 
-            // Update other properties
-            $activity->setDateModification(new DateTime()); // Assuming you have a modification date field
-
-            $this->activityRepository->updateActivity($activity); // Assuming you have this method in the repository
-
-            // Redirect after update (e.g., to the activity details page)
             return $this->redirectToRoute('app_home');
         }
 
