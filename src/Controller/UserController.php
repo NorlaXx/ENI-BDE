@@ -35,10 +35,7 @@ class UserController extends AbstractController
     public function profile(): Response
     {
         if ($this->security->isGranted('ROLE_USER')) {
-            $user = $this->getUser();
-            return $this->render('user/profile.html.twig', [
-                'user' => $user,
-            ]);
+            return $this->render('user/profile.html.twig');
         } else {
             return $this->redirectToRoute('app_home');
         }

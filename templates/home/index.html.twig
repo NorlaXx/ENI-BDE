@@ -1,6 +1,6 @@
 {% include 'base.html.twig' %}
 
-{% block title %}Créer une sortie{% endblock %}
+{% block title %}Filtrer{% endblock %}
 
 {% block body %}
     {{ form_start(form) }}
@@ -8,15 +8,48 @@
     <button>{{ button_label|default('Save') }}</button>
     {{ form_end(form) }}
 
-    {%for activity in activities %}
+    {% for activity in activities %}
+        <br>
+        Campus name :
         {{ activity.campus.name }}
+        <br>
+        Nom :
         {{ activity.name }}
+        <br>
+        Nom du Lieu :
         {{ activity.lieu.name }}
+        <br>
+        Status de l'activité :
         {{ activity.state.libelle }}
+        <br>
+        Date de l'activité :
         {{ activity.dateDebut |date('d-m-Y') }}
-        {{ activity.dateFinalInscription |date('d-m-Y') }}
-
-    {% endfor  %}
+        <br>
+        Participants / places :
+        {{ activity.inscrits | length }} /
+        {{ activity.nbLimitParticipants }}
+        <br>
+        Date limite d'inscription :
+        {{ activity.dateFinalInscription | date('d-m-Y') }}
+        {# Si le user est l'organisateur de l'activité #}
+        {% if  activity.organisateur == user %}
+            <a href="{{ path("activity_update", { 'id': activity.id }) }}">
+                <button> Modifier </button>
+            </a>
+        {% endif %}
+        {# Si le user est déja participant à activité #}
+        {% if  activity in user.activities %}
+            <a href="{{ path("activity_remove_inscrit", { 'activity': activity }) }}">
+                <button> Se désister</button>
+            </a>
+        {% endif %}
+        {# Si le user n'est pas inscrit #}
+        {% if  activity not in user.activities %}
+            <a href="{{ path("activity_add_inscrit", { 'activity': activity }) }}">
+                <button> S'inscrire</button>
+            </a>
+        {% endif %}
+    {% endfor %}
     <div style="background-color: blue; width: 200px; height: 100px">
         <div style="text-align: center; align-content: center">
             This is a map

@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Form\ActivityFilterType;
+use App\Form\FilterObject;
 use App\Repository\ActivityRepository;
 use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -13,16 +14,16 @@ use Symfony\Component\Routing\Attribute\Route;
 class HomeController extends AbstractController
 {
     #[Route('/', name: 'app_home')]
-    public function homePage(ActivityRepository $activityRepository, Request $request): Response
+    public function homePage(FilterObject $filterObject,ActivityRepository $activityRepository, Request $request): Response
     {
-        $form = $this->createForm(ActivityFilterType::class);
+        $form = $this->createForm(ActivityFilterType::class, $filterObject);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             /** @var User */
             $user = $this->getUser();
-            $activities = $activityRepository->filter(
-                $user->getId(),
+            $activities = $activityRepository->filter($filterObject);
+                /*$user->getId(),
                 $form->get("campus")->getData(),
                 $form->get("name")->getData(),
                 $form->get("dateMin")->getData(),
@@ -30,15 +31,14 @@ class HomeController extends AbstractController
                 $form->get("organisateur")->getData(),
                 $form->get("inscrit")->getData(),
                 $form->get("finis")->getData()
-            );
-                        dd($activities);
+            );*/
         } else {
             $activities = $activityRepository->findAll();
         }
-
         return $this->render('home/index.html.twig', [
             'form' => $form->createView(),
-            'activities' => $activities
+            'activities' => $activities,
+            'user' => $this->getUser()
         ]);
     }
 }
