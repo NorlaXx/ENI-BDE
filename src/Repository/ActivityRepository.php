@@ -86,6 +86,7 @@ class ActivityRepository extends ServiceEntityRepository
     {
 
         $qb = $this->entityManager->createQueryBuilder();
+        $param = new ArrayCollection();
         $qb->select(array('a'))
             ->from('App\Entity\Activity', 'a');
         /*OK return ativities if campusId is equal to param*/
@@ -93,18 +94,15 @@ class ActivityRepository extends ServiceEntityRepository
             $qb->andWhere($qb->expr()->eq('a.campus',
                 '?1'
             ));
-            $qb->setParameters(new ArrayCollection([
-                new Parameter('1', $campus->getId()),
-            ]));
+            $param[1] = new Parameter('1', $campus->getId());
         }
         /*OK return activities with like string in name*/
         if ($name) {
             $qb->andWhere($qb->expr()->like('a.name',
                 '?2'
             ));
-            $qb->setParameters(new ArrayCollection([
-                new Parameter('2', '%' . $name . "%"),
-            ]));
+            $param[2] = new Parameter('2', '%' . $name . "%");
+
         }
 
         /* TODO revoir pour utiliser 1 seule date*/
@@ -112,31 +110,26 @@ class ActivityRepository extends ServiceEntityRepository
             $qb->andWhere($qb->expr()->between('a.dateDebut',
                 '?3', '?4'
             ));
-            $qb->setParameters(new ArrayCollection([
-                new Parameter('3', $dateDebut),
-                new Parameter('4', $dateMax),
-            ]));
+            $param[3] = new Parameter('3', $dateDebut);
+            $param[4] = new Parameter('4', $dateMax);
         }
 
         /* OK return activity if organisateurId id equal to idUser*/
         if ($organisateur) {
-            $qb->andWhere($qb->expr()->eq("a.organisateur", "?6"))
-                ->setParameters(new ArrayCollection([
-                    new Parameter('6', $idUser),
-                ]));
+            $qb->andWhere($qb->expr()->eq("a.organisateur", "?6"));
+            $param[6] = new Parameter('6', $idUser);
+
         }
         /* OK return all activities where idUser is present in activity.inscrits*/
         if ($inscript) {
             $qb->innerJoin('a.inscrits', 'p', 'WITH', 'p.id = ?6');
-            $qb->setParameters(new ArrayCollection([
-                new Parameter('6', $idUser),
-            ]));
+            $param[6] = new Parameter('6', $idUser);
         }
-        /* TODO revoir les valeurs de status_id pour être claire */
         /* OK return all activities with 1 or 2 in status_id*/
         if ($finis) {
             $qb->innerJoin('a.state', 's', 'WITH', 's.id = 1 OR s.id = 3 OR s.id = 5');
         }
+        $qb->setParameters($param);
         return $qb->getQuery()->getResult();
     }
 }
