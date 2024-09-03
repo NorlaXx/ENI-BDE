@@ -39,7 +39,7 @@ jobs:
 
       - name: modify .env
         run: |
-          sshpass -p ${{ secrets.SERVER_PASSWORD }} ssh -P 22103 -o StrictHostKeyChecking=no root@private.blizzfull.fr << EOF
+          sshpass -p ${{ secrets.SERVER_PASSWORD }} ssh -P 22103 -o StrictHostKeyChecking=no root@private.blizzfull.fr << 'EOF'
           cd /var/www/enibde
           echo 'DATABASE_URL="mysql://Blizz:password@localhost:3306/app?serverVersion=8.0.32&charset=utf8mb4"' >> .env
           echo 'APP_ENV='prod' >> /var/www/enibde/.env
