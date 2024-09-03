@@ -1,0 +1,26 @@
+{% include 'base.html.twig' %}
+
+{% block title %}Créer une sortie{% endblock %}
+
+{% block body %}
+    {{ form_start(form) }}
+    {{ form_widget(form) }}
+    <button>{{ button_label|default('Save') }}</button>
+    {{ form_end(form) }}
+
+    {%for activity in activities %}
+        {{ activity.campus.name }}
+        {{ activity.name }}
+        {{ activity.lieu.name }}
+        {{ activity.state.libelle }}
+        {{ activity.dateDebut |date('d-m-Y') }}
+        {{ activity.dateFinalInscription |date('d-m-Y') }}
+
+    {% endfor  %}
+    <div style="background-color: blue; width: 200px; height: 100px">
+        <div style="text-align: center; display: flex; align-content: center">
+            This is a map
+        </div>
+    </div>
+
+{% endblock %}

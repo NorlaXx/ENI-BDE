@@ -3,10 +3,14 @@
 namespace App\Controller;
 
 use App\Entity\Activity;
+use App\Form\ActivityFilterType;
 use App\Form\ActivityType;
+use App\Form\UserType;
 use App\Repository\ActivityRepository;
 use App\Repository\ActivityStateRepository;
+use App\Repository\UserRepository;
 use DateTime;
+use phpDocumentor\Reflection\Types\Boolean;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -22,7 +26,8 @@ class ActivityController extends AbstractController
     {}
 
     #[Route('/activity/create', name: 'activity_create')]
-    public function createActivity(Request $request){
+    public function createActivity(Request $request): Response
+    {
         $activity = new Activity();
         $form = $this->createForm(ActivityType::class, $activity);
         $form->handleRequest($request);
@@ -35,7 +40,7 @@ class ActivityController extends AbstractController
             //TODO Redirection de la route
         }
 
-        return $this->render('activity/create.html.twig', [
+        return $this->render('home/index.html.twig', [
             'form' => $form->createView()
         ]);
     }
