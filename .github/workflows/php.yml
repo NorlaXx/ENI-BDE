@@ -44,4 +44,5 @@ jobs:
       - name: server start
         run: |
           cd /home/bde
+          symfony doctrine:migrations:migrate
           symfony server:start
