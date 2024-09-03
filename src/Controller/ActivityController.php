@@ -3,14 +3,10 @@
 namespace App\Controller;
 
 use App\Entity\Activity;
-use App\Form\ActivityFilterType;
 use App\Form\ActivityType;
-use App\Form\UserType;
 use App\Repository\ActivityRepository;
 use App\Repository\ActivityStateRepository;
-use App\Repository\UserRepository;
 use DateTime;
-use phpDocumentor\Reflection\Types\Boolean;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
