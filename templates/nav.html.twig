@@ -1,13 +1,11 @@
 <link rel="stylesheet" href="/styles/nav.css">
 <nav>
   <ul class="main_ul">
-    <li>
-    <img src="{{ asset("images/bdEni.png") }}" >
-    </li>
+    <img src="{{ asset("images/bdEni.png") }}" height="100px" >
     <li>
       <ul class="secondary_ul">
         <li><a href="{{ path('app_home') }}">Accueil</a></li>
-        <li><a>Villes</a></li>
+        <li><a href="{{  path('app_lieu_list') }}">Lieux</a></li>
         <li><a href="{{ path('app_home_campus') }}">Campus</a></li>
       </ul>
     </li>
