@@ -59,6 +59,7 @@
   max-height: 85px;
   margin-top: 25px;
   justify-content: space-between;
+  transition: 0.2s;
 }
 
 .activity img {
@@ -87,6 +88,7 @@
   flex-direction: column;
   height: 85px;
   max-width: 350px;
+  margin-left: 10px;
 }
 
 .information {
@@ -112,6 +114,7 @@
 .button {
   height: 25.65px;
   width: 120px;
+  margin-left: 10px;
   background-color: #144a7f;
   color: white;
   font-size: 14px;
@@ -121,4 +124,28 @@
 
 .button:hover {
   cursor: pointer;
+}
+
+.buttons {
+  display: flex;
+  justify-content: space-between;
+}
+
+.buttons a {
+  text-decoration: none;
+}
+
+.cancel {
+  background-color: #800020;
+}
+
+.modify {
+  background-color: #c4651a;
+}
+
+.highlight {
+  transform: scale(1.01);
+  transition: 0.2s;
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25),
+    0px 0px 0px 5px rgba(20, 74, 127, 0.5);
 }

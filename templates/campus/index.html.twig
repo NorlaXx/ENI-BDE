@@ -1,0 +1,52 @@
+{% include 'base_logged.html.twig' %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="/styles/home.css">
+{% endblock %}
+
+{% block body %}
+    <div class="content">
+        <div class="list">
+            <h2>Evenements proposer par votre BDE / élèves</h2>
+            <div class="separator"></div>
+            <div class="activity-content" id="activityContent">
+                {% for campus in campusList %}
+                    <div class="activity" data-lat="{{ campus.lat }}" data-long="{{ campus.longitude }}">
+                        <img src={{ asset('thumbnails/' ~ campus.pictureFileName) }} alt="activity thumbnails"/>
+                        <span class="title-description">
+                            <p class="title">{{ campus.name }}</p>
+                        </span>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="map">
+            <div id="map"></div>
+        </div>
+    </div>
+
+    <script>
+        (g => {
+            var h, a, k, p = "The Google Maps JavaScript API", c = "google", l = "importLibrary", q = "__ib__",
+                m = document, b = window;
+            b = b[c] || (b[c] = {});
+            var d = b.maps || (b.maps = {}), r = new Set, e = new URLSearchParams,
+                u = () => h || (h = new Promise(async (f, n) => {
+                    await (a = m.createElement("script"));
+                    e.set("libraries", [...r] + "");
+                    for (k in g) e.set(k.replace(/[A-Z]/g, t => "_" + t[0].toLowerCase()), g[k]);
+                    e.set("callback", c + ".maps." + q);
+                    a.src = `https://maps.${c}apis.com/maps/api/js?` + e;
+                    d[q] = f;
+                    a.onerror = () => h = n(Error(p + " could not load."));
+                    a.nonce = m.querySelector("script[nonce]")?.nonce || "";
+                    m.head.append(a)
+                }));
+            d[l] ? console.warn(p + " only loads once. Ignoring:", g) : d[l] = (f, ...n) => r.add(f) && u().then(() => d[l](f, ...n))
+        })({
+            key: "AIzaSyBMO3LVl_v7xhApZEBfLfG0N6oU5yQUHjA",
+            v: "weekly",
+        });
+    </script>
+    <script src="/scripts/home.js"></script>
+{% endblock %}

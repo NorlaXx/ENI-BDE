@@ -4,13 +4,13 @@
 
 {% block body %}
 <div style="text-align: center">
-    {{ user.pseudo }}
-    {{ user.email }}
+    {{ app.user.pseudo }}
+    {{ app.user.email }}
     <img src="{{ asset('profilePictures/'~ app.user.pictureFileName) }}" alt="ProfilePicture">
-    {{ user.getPhoneNumber }}
-    {{ user.campus.name }}
+    {{ app.user.getPhoneNumber }}
+    {{ app.user.campus.name }}
     {# Here is display all the activities user is relation with #}
-    {% for activity in user.activities %}
+    {% for activity in app.user.activities %}
         {{ activity.name }}
     {% endfor %}
 </div>

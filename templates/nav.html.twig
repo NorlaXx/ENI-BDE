@@ -4,11 +4,11 @@
     <li><p class="title">BD-E-ni</p></li>
     <li>
       <ul class="secondary_ul">
-        <li><a>Accueil</a></li>
+        <li><a href="{{ path('app_home') }}">Accueil</a></li>
         <li><a>Villes</a></li>
-        <li><a>Campus</a></li>
+        <li><a href="{{ path('app_home_campus') }}">Campus</a></li>
       </ul>
     </li>
-    <li><img class="profil-picture" src="{{ asset('profilePictures/'~ app.user.pictureFileName) }}" alt="icon" /></li>
+    <li><a href="{{ path("app_profile") }}"><img class="profil-picture" src="{{ asset('profilePictures/'~ app.user.pictureFileName) }}" alt="icon" /></a></li>
   </ul>
 </nav>
