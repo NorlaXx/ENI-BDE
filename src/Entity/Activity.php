@@ -160,7 +160,7 @@ class Activity
         return $this->dateDebut;
     }
 
-    public function setDateDebut(\DateTimeInterface $dateDebut): static
+    public function setDateDebut(?\DateTimeInterface $dateDebut): static
     {
         $this->dateDebut = $dateDebut;
 
@@ -172,7 +172,7 @@ class Activity
         return $this->dateFinalInscription;
     }
 
-    public function setDateFinalInscription(\DateTimeInterface $dateFinalInscription): static
+    public function setDateFinalInscription(?\DateTimeInterface $dateFinalInscription): static
     {
         $this->dateFinalInscription = $dateFinalInscription;
 

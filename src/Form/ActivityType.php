@@ -36,9 +36,11 @@ class ActivityType extends AbstractType
             ])
             ->add('dateDebut', DateTimeType::class, [
                 'label' => 'Date de début',
+                'required' => false,
             ])
             ->add('dateFinalInscription', DateTimeType::class, [
                 'label' => 'Date de fin d\'inscription',
+                'required' => false,
             ])
             ->add('nbLimitParticipants', IntegerType::class, [
                 'label' => 'nombre de place',
@@ -48,7 +50,7 @@ class ActivityType extends AbstractType
             ])
             ->add('pictureFileName', FileType::class, [
                 'mapped' => 'false',
-                'required' => 'false',
+                'required' => false,
                 'constraints' => [
                     new File([
                         'maxSize' => '2048k',
@@ -58,7 +60,7 @@ class ActivityType extends AbstractType
                         ],
                         'mimeTypesMessage' => 'Fichiers accepetés: jpeg, png',
                     ])
-                ]
+                ],
             ]);
     }
 

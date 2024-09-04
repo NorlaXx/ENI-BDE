@@ -11,6 +11,7 @@ use App\Service\FileUploaderService;
 use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\FormError;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\String\Slugger\SluggerInterface;
@@ -102,30 +103,53 @@ class ActivityController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             //Récupération du fichier et sauvegarde sur le serveur
             $file = $form->get('pictureFileName')->getData();
-            $orifinalFileName = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
-            $saveFileName = $slugger->slug($orifinalFileName);
-            $newFileName = $saveFileName . '-' . uniqid() . '.' . $file->guessExtension();
-            $file->move(
-                $this->getParameter('thumbnail_directory'),
-                $newFileName
-            );
+            if ($file){
+                $originalFileName = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
+                $saveFileName = $slugger->slug($originalFileName);
+                $newFileName = $saveFileName . '-' . uniqid() . '.' . $file->guessExtension();
+                $file->move(
+                    $this->getParameter('thumbnail_directory'),
+                    $newFileName
+                );
+                $activity->setPictureFileName($newFileName);
+            }else{
+                $activity->setPictureFileName('defaut_activity_picture.webp');
+            }
 
-            //TODO gérer les dates
             $dateDebut = $form->get('dateDebut')->getData();
             $dateFinInscription = $form->get('dateFinalInscription')->getData();
 
-            // Si la date de debut n'est pas rentrée, on prend la date de fin d'inscription comme date de debut
-            // Si la date de fin d'inscription n'est pas rentrée, on prend la date de debut comme date de fin d'inscription
-            // Si aucune date n'est rentrée, on renvoie une erreur
-            // Si la date de début est inférieur à la date actuelle, on renvoie une erreur
-            // Si la date de fin d'inscription est supérieur à la date de début, on renvoie une erreur
-            // Si la date de fin d'inscription est inférieur à la date actuelle, on renvoie une erreur
+            // Si la date de debut n'est pas rentrée, on prend la date de fin d'inscription comme date de debut et inversement
+            if (!$dateDebut && $dateFinInscription) {
+                $dateDebut = $dateFinInscription;
+            }elseif (!$dateFinInscription && $dateDebut){
+                $dateFinInscription = $dateDebut;
+            }
+
+            //erreurs du formulaire
+            if (!$dateDebut && !$dateFinInscription){
+                return $this->render('activity/create.html.twig', [
+                    'form' => $form->createView(),
+                    'errorMessage' => 'Veuillez renseigner au moins une date'
+                ]);
+            }elseif ($dateDebut < new DateTime() || $dateFinInscription < new DateTime()) {
+                return $this->render('activity/create.html.twig', [
+                    'form' => $form->createView(),
+                    'errorMessage' => 'La date de début et la date de fin d\'inscription doivent être supérieures à la date actuelle'
+                ]);
+            }elseif ($dateFinInscription < $dateDebut){
+                return $this->render('activity/create.html.twig', [
+                    'form' => $form->createView(),
+                    'errorMessage' => 'La date de fin d\'inscription doit être supérieur à la date de début'
+                ]);
+            }
 
             // Ajouter les propriétés manquantes
             $activity->setOrganisateur($this->getUser());
             $activity->setState($this->activityStateRepository->getDefautState());
+            $activity->setDateDebut($dateDebut);
+            $activity->setDateFinalInscription($dateFinInscription);
             $activity->setDateCreation(new DateTime());
-            $activity->setPictureFileName($newFileName);
             $this->activityRepository->createActivity($activity);
             return $this->redirectToRoute('app_home');
         }
