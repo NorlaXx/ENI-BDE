@@ -7,15 +7,20 @@
 {% block body %}
     <div class="content">
         <div class="list campus">
-            <h2>Evenements proposer par votre BDE / élèves</h2>
+            <h2>Liste des lieux</h2>
+            <p class="missing">Un lieu manquant ? <a href="{{ path('app_lieu_create') }}">Ajoute le !</a></p>
             <div class="separator"></div>
             <div class="activity-content" id="activityContent">
-                {% for campus in campusList %}
-                    <div class="activity" data-lat="{{ campus.lat }}" data-long="{{ campus.longitude }}" data-id="{{campus.id}}">
-                        <img src={{ asset('thumbnails/' ~ campus.pictureFileName) }} alt="activity thumbnails"/>
-                        <span class="title-description">
-                            <p class="title">{{ campus.name }}</p>
+                {% for lieu in lieuList %}
+                    <div class="activity" data-lat="{{ lieu.Lat }}" data-long="{{ lieu.longitude }}"
+                         data-id="{{ lieu.id }}">
+                        <span class="flex">
+                            <img src={{ asset('thumbnails/' ~ lieu.fileName) }} alt="activity thumbnails"/>
+                            <span class="title-description">
+                                <p class="title">{{ lieu.name }}</p>
+                            </span>
                         </span>
+                        <a href="{{ path('app_lieu_update', {'id' : lieu.id }) }}"><button class="button">Modifier</button></a>
                     </div>
                 {% endfor %}
             </div>

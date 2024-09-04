@@ -15,42 +15,24 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\File;
 
-class ActivityType extends AbstractType
+class LieuType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
             ->add('name', TextType::class, [
-                'label' => 'Nom de la sortie',
+                'label' => 'Nom de du lieu',
             ])
-            ->add('campus', EntityType::class, [
-                'class' => Campus::class,
-                'choice_label' => 'name',
+            ->add('ville', TextType::class, [
+                'label' => 'ville',
             ])
-            ->add('lieu', EntityType::class, [
-                'class' => Lieu::class,
-                'choice_label' => 'name',
+            ->add('cp', TextType::class, [
+                'label' => 'code postal',
             ])
-            ->add('description', TextType::class, [
-                'label' => 'Description',
-            ])
-            ->add('dateDebut', DateTimeType::class, [
-                'label' => 'Date de début',
-                'required' => false,
-            ])
-            ->add('dateFinalInscription', DateTimeType::class, [
-                'label' => 'Date de fin d\'inscription',
-                'required' => false,
-            ])
-            ->add('nbLimitParticipants', IntegerType::class, [
-                'label' => 'nombre de place',
-            ])
-            ->add('duree', IntegerType::class, [
-                'label' => 'Durée',
-            ])
-            ->add('pictureFileName', FileType::class, [
+
+            ->add('fileName', FileType::class, [
                 'mapped' => 'false',
-                'required' => false,
+                'required' => 'false',
                 'constraints' => [
                     new File([
                         'maxSize' => '2048k',
@@ -60,14 +42,14 @@ class ActivityType extends AbstractType
                         ],
                         'mimeTypesMessage' => 'Fichiers accepetés: jpeg, png',
                     ])
-                ],
+                ]
             ]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => Activity::class
+            'data_class' => Lieu::class
         ]);
     }
 
