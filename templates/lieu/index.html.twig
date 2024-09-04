@@ -6,11 +6,9 @@
 
 {% block body %}
     <div class="content">
-        <div class="list">
+        <div class="list campus">
             <h2>Liste des lieux</h2>
-            <a href="{{ path('app_lieu_create') }}">
-                <button> Ajouter des lieux</button>
-            </a>
+            <p class="missing">Un lieu manquant ? <a href="{{ path('app_lieu_create') }}">Ajoute le !</a></p>
             <div class="separator"></div>
             <div class="activity-content" id="activityContent">
                 {% for lieu in lieuList %}
@@ -27,7 +25,7 @@
                 {% endfor %}
             </div>
         </div>
-        <div class="map">
+        <div class="map campus">
             <div id="map"></div>
         </div>
     </div>
