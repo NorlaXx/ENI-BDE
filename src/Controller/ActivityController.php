@@ -7,6 +7,7 @@ use App\Form\ActivityType;
 use App\Form\ActivityUpdateType;
 use App\Repository\ActivityRepository;
 use App\Repository\ActivityStateRepository;
+use App\Service\FileUploaderService;
 use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -20,7 +21,8 @@ class ActivityController extends AbstractController
     public function __construct(
         private ActivityRepository      $activityRepository,
         private ActivityStateRepository $activityStateRepository,
-        private EntityManagerInterface  $entityManager
+        private EntityManagerInterface  $entityManager,
+        private FileUploaderService $fileUploaderService
     )
     {
     }
@@ -68,26 +70,19 @@ class ActivityController extends AbstractController
         $form = $this->createForm(ActivityUpdateType::class, $activity);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted()) {
-            // Handle file upload if a new file was provided
+        if ($form->isSubmitted() && $form->isValid()) {
             $file = $form->get('pictureFileName')->getData();
             if ($file) {
-                $originalFileName = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
-                $saveFileName = $slugger->slug($originalFileName);
-                $newFileName = $saveFileName . '-' . uniqid() . '.' . $file->guessExtension();
-                $file->move(
-                    $this->getParameter('thumbnail_directory'),
-                    $newFileName
-                );
-                $activity->setPictureFileName($newFileName);
+                /* Use Uploader Service to move file + set Image name on Entity*/
+                $activity->setPictureFileName($this->fileUploaderService->upload($file));
             }
-            $activity->setName($form->get('name')->getData());
+           /* $activity->setName($form->get('name')->getData());
             $activity->setCampus($form->get('campus')->getData());
             $activity->setLieu($form->get('lieu')->getData());
             $activity->setDateDebut($form->get('dateDebut')->getData());
             $activity->setDateFinalInscription($form->get('dateFinalInscription')->getData());
             $activity->setNbLimitParticipants($form->get('nbLimitParticipants')->getData());
-            $this->entityManager->persist($activity);
+            $this->entityManager->persist($activity);*/
             $this->entityManager->flush();
             return $this->redirectToRoute('app_home');
         }
