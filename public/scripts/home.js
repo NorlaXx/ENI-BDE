@@ -32,7 +32,7 @@ const callPosition = () => {
         map.setCenter(pos);
       },
       () => {
-        handleLocationError(true, infoWindow, map.getCenter());
+        alert("Une erreur est survenue lors de la géolocalisation");
       }
     );
   } else {
@@ -128,7 +128,6 @@ const markerHandler = async (lat, long, id) => {
 
   removeHighlight();
   const myActivity = findActivitiesComponents(id);
-  myActivity.scrollIntoView({ behavior: "smooth" });
   myActivity.classList.add("highlight");
 
   marker.setMap(null);
