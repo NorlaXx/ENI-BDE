@@ -19,7 +19,7 @@ use Symfony\Component\Validator\Constraints\File;
 class ActivityType extends AbstractType
 {
 
-    public function __construct(private DataTransformer $dataTransformer)
+    public function __construct()
     {
     }
 
@@ -82,7 +82,6 @@ class ActivityType extends AbstractType
                     ])
                 ],
             ]);
-        $builder->get('fileName')->addModelTransformer($this->dataTransformer);
     }
 
     public function configureOptions(OptionsResolver $resolver): void

@@ -70,14 +70,6 @@ class ActivityRepository extends ServiceEntityRepository
 
     /**
      * Return all activities using mutliple potential param
-     * @param int|null $idUser
-     * @param Campus|null $campus
-     * @param string|null $name
-     * @param DateTime|null $dateDebut
-     * @param DateTime|null $dateMax
-     * @param bool|null $organisateur
-     * @param bool|null $inscript
-     * @param bool|null $finis
      * @return mixed
      */
     public function filter(
