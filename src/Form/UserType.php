@@ -17,7 +17,7 @@ use Symfony\Component\Validator\Constraints\File;
 class UserType extends AbstractType
 {
 
-    public function __construct(private DataTransformer $dataTransformer)
+    public function __construct()
     {
     }
 
@@ -55,7 +55,6 @@ class UserType extends AbstractType
                     ])
                 ],
             ]);
-        $builder->get('profilePicture')->addModelTransformer($this->dataTransformer);
     }
 
     public function configureOptions(OptionsResolver $resolver): void

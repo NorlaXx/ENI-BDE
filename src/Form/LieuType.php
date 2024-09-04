@@ -18,7 +18,7 @@ use Symfony\Component\Validator\Constraints\File;
 
 class LieuType extends AbstractType
 {
-    public function __construct(private DataTransformer $dataTransformer)
+    public function __construct()
     {
     }
     public function buildForm(FormBuilderInterface $builder, array $options): void
@@ -41,7 +41,7 @@ class LieuType extends AbstractType
                 'required' => false,
                 'constraints' => [
                     new File([
-                        'maxSize' => '2048k',
+                        'maxSize' => '4096k',
                         'mimeTypes' => [
                             'image/jpeg',
                             'image/png',
@@ -50,9 +50,7 @@ class LieuType extends AbstractType
                     ])
                 ]
             ]);
-        $builder->get('fileName')->addModelTransformer($this->dataTransformer);
     }
-
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
