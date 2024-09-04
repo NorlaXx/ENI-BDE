@@ -4,6 +4,7 @@ namespace App\Controller;
 
 
 use App\Form\UserType;
+use App\Repository\UserRepository;
 use App\Security\UserProvider;
 use App\Service\FileUploaderService;
 use Doctrine\ORM\EntityManagerInterface;
@@ -23,17 +24,29 @@ class UserController extends AbstractController
 {
 
     public function __construct(
+        private UserRepository $userRepository,
         private Security            $security,
         private FileUploaderService $fileUploaderService
     )
     {
     }
 
-    #[Route(path: '/profile', name: 'app_profile')]
+    #[Route(path: '/profil', name: 'app_profile')]
     public function profile(): Response
     {
         if ($this->security->isGranted('ROLE_USER')) {
             return $this->render('user/profile.html.twig');
+        } else {
+            return $this->redirectToRoute('app_home');
+        }
+    }
+    #[Route(path: '/profil/{id}', name: 'app_profile_view')]
+    public function profileView(int $id): Response
+    {
+        if ($this->security->isGranted('ROLE_USER')) {
+            return $this->render('user/profileView.html.twig', [
+                'user' => $this->userRepository->find($id),
+            ]);
         } else {
             return $this->redirectToRoute('app_home');
         }

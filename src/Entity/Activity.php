@@ -238,4 +238,5 @@ class Activity
 
         return $this;
     }
+
 }

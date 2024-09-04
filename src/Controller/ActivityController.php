@@ -11,7 +11,6 @@ use App\Service\FileUploaderService;
 use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Form\FormError;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\String\Slugger\SluggerInterface;
@@ -77,13 +76,6 @@ class ActivityController extends AbstractController
                 /* Use Uploader Service to move file + set Image name on Entity*/
                 $activity->setPictureFileName($this->fileUploaderService->upload($file));
             }
-           /* $activity->setName($form->get('name')->getData());
-            $activity->setCampus($form->get('campus')->getData());
-            $activity->setLieu($form->get('lieu')->getData());
-            $activity->setDateDebut($form->get('dateDebut')->getData());
-            $activity->setDateFinalInscription($form->get('dateFinalInscription')->getData());
-            $activity->setNbLimitParticipants($form->get('nbLimitParticipants')->getData());
-            $this->entityManager->persist($activity);*/
             $this->entityManager->flush();
             return $this->redirectToRoute('app_home');
         }
@@ -104,14 +96,7 @@ class ActivityController extends AbstractController
             //Récupération du fichier et sauvegarde sur le serveur
             $file = $form->get('pictureFileName')->getData();
             if ($file){
-                $originalFileName = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
-                $saveFileName = $slugger->slug($originalFileName);
-                $newFileName = $saveFileName . '-' . uniqid() . '.' . $file->guessExtension();
-                $file->move(
-                    $this->getParameter('thumbnail_directory'),
-                    $newFileName
-                );
-                $activity->setPictureFileName($newFileName);
+                $activity->setPictureFileName($this->fileUploaderService->upload($file));
             }else{
                 $activity->setPictureFileName('defaut_activity_picture.webp');
             }
@@ -137,10 +122,10 @@ class ActivityController extends AbstractController
                     'form' => $form->createView(),
                     'errorMessage' => 'La date de début et la date de fin d\'inscription doivent être supérieures à la date actuelle'
                 ]);
-            }elseif ($dateFinInscription < $dateDebut){
+            }elseif ($dateFinInscription > $dateDebut){
                 return $this->render('activity/create.html.twig', [
                     'form' => $form->createView(),
-                    'errorMessage' => 'La date de fin d\'inscription doit être supérieur à la date de début'
+                    'errorMessage' => 'La date de fin d\'inscription doit être inférieur à la date de début'
                 ]);
             }
 
