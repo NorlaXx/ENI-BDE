@@ -1,0 +1,24 @@
+{% include 'base_logged.html.twig' %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="/styles/form.css">
+{% endblock %}
+
+{% block body %}
+    <div class="content activity">
+
+        <div class="form-container">
+            <h2>Annuler une sortie</h2>
+            <p>Nom de la sortie : {{ activity.name }}</p>
+            <p>Date de la sortie : {{ activity.dateDebut|date('Y-m-d') }}</p>
+            <p>Campus : {{ activity.campus.name }}</p>
+            <p>Lieu : {{ activity.lieu.name }}</p>
+
+            {{ form_start(form) }}
+                {{ form_errors(form) }}
+                {{form_widget(form.reason)}}
+                <button>Annuler</button>
+            {{ form_end(form)}}
+        </div>
+    </div>
+{% endblock %}

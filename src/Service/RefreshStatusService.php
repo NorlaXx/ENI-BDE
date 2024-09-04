@@ -9,7 +9,7 @@ class RefreshStatusService
 {
     public function __construct(private ActivityRepository $activityRepository, private ActivityStateRepository $activityStateRepository){}
 
-    public function refreshStatus()
+    public function refreshStatus(): void
     {
         $activities = $this->activityRepository->findAll();
         foreach ($activities as $activity) {
@@ -20,22 +20,22 @@ class RefreshStatusService
             $dateIn1Month->modify('+1 month');
 
             if($currentDate > $dateIn1Month) {
-                $this->setStateById($activity, 6);
+                $this->setStateByCode($activity, 'ACT_ARC');
                 continue;
             }
             if($currentDate >= $dateDebut) {
-                $this->setStateById($activity, 5);
+                $this->setStateByCode($activity, 'ACT_TER');
                 continue;
             }
             if($currentDate > $dateFinalInscription) {
-                $this->setStateById($activity, 3);
-                continue;
+                $this->setStateByCode($activity, 'ACT_INS_F');
             }
         }
     }
 
-    private function setStateById($activity, $id){
-        $state = $this->activityStateRepository->getStateById($id);
+    private function setStateByCode($activity, $code): void
+    {
+        $state = $this->activityStateRepository->getStateByCode($code);
         $activity->setState($state);
 
         $this->activityRepository->update($activity);

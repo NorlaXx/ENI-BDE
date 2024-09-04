@@ -4,12 +4,11 @@ namespace App\Controller;
 
 use App\Entity\Activity;
 use App\Form\ActivityType;
-use App\Form\ActivityUpdateType;
+use App\Form\CancelType;
 use App\Repository\ActivityRepository;
 use App\Repository\ActivityStateRepository;
 use App\Service\ActivityService;
 use App\Service\FileUploaderService;
-use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -57,15 +56,28 @@ class ActivityController extends AbstractController
             return $this->redirectToRoute('app_home');
         }
     }
-    #[Route('/activity/remove/{id}', name: 'app_remove_activity')]
-    public function removeActivity(int $id)
+
+    #[Route('/activity/cancel/{id}', name: 'app_cancel_activity')]
+    public function cancelActivity(int $id, Request $request)
     {
+        $form = $this->createForm(CancelType::class);
+        $form->handleRequest($request);
+        //Récupération de la sortie
         $activity = $this->activityRepository->find($id);
-        if($activity->getState() != 6){
-            $activity->setState(6);
-            $this->entityManager->persist($activity);
-            $this->entityManager->flush();
+        if ($form->isSubmitted() && $form->isValid()) {
+            //récupération du motif
+            $reason = $form->get('reason')->getData();
+            //Annulation de la sortie
+            $this->activityService->cancelActivity($activity, $reason);
+
+            return $this->redirectToRoute('app_home');
         }
+
+        return $this->render('activity/cancel.html.twig', [
+            'activity' => $activity,
+            'form' => $form->createView()
+        ]);
+
     }
 
     #[Route('/activity/update/{id}', name: 'activity_update')]
