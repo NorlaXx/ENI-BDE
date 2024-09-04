@@ -164,3 +164,17 @@
   text-decoration: none;
   color: #144a7f;
 }
+
+@media (max-width: 1300px) {
+  .map {
+    display: none;
+  }
+
+  .list {
+    width: 85%;
+  }
+
+  .campus {
+    width: 100% !important;
+  }
+}

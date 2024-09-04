@@ -2,7 +2,7 @@
 <nav>
   <ul class="main_ul">
     <li>
-    <img class="logo" alt="logo" src="{{ asset("images/bdEni.png") }}" >
+    <a href={{path("app_home")}}><img class="logo" alt="logo" src="{{ asset("images/bdEni.png") }}" ></a>
     </li>
     <li>
       <ul class="secondary_ul">
@@ -14,3 +14,8 @@
     <li><a href="{{ path("app_profile") }}"><img class="profil-picture" src="{{ asset('profilePictures/'~ app.user.pictureFileName) }}" alt="icon" /></a></li>
   </ul>
 </nav>
+<div class="burger">
+  <div></div>
+  <div></div>
+  <div></div>
+</div>
