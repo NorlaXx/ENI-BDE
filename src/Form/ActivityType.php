@@ -17,6 +17,11 @@ use Symfony\Component\Validator\Constraints\File;
 
 class ActivityType extends AbstractType
 {
+
+    public function __construct(private DataTransformer $dataTransformer)
+    {
+    }
+
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
@@ -48,8 +53,8 @@ class ActivityType extends AbstractType
             ->add('duree', IntegerType::class, [
                 'label' => 'Durée',
             ])
-            ->add('pictureFileName', FileType::class, [
-                'mapped' => 'false',
+            ->add('fileName', FileType::class, [
+                'mapped' => false,
                 'required' => false,
                 'constraints' => [
                     new File([
@@ -62,6 +67,7 @@ class ActivityType extends AbstractType
                     ])
                 ],
             ]);
+        $builder->get('fileName')->addModelTransformer($this->dataTransformer);
     }
 
     public function configureOptions(OptionsResolver $resolver): void
