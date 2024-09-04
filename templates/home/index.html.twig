@@ -26,7 +26,7 @@
                         <span class="information">
                             <span class="information_text">
                                 <p>Date limite d'inscription : {{ activity.dateFinalInscription|date('Y-m-d') }}</p>
-                                <p>Nombre d'inscrit : {{ activity.inscrits|length }}</p>
+                                <p>Nombre de places : {{ activity.nbLimitParticipants - activity.inscrits|length }}</p>
                             </span>
                             <span class="buttons">
                                 {% if  activity.organisateur == user %}

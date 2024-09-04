@@ -48,6 +48,15 @@ class ActivityController extends AbstractController
         $this->entityManager->flush();
         return $this->redirectToRoute('app_home');
     }
+    #[Route('/activity/remove/{id}', name: 'app_remove_activity')]
+    public function removeActivity(int $id)
+    {
+        $activity = $this->activityRepository->find($id);
+        /** @var User */
+        $this->entityManager->remove($activity);
+        $this->entityManager->flush();
+        return $this->redirectToRoute('app_home');
+    }
 
     #[Route('/activity/update/{id}', name: 'activity_update')]
     public function updateActivity(int $id, Request $request, SluggerInterface $slugger)
@@ -70,13 +79,16 @@ class ActivityController extends AbstractController
                     $this->getParameter('thumbnail_directory'),
                     $newFileName
                 );
-
                 $activity->setPictureFileName($newFileName);
-                $activity->setName($form->get('name')->getData());
-                $activity->setCampus($form->get('campus')->getData());
-                $activity->setLieu($form->get('lieu')->getData());
             }
-
+            $activity->setName($form->get('name')->getData());
+            $activity->setCampus($form->get('campus')->getData());
+            $activity->setLieu($form->get('lieu')->getData());
+            $activity->setDateDebut($form->get('dateDebut')->getData());
+            $activity->setDateFinalInscription($form->get('dateFinalInscription')->getData());
+            $activity->setNbLimitParticipants($form->get('nbLimitParticipants')->getData());
+            $this->entityManager->persist($activity);
+            $this->entityManager->flush();
             return $this->redirectToRoute('app_home');
         }
 

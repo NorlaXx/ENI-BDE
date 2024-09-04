@@ -1,10 +1,10 @@
-{% include 'base.html.twig' %}
+{% include 'base_logged.html.twig' %}
 
-{% block title %}Créer une sortie{% endblock %}
+{% block title %}Modification de sortie{% endblock %}
 
 {% block body %}
-    <h1>Update la sortie</h1>
+    <h1>Modification de sortie</h1>
 
     {{ include('activity/_form.html.twig') }}
-
+<a href="{{ path('app_remove_activity', {'id' : activity.id }) }}"><button class="button">Annuler</button></a>
 {% endblock %}
