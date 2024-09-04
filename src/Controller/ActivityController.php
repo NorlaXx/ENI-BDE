@@ -79,7 +79,7 @@ class ActivityController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $file = $form->get('fileName')->getData();
+            $file = $form->get('pictureFileName')->getData();
             if ($file) {
                 /* Use Uploader Service to move file + set Image name on Entity*/
                 $activity->setPictureFileName($this->fileUploaderService->upload($file));
