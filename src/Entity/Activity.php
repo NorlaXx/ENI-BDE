@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: ActivityRepository::class)]
 class Activity
@@ -16,6 +17,8 @@ class Activity
     #[ORM\Column]
     private ?int $id = null;
 
+    #[Assert\NotBlank]
+    #[Assert\Length(max: 255)]
     #[ORM\Column(length: 255)]
     private ?string $name = null;
 
@@ -32,6 +35,7 @@ class Activity
     #[ORM\ManyToOne(inversedBy: 'activities')]
     private ?Lieu $lieu = null;
 
+    #[Assert\NotBlank]
     #[ORM\Column(length: 255)]
     private ?string $description = null;
 
@@ -39,9 +43,14 @@ class Activity
     #[ORM\JoinColumn(nullable: false)]
     private ?ActivityState $state = null;
 
+    #[Assert\GreaterThan(propertyPath: 'dateFinalInscription')]
+    #[Assert\GreaterThan('today')]
+    #[Assert\NotBlank]
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private ?\DateTimeInterface $dateDebut = null;
 
+    #[Assert\NotBlank]
+    #[Assert\GreaterThan('today')]
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private ?\DateTimeInterface $dateFinalInscription = null;
 
@@ -49,6 +58,8 @@ class Activity
     #[ORM\JoinColumn(nullable: false)]
     private ?User $organisateur = null;
 
+    #[Assert\NotBlank]
+    #[Assert\Positive]
     #[ORM\Column]
     private ?int $duree = null;
 
@@ -58,6 +69,8 @@ class Activity
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private ?\DateTimeInterface $dateCreation = null;
 
+    #[Assert\NotBlank]
+    #[Assert\Positive]
     #[ORM\Column]
     private ?int $nbLimitParticipants = null;
 

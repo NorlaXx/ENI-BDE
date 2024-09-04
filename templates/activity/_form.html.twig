@@ -1,7 +1,4 @@
 {{ form_start(form) }}
-    {% if errorMessage|default(null) %}
-        <div class="alert alert-danger">{{ errorMessage }}</div>
-    {% endif %}
     {{ form_widget(form) }}
     <button>{{ button_label|default('Enregistrer') }}</button>
 {{ form_end(form) }}

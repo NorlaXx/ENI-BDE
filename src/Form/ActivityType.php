@@ -22,6 +22,7 @@ class ActivityType extends AbstractType
         $builder
             ->add('name', TextType::class, [
                 'label' => 'Nom de la sortie',
+                'required' => false,
             ])
             ->add('campus', EntityType::class, [
                 'class' => Campus::class,
@@ -33,6 +34,7 @@ class ActivityType extends AbstractType
             ])
             ->add('description', TextType::class, [
                 'label' => 'Description',
+                'required' => false,
             ])
             ->add('dateDebut', DateTimeType::class, [
                 'label' => 'Date de début',
@@ -44,9 +46,11 @@ class ActivityType extends AbstractType
             ])
             ->add('nbLimitParticipants', IntegerType::class, [
                 'label' => 'nombre de place',
+                'required' => false,
             ])
             ->add('duree', IntegerType::class, [
                 'label' => 'Durée',
+                'required' => false,
             ])
             ->add('pictureFileName', FileType::class, [
                 'mapped' => 'false',
