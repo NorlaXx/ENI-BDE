@@ -32,6 +32,10 @@ class LieuUpdateType extends AbstractType
                 'required' => false,
                 'label' => 'code postal',
             ])
+            ->add('adresse', TextType::class, [
+                'required' => false,
+                'label' => 'addresse',
+            ])
 
             ->add('fileName', FileType::class, [
                 'mapped' => false,

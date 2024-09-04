@@ -39,6 +39,9 @@ class Lieu
     #[ORM\OneToMany(targetEntity: Activity::class, mappedBy: 'Lieu')]
     private Collection $activities;
 
+    #[ORM\Column(length: 255)]
+    private ?string $addresse = null;
+
     public function __construct()
     {
         $this->activities = new ArrayCollection();
@@ -147,6 +150,18 @@ class Lieu
                 $activity->setLieu(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getAddresse(): ?string
+    {
+        return $this->addresse;
+    }
+
+    public function setAddresse(string $addresse): static
+    {
+        $this->addresse = $addresse;
 
         return $this;
     }
