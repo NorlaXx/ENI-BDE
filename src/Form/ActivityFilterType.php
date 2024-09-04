@@ -6,6 +6,7 @@ use App\Entity\Activity;
 use App\Entity\Campus;
 use App\Entity\Lieu;
 use App\Entity\User;
+use App\Model\ActivityFilter;
 use PHPUnit\Util\Filter;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
@@ -49,6 +50,12 @@ class ActivityFilterType extends AbstractType
                 'label' => 'Finis',
                 'required' => false,
             ]);
+    }
+    public function configureOptions(OptionsResolver $resolver): void
+    {
+        $resolver->setDefaults([
+            'data_class' => ActivityFilter::class,
+        ]);
     }
 
 }
