@@ -11,13 +11,17 @@ use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\File;
 
 class ActivityType extends AbstractType
 {
+
+    public function __construct(private DataTransformer $dataTransformer)
+    {
+    }
+
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
@@ -61,10 +65,10 @@ class ActivityType extends AbstractType
                     'placeholder' => 'Durée'
                 )
             ])
-            ->add('pictureFileName', FileType::class, [
+            ->add('fileName', FileType::class, [
                 'label' => 'Upload une image',
                 'label_attr' => ['class' => 'file-label'],
-                'mapped' => 'false',
+                'mapped' => false,
                 'required' => false,
                 'constraints' => [
                     new File([
@@ -77,6 +81,7 @@ class ActivityType extends AbstractType
                     ])
                 ],
             ]);
+        $builder->get('fileName')->addModelTransformer($this->dataTransformer);
     }
 
     public function configureOptions(OptionsResolver $resolver): void

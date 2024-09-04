@@ -7,6 +7,7 @@ use App\Entity\Campus;
 use App\Entity\Lieu;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\DataTransformerInterface;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
@@ -17,6 +18,9 @@ use Symfony\Component\Validator\Constraints\File;
 
 class LieuType extends AbstractType
 {
+    public function __construct(private DataTransformer $dataTransformer)
+    {
+    }
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
@@ -33,8 +37,8 @@ class LieuType extends AbstractType
                 'label' => 'Adresse',
             ])
             ->add('fileName', FileType::class, [
-                'mapped' => 'false',
-                'required' => 'false',
+                'mapped' => false,
+                'required' => false,
                 'constraints' => [
                     new File([
                         'maxSize' => '2048k',
@@ -46,6 +50,7 @@ class LieuType extends AbstractType
                     ])
                 ]
             ]);
+        $builder->get('fileName')->addModelTransformer($this->dataTransformer);
     }
 
     public function configureOptions(OptionsResolver $resolver): void
