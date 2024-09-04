@@ -32,7 +32,7 @@ const callPosition = () => {
         map.setCenter(pos);
       },
       () => {
-        handleLocationError(true, infoWindow, map.getCenter());
+        alert("Une erreur est survenue lors de la géolocalisation");
       }
     );
   } else {
