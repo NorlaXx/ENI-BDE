@@ -97,24 +97,31 @@ class AppFixtures extends Fixture
         //Création des états des sorties
         $activityState = new ActivityState();
         $activityState->setLibelle('crées');
+        $activityState->setCode('ACT_CR');
         $manager->persist($activityState);
         $activityState2 = new ActivityState();
         $activityState2->setLibelle('inscription');
+        $activityState2->setCode('ACT_INS');
         $manager->persist($activityState2);
         $activityState3 = new ActivityState();
         $activityState3->setLibelle('inscription fermé');
+        $activityState3->setCode('ACT_INS_F');
         $manager->persist($activityState3);
         $activityState4 = new ActivityState();
-        $activityState4->setLibelle('en cour');
+        $activityState4->setLibelle('en cours');
+        $activityState4->setCode('ACT_EN_C');
         $manager->persist($activityState4);
         $activityState5 = new ActivityState();
         $activityState5->setLibelle('terminée');
+        $activityState5->setCode('ACT_TER');
         $manager->persist($activityState5);
         $activityState6 = new ActivityState();
         $activityState6->setLibelle('archivée');
+        $activityState6->setCode('ACT_ARC');
         $manager->persist($activityState6);
         $activityState7 = new ActivityState();
         $activityState7->setLibelle('annulée');
+        $activityState7->setCode('ACT_ANN');
         $manager->persist($activityState7);
 
 
@@ -161,7 +168,7 @@ class AppFixtures extends Fixture
                 'nbLimitParticipants' => 50,
                 'campus' => $campus1, // Assuming $campus1 is an instance of Campus
                 'lieu' => $lieu1, // Assuming $lieu1 is an instance of Lieu
-                'state' => $activityState2, // Assuming $activityState2 is an instance of ActivityState
+                'state' => $activityState, // Assuming $activityState2 is an instance of ActivityState
                 'organisateur' => $user1 // Assuming $user1 is an instance of User
             ],
             [
@@ -173,7 +180,7 @@ class AppFixtures extends Fixture
                 'nbLimitParticipants' => 30,
                 'campus' => $campus2, // Assuming $campus2 is an instance of Campus
                 'lieu' => $lieu2, // Assuming $lieu2 is an instance of Lieu
-                'state' => $activityState2, // Assuming $activityState2 is an instance of ActivityState
+                'state' => $activityState, // Assuming $activityState2 is an instance of ActivityState
                 'organisateur' => $user2 // Assuming $user2 is an instance of User
             ],
             [
@@ -185,7 +192,7 @@ class AppFixtures extends Fixture
                 'nbLimitParticipants' => 22,
                 'campus' => $campus3, // Assuming $campus3 is an instance of Campus
                 'lieu' => $lieu3, // Assuming $lieu3 is an instance of Lieu
-                'state' => $activityState2, // Assuming $activityState2 is an instance of ActivityState
+                'state' => $activityState, // Assuming $activityState2 is an instance of ActivityState
                 'organisateur' => $user3 // Assuming $user3 is an instance of User
             ]
         ];

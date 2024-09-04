@@ -38,31 +38,34 @@
                                 <p>Nombre de places : {{ activity.nbLimitParticipants - activity.inscrits|length }}</p>
                             </span>
                             <span class="buttons">
-                                {% if activity.organisateur == user and activity.state.id == 1 %}
+                                {% if activity.organisateur == user and activity.state.code == "ACT_CR" %}
                                     <a href="{{ path("activity_update", { 'id': activity.id }) }}">
                                         <button class="button modify">Modifier</button>
                                     </a>
+                                    <a href="{{ path("app_cancel_activity", {'id': activity.id}) }}">
+                                        <button class="button cancel">Annuler</button>
+                                    </a>
                                 {% endif %}
-                                {% if activity in user.activities and activity.state.id == 2 or activity.state.id == 3 %}
+                                {% if activity in user.activities and activity.state.code == "ACT_INS" or activity.state.code == "ACT_INS_F" %}
                                     <a href="{{ path("activity_remove_inscrit", { 'id': activity .id}) }}">
                                         <button class="button cancel">Se désister</button>
                                     </a>
                                 {% endif %}
-                                {% if activity not in user.activities and activity.state.id == 2 %}
+                                {% if activity not in user.activities and activity.state.code == "ACT_INS" %}
                                     <a href="{{ path("activity_add_inscrit", { 'id': activity.id }) }}">
                                         <button class="button">S'inscrire</button>
                                     </a>
                                 {% endif %}
-                                {% if activity not in user.activities and activity.state.id == 4 %}
+                                {% if activity not in user.activities and activity.state.code == "ACT_EN_C" %}
                                     <button class="button cancel" disable>En cour</button>
                                 {% endif %}
-                                {% if activity not in user.activities and activity.state.id == 3 %}
+                                {% if activity not in user.activities and activity.state.code == "ACT_INS_F" %}
                                     <button class="button close" disable>Fermé</button>
                                 {% endif %}
-                                {% if activity not in user.activities and activity.state.id == 5 %}
+                                {% if activity not in user.activities and activity.state.code == "ACT_TER" %}
                                     <button class="button cancel" disable>Terminé</button>
                                 {% endif %}
-                                {% if activity not in user.activities and activity.state.id == 7 %}
+                                {% if activity not in user.activities and activity.state.code == "ACT_ANN" %}
                                     <button class="button cancel" disable>Annulé</button>
                                 {% endif %}
                             </span>

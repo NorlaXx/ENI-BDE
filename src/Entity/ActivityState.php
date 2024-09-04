@@ -24,6 +24,9 @@ class ActivityState
     #[ORM\OneToMany(targetEntity: Activity::class, mappedBy: 'State')]
     private Collection $activities;
 
+    #[ORM\Column(length: 255)]
+    private ?string $code = null;
+
     public function __construct()
     {
         $this->activities = new ArrayCollection();
@@ -72,6 +75,18 @@ class ActivityState
                 $activity->setState(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getCode(): ?string
+    {
+        return $this->code;
+    }
+
+    public function setCode(string $code): static
+    {
+        $this->code = $code;
 
         return $this;
     }
