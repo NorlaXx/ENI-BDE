@@ -2,6 +2,8 @@
 
 namespace App\Model;
 
+use App\Entity\Campus;
+
 class ActivityFilter
 {
     private ?string $name = null;

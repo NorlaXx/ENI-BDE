@@ -64,7 +64,8 @@ class LieuController extends AbstractController
     #[Route('/lieu/update/{id}', name: 'app_lieu_update')]
     public function updateLieu(int $id, Request $request): Response
     {
-        $form = $this->createForm(LieuType::class, $this->lieuRepository->find($id));
+        $lieu = $this->lieuRepository->find($id);
+        $form = $this->createForm(LieuType::class, $lieu);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -72,6 +73,15 @@ class LieuController extends AbstractController
             /* Upload file using fileUploader Service + set PictureFileName on Entity*/
             if ($profilePicture) {
                 $this->getUser()->setPictureFileName($this->fileUploaderService->upload($profilePicture));
+            }
+            $coordinates = $this->getCoordinatesService->getCoordinates($lieu->getAddresse());
+            if(count($coordinates) != 0) {
+                $lieu->setLat($coordinates[0]);
+                $lieu->setLongitude($coordinates[1]);
+            } else {
+                /*TODO Définir les valeurs si pas de geoloc trouvés*/
+                $lieu->setLat(12);
+                $lieu->setLongitude(12);
             }
             $this->entityManager->persist($this->getUser());
             $this->entityManager->flush();
