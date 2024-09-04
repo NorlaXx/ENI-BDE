@@ -30,7 +30,7 @@ class LieuController extends AbstractController
     #[Route('/lieu/liste', name: 'app_lieu_list')]
     public function listLieu(): Response
     {
-        return $this->render('lieux/index.html.twig', [
+        return $this->render('lieu/index.html.twig', [
             'lieuList' => $this->lieuRepository->findAll(),
         ]);
     }
@@ -47,7 +47,9 @@ class LieuController extends AbstractController
             if ($profilePicture) {
                 $lieu->setFileName($this->fileUploaderService->upload($profilePicture));
             }
-            $this->entityManager->persist($this->getUser());
+            $lieu->setLat("26");
+            $lieu->setLongitude("26");
+            $this->entityManager->persist($lieu);
             $this->entityManager->flush();
         }
         return $this->render('lieu/create.html.twig', [
