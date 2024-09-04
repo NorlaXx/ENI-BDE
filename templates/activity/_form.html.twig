@@ -1,7 +1,22 @@
 {{ form_start(form) }}
-    {% if errorMessage|default(null) %}
-        <div class="alert alert-danger">{{ errorMessage }}</div>
-    {% endif %}
-    {{ form_widget(form) }}
-    <button>{{ button_label|default('Enregistrer') }}</button>
-{{ form_end(form) }}
+    {{form_widget(form.name)}}
+    {{form_widget(form.campus)}}
+    {{form_widget(form.lieu)}}
+    {{form_widget(form.description)}}
+    <span class="same_line">
+        <span>
+            {{form_label(form.dateDebut)}}
+            {{form_widget(form.dateDebut)}}
+        </span>
+        <span>
+            {{form_label(form.dateFinalInscription)}}
+            {{form_widget(form.dateFinalInscription)}}
+        </span>
+    </span>
+    {{form_widget(form.nbLimitParticipants)}}
+    {{form_widget(form.duree)}}
+    {{form_label(form.pictureFileName)}}
+    {{form_widget(form.pictureFileName)}}
+
+    <button>Enregistré</button>
+{{ form_end(form)}}

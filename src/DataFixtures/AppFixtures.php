@@ -46,7 +46,8 @@ class AppFixtures extends Fixture
                 'lat' => 48.0890177959865,
                 'longitude' => -1.690158649607449,
                 'cp' => 35000,
-                'ville' => 'Rennes'
+                'ville' => 'Rennes',
+                'adresse' => '10 rue de la piscine'
             ],
             [
                 'id' => 2,
@@ -54,7 +55,8 @@ class AppFixtures extends Fixture
                 'lat' => 47.24650184636519,
                 'longitude' => -1.5845028822839156,
                 'cp' => 44100,
-                'ville' => 'Nantes'
+                'ville' => 'Nantes',
+                'adresse' => '10 rue du parc'
             ],
             [
                 'id' => 3,
@@ -62,7 +64,8 @@ class AppFixtures extends Fixture
                 'lat' => 47.99707956026434,
                 'longitude' => -4.099162626373785,
                 'cp' => 29000,
-                'ville' => 'Quimper'
+                'ville' => 'Quimper',
+                'adresse' => '10 rue du stade'
             ]
         ];
         // Création des campus
@@ -87,6 +90,7 @@ class AppFixtures extends Fixture
             $$lieuVar->setCp($lieuData['cp']);
             $$lieuVar->setVille($lieuData['ville']);
             $$lieuVar->setFileName('campus_ident.jpg');
+            $$lieuVar->setAddresse($lieuData['adresse']);
             $manager->persist($$lieuVar);
         }
 

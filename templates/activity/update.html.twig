@@ -1,10 +1,21 @@
 {% include 'base_logged.html.twig' %}
 
-{% block title %}Modification de sortie{% endblock %}
+{% block stylesheets %}
+    <link rel="stylesheet" href="/styles/form.css">
+{% endblock %}
 
 {% block body %}
-    <h1>Modification de sortie</h1>
+    <div class="content activity">
+        <div class="overlay"></div>
 
-    {{ include('activity/_form.html.twig') }}
-<a href="{{ path('app_remove_activity', {'id' : activity.id }) }}"><button class="button">Annuler</button></a>
+        <div class="form-container">
+            <h2>Modification de sortie !</h2>
+            <span class="description">
+                <p>Envie de modifier ta sortie a cause d'une erreur ?</p>
+                <p>Tu as de la chance on est sympa !</p>
+            </span>
+
+            {{ include('activity/_form.html.twig') }}
+        </div>
+    </div>
 {% endblock %}

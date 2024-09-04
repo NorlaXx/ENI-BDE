@@ -13,6 +13,7 @@ use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\File;
@@ -36,9 +37,11 @@ class ActivityUpdateType extends AbstractType
                 'choice_label' => 'name',
                 'required' => false,
             ])
-            ->add('description', TextType::class, [
+            ->add('description', TextareaType::class, [
                 'label' => 'Description',
-                'required' => false,
+                'attr' => array(
+                    'placeholder' => 'Description'
+                )
             ])
             ->add('dateDebut', DateTimeType::class, [
                 'label' => 'Date de début',
@@ -57,6 +60,8 @@ class ActivityUpdateType extends AbstractType
                 'required' => false,
             ])
             ->add('pictureFileName', FileType::class, [
+                'label' => 'Upload une image',
+                'label_attr' => ['class' => 'file-label'],
                 'mapped' => false,
                 'required' => false,
                 'data_class' => null,

@@ -23,12 +23,8 @@ class RefreshStatusService
                 $this->setStateById($activity, 6);
                 continue;
             }
-            if($currentDate > $dateDebut) {
+            if($currentDate >= $dateDebut) {
                 $this->setStateById($activity, 5);
-                continue;
-            }
-            if($currentDate == $dateDebut) {
-                $this->setStateById($activity, 4);
                 continue;
             }
             if($currentDate > $dateFinalInscription) {

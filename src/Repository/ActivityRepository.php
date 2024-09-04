@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\Activity;
 use App\Entity\Campus;
+use App\Model\ActivityFilter;
 use DateTime;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -50,91 +51,58 @@ class ActivityRepository extends ServiceEntityRepository
         return $query->getResult();
     }
 
-    public function findAll(): array
-    {
-        $entityManager = $this->getEntityManager();
-        $query = $entityManager->createQuery(
-            'SELECT a
-            FROM App\Entity\Activity a
-            ORDER BY a.dateDebut ASC'
-        );
-        return $query->getResult();
-    }
-
     public function update($activity)
     {
         $this->getEntityManager()->persist($activity);
         $this->getEntityManager()->flush();
     }
-
-    /**
-     * Return all activities using mutliple potential param
-     * @param int|null $idUser
-     * @param Campus|null $campus
-     * @param string|null $name
-     * @param DateTime|null $dateDebut
-     * @param DateTime|null $dateMax
-     * @param bool|null $organisateur
-     * @param bool|null $inscript
-     * @param bool|null $finis
-     * @return mixed
-     */
+    
     public function filter(
-        ?int      $idUser,
-        ?Campus   $campus,
-        ?string   $name,
-        ?DateTime $dateDebut,
-        ?DateTime $dateMax,
-        ?bool     $organisateur,
-        ?bool     $inscript,
-        ?bool     $finis,
+        int      $idUser,
+        ActivityFilter $filter
     )
     {
 
         $qb = $this->entityManager->createQueryBuilder();
         $param = new ArrayCollection();
-        $qb->select(array('a'))
-            ->from('App\Entity\Activity', 'a');
-        /*OK return ativities if campusId is equal to param*/
-        if ($campus) {
-            $qb->andWhere($qb->expr()->eq('a.campus',
-                '?1'
-            ));
-            $param[1] = new Parameter('1', $campus->getId());
-        }
-        /*OK return activities with like string in name*/
-        if ($name) {
-            $qb->andWhere($qb->expr()->like('a.name',
-                '?2'
-            ));
-            $param[2] = new Parameter('2', '%' . $name . "%");
-
+        $qb->select(array('activity'))
+            ->from('App\Entity\Activity', 'activity');
+        
+        if ($filter->getName() != null) {
+            $qb->andWhere('activity.name LIKE :name');
+            $param->add(new Parameter('name', '%' . $filter->getName() . '%'));
         }
 
-        /* TODO revoir pour utiliser 1 seule date*/
-        if ($dateDebut && $dateMax) {
-            $qb->andWhere($qb->expr()->between('a.dateDebut',
-                '?3', '?4'
-            ));
-            $param[3] = new Parameter('3', $dateDebut);
-            $param[4] = new Parameter('4', $dateMax);
+        if ($filter->getCampus() != null) {
+            $qb->andWhere('activity.campus = :campus');
+            $param->add(new Parameter('campus', $filter->getCampus()));
         }
 
-        /* OK return activity if organisateurId id equal to idUser*/
-        if ($organisateur) {
-            $qb->andWhere($qb->expr()->eq("a.organisateur", "?6"));
-            $param[6] = new Parameter('6', $idUser);
+        if ($filter->getDateMin() != null) {
+            $qb->andWhere('activity.dateDebut >= :dateMin');
+            $param->add(new Parameter('dateMin', $filter->getDateMin()));
+        }
 
+        if ($filter->getDateMax() != null) {
+            $qb->andWhere('activity.dateDebut <= :dateMax');
+            $param->add(new Parameter('dateMax', $filter->getDateMax()));
         }
-        /* OK return all activities where idUser is present in activity.inscrits*/
-        if ($inscript) {
-            $qb->innerJoin('a.inscrits', 'p', 'WITH', 'p.id = ?6');
-            $param[6] = new Parameter('6', $idUser);
+
+        if ($filter->getOrganisateur() != null) {
+            $qb->andWhere('activity.organisateur = :organisateur');
+            $param->add(new Parameter('organisateur', $filter->getOrganisateur()));
         }
-        /* OK return all activities with 1 or 2 in status_id*/
-        if ($finis) {
-            $qb->innerJoin('a.state', 's', 'WITH', 's.id = 1 OR s.id = 3 OR s.id = 5');
+
+        if ($filter->getInscrit()) {
+            $qb->innerJoin('activity.inscrits', 'p', 'WITH', 'p.id = :idUser');
+            $param->add(new Parameter('idUser', $idUser));
         }
+
+        if ($filter->getFinis() != null) {
+            $qb->andWhere('activity.dateDebut < :now');
+            $param->add(new Parameter('now', new DateTime()));
+        }
+
         $qb->setParameters($param);
         return $qb->getQuery()->getResult();
     }

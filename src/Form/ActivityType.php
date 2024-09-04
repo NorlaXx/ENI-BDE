@@ -10,6 +10,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -17,11 +18,19 @@ use Symfony\Component\Validator\Constraints\File;
 
 class ActivityType extends AbstractType
 {
+
+    public function __construct()
+    {
+    }
+
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
             ->add('name', TextType::class, [
                 'label' => 'Nom de la sortie',
+                'attr' => array(
+                    'placeholder' => 'Nom de la sortie'
+                )
             ])
             ->add('campus', EntityType::class, [
                 'class' => Campus::class,
@@ -31,8 +40,11 @@ class ActivityType extends AbstractType
                 'class' => Lieu::class,
                 'choice_label' => 'name',
             ])
-            ->add('description', TextType::class, [
+            ->add('description', TextareaType::class, [
                 'label' => 'Description',
+                'attr' => array(
+                    'placeholder' => 'Description'
+                )
             ])
             ->add('dateDebut', DateTimeType::class, [
                 'label' => 'Date de début',
@@ -44,12 +56,20 @@ class ActivityType extends AbstractType
             ])
             ->add('nbLimitParticipants', IntegerType::class, [
                 'label' => 'nombre de place',
+                'attr' => array(
+                    'placeholder' => 'Nombre de place'
+                )
             ])
             ->add('duree', IntegerType::class, [
                 'label' => 'Durée',
+                'attr' => array(
+                    'placeholder' => 'Durée'
+                )
             ])
             ->add('pictureFileName', FileType::class, [
-                'mapped' => 'false',
+                'label' => 'Upload une image',
+                'label_attr' => ['class' => 'file-label'],
+                'mapped' => false,
                 'required' => false,
                 'constraints' => [
                     new File([
