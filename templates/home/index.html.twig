@@ -18,10 +18,12 @@
             <div class="activity-content" id="activityContent">
                 {% for activity in activities %}
                     <div class="activity" data-lat="{{ activity.lieu.Lat }}" data-long="{{ activity.lieu.longitude }}" data-id="{{ activity.id }}">
-                        <img src={{ asset('thumbnails/' ~ activity.pictureFileName) }} alt="activity thumbnails"/>
-                        <span class="title-description">
-                            <p class="title">{{ activity.name }}</p>
-                            <p class="description">{{ activity.description }}</p>
+                        <span class="flex">
+                            <img src={{ asset('thumbnails/' ~ activity.pictureFileName) }} alt="activity thumbnails"/>
+                            <span class="title-description">
+                                <p class="title">{{ activity.name }}</p>
+                                <p class="description">{{ activity.description }}</p>
+                            </span>
                         </span>
                         <span class="information">
                             <span class="information_text">
