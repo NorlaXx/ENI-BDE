@@ -51,17 +51,6 @@ class ActivityRepository extends ServiceEntityRepository
         return $query->getResult();
     }
 
-    public function findAll(): array
-    {
-        $entityManager = $this->getEntityManager();
-        $query = $entityManager->createQuery(
-            'SELECT a
-            FROM App\Entity\Activity a
-            ORDER BY a.dateDebut ASC'
-        );
-        return $query->getResult();
-    }
-
     public function update($activity)
     {
         $this->getEntityManager()->persist($activity);
