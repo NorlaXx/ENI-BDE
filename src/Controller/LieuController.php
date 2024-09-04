@@ -64,7 +64,7 @@ class LieuController extends AbstractController
     #[Route('/lieu/update/{id}', name: 'app_lieu_update')]
     public function updateLieu(int $id, Request $request): Response
     {
-        $form = $this->createForm(LieuUpdateType::class, $this->lieuRepository->find($id));
+        $form = $this->createForm(LieuType::class, $this->lieuRepository->find($id));
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {

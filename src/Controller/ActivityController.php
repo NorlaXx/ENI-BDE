@@ -11,7 +11,6 @@ use App\Service\ActivityService;
 use App\Service\FileUploaderService;
 use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
-use PHPUnit\Util\Exception;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Attribute\Route;
@@ -76,11 +75,11 @@ class ActivityController extends AbstractController
         if (!$activity) {
             throw $this->createNotFoundException('Activity not found');
         }
-        $form = $this->createForm(ActivityUpdateType::class, $activity);
+        $form = $this->createForm(ActivityType::class, $activity);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $file = $form->get('pictureFileName')->getData();
+            $file = $form->get('fileName')->getData();
             if ($file) {
                 /* Use Uploader Service to move file + set Image name on Entity*/
                 $activity->setPictureFileName($this->fileUploaderService->upload($file));
@@ -103,7 +102,7 @@ class ActivityController extends AbstractController
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             //Récupération du fichier et sauvegarde sur le serveur
-            $file = $form->get('pictureFileName')->getData();
+            $file = $form->get('fileName')->getData();
             if ($file){
                 $activity->setPictureFileName($this->fileUploaderService->upload($file));
             }else{
