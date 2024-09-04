@@ -9,6 +9,7 @@ use App\Form\LieuUpdateType;
 use App\Repository\ActivityRepository;
 use App\Repository\LieuRepository;
 use App\Service\FileUploaderService;
+use App\Service\getCoordinatesService;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -22,7 +23,8 @@ class LieuController extends AbstractController
     public function __construct(
         private FileUploaderService $fileUploaderService,
         private EntityManagerInterface $entityManager,
-        private LieuRepository $lieuRepository
+        private LieuRepository $lieuRepository,
+        private getCoordinatesService  $getCoordinatesService,
     )
     {
     }
@@ -47,10 +49,13 @@ class LieuController extends AbstractController
             if ($profilePicture) {
                 $lieu->setFileName($this->fileUploaderService->upload($profilePicture));
             }
-            $lieu->setLat("26");
-            $lieu->setLongitude("26");
+            $this->getCoordinatesService->getCoordinates($lieu->getAddresse());
+            $lieu->setLongitude(12);
+            $lieu->setLat(12);
             $this->entityManager->persist($lieu);
             $this->entityManager->flush();
+
+            return $this->redirectToRoute('app_lieu_list');
         }
         return $this->render('lieu/create.html.twig', [
             'form' => $form->createView(),

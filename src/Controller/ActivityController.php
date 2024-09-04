@@ -10,6 +10,7 @@ use App\Repository\ActivityStateRepository;
 use App\Service\FileUploaderService;
 use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
+use PHPUnit\Util\Exception;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Attribute\Route;
@@ -31,11 +32,15 @@ class ActivityController extends AbstractController
     public function addInscrit(int $id)
     {
         $activity = $this->activityRepository->find($id);
-        /** @var User */
-        $user = $this->getUser();
-        $activity->addInscrit($user);
-        $this->entityManager->persist($activity);
-        $this->entityManager->flush();
+        /* Vérification du nombre de places restantes dans l'activité */
+        if($activity->getInscrits()->count() <= $activity->getNbLimitParticipants()){
+            /* vérification de la non inscription du l'utilisateur */
+            if(!$activity->getInscrits()->contains($this->getUser())){
+                $activity->addInscrit($this->getUser());
+                $this->entityManager->persist($activity);
+                $this->entityManager->flush();
+            }
+        }
         return $this->redirectToRoute('app_home');
     }
 
@@ -43,21 +48,23 @@ class ActivityController extends AbstractController
     public function removeInscription(int $id)
     {
         $activity = $this->activityRepository->find($id);
-        /** @var User */
-        $user = $this->getUser();
-        $activity->removeInscrit($user);
-        $this->entityManager->persist($activity);
-        $this->entityManager->flush();
-        return $this->redirectToRoute('app_home');
+        if($activity->getInscrits()->contains($this->getUser())){
+            $user = $this->getUser();
+            $activity->removeInscrit($user);
+            $this->entityManager->persist($activity);
+            $this->entityManager->flush();
+            return $this->redirectToRoute('app_home');
+        }
     }
     #[Route('/activity/remove/{id}', name: 'app_remove_activity')]
     public function removeActivity(int $id)
     {
         $activity = $this->activityRepository->find($id);
-        /** @var User */
-        $this->entityManager->remove($activity);
-        $this->entityManager->flush();
-        return $this->redirectToRoute('app_home');
+        if($activity->getState() != 6){
+            $activity->setState(6);
+            $this->entityManager->persist($activity);
+            $this->entityManager->flush();
+        }
     }
 
     #[Route('/activity/update/{id}', name: 'activity_update')]
