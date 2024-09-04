@@ -61,6 +61,12 @@ class ActivityRepository extends ServiceEntityRepository
         return $query->getResult();
     }
 
+    public function update($activity)
+    {
+        $this->getEntityManager()->persist($activity);
+        $this->getEntityManager()->flush();
+    }
+
     /**
      * Return all activities using mutliple potential param
      * @param int|null $idUser

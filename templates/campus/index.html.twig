@@ -6,12 +6,12 @@
 
 {% block body %}
     <div class="content">
-        <div class="list">
+        <div class="list campus">
             <h2>Evenements proposer par votre BDE / élèves</h2>
             <div class="separator"></div>
             <div class="activity-content" id="activityContent">
                 {% for campus in campusList %}
-                    <div class="activity" data-lat="{{ campus.lat }}" data-long="{{ campus.longitude }}">
+                    <div class="activity" data-lat="{{ campus.lat }}" data-long="{{ campus.longitude }}" data-id="{{campus.id}}">
                         <img src={{ asset('thumbnails/' ~ campus.pictureFileName) }} alt="activity thumbnails"/>
                         <span class="title-description">
                             <p class="title">{{ campus.name }}</p>
@@ -20,7 +20,7 @@
                 {% endfor %}
             </div>
         </div>
-        <div class="map">
+        <div class="map campus">
             <div id="map"></div>
         </div>
     </div>

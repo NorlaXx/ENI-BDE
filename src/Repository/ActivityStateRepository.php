@@ -19,4 +19,8 @@ class ActivityStateRepository extends ServiceEntityRepository
     public function getDefautState(){
         return $this->findOneBy(['id' => 1]);
     }
+
+    public function getStateById($id){
+        return $this->findOneBy(['id' => $id]);
+    }
 }

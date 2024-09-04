@@ -10,10 +10,9 @@
   height: 100px;
 }
 
-.title {
-  font-size: 34px;
-  color: black;
-  font-weight: bold;
+.logo {
+  width: 100px;
+  height: 100px;
 }
 
 .secondary_ul {
@@ -43,8 +42,8 @@
 }
 
 .profil-picture {
-  width: 80px;
-  height: 80px;
+  width: 50px;
+  height: 50px;
   border-radius: 50%;
   cursor: pointer;
 }
