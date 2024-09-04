@@ -128,7 +128,6 @@ const markerHandler = async (lat, long, id) => {
 
   removeHighlight();
   const myActivity = findActivitiesComponents(id);
-  myActivity.scrollIntoView({ behavior: "smooth" });
   myActivity.classList.add("highlight");
 
   marker.setMap(null);
