@@ -6,6 +6,8 @@ use App\Repository\LieuRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+
 
 #[ORM\Entity(repositoryClass: LieuRepository::class)]
 class Lieu
@@ -15,21 +17,31 @@ class Lieu
     #[ORM\Column]
     private ?int $id = null;
 
+    #[Assert\NotBlank]
+    #[Assert\Length(max: 255)]
     #[ORM\Column(length: 255)]
     private ?string $name = null;
-
+    #[Assert\NotBlank]
+    #[Assert\Positive]
     #[ORM\Column(length: 255)]
     private ?string $Lat = null;
 
+    #[Assert\NotBlank]
+    #[Assert\Positive]
     #[ORM\Column(length: 255)]
     private ?string $longitude = null;
 
+    #[Assert\NotBlank]
+    #[Assert\Length(max: 255)]
     #[ORM\Column(length: 255)]
     private ?string $ville = null;
 
+    #[Assert\NotBlank]
+    #[Assert\Positive]
     #[ORM\Column(length: 255)]
     private ?string $cp = null;
 
+    #[Assert\NotBlank]
     #[ORM\Column(length: 255)]
     private ?string $fileName = null;
 
@@ -39,6 +51,8 @@ class Lieu
     #[ORM\OneToMany(targetEntity: Activity::class, mappedBy: 'Lieu')]
     private Collection $activities;
 
+    #[Assert\NotBlank]
+    #[Assert\Length(max: 255, min: 5)]
     #[ORM\Column(length: 255)]
     private ?string $addresse = null;
 

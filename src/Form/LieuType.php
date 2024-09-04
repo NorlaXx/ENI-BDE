@@ -35,6 +35,7 @@ class LieuType extends AbstractType
             ])
             ->add('addresse', TextType::class, [
                 'label' => 'Adresse',
+                'required' => true,
             ])
             ->add('fileName', FileType::class, [
                 'mapped' => false,
