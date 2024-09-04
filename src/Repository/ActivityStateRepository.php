@@ -16,11 +16,15 @@ class ActivityStateRepository extends ServiceEntityRepository
         parent::__construct($registry, ActivityState::class);
     }
 
-    public function getDefautState(){
-        return $this->findOneBy(['id' => 1]);
+    public function getDefaultState(){
+        return $this->findOneBy(['code' => 'ACT_CR']);
     }
 
-    public function getStateById($id){
-        return $this->findOneBy(['id' => $id]);
+    public function getStateByCode($code){
+        return $this->findOneBy(['code' => $code]);
+    }
+
+    public function getCancelledState(){
+        return $this->findOneBy(['code' => 'ACT_ANN']);
     }
 }
