@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Update Lieu{% endblock %}
+
+{% block body %}
+    <div style="text-align: center">
+        {{ form_start(form) }}
+        <div class="my-custom-class-for-errors">
+            {{ form_errors(form) }}
+        </div>
+
+        <div class="row">
+            <div class="col">
+                {{ form_row(form.name) }}
+            </div>
+            <div class="col" id="some-custom-id">
+                {{ form_row(form.ville) }}
+            </div>
+            <div class="col" id="some-custom-id">
+                {{ form_row(form.cp) }}
+            </div>
+            <div class="col" id="some-custom-id">
+                {{ form_row(form.fileName) }}
+            </div>
+        </div>
+        <button type="submit">Valider</button>
+        {{ form_end(form) }}
+    </div>
+
+{% endblock %}

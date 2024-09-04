@@ -17,6 +17,7 @@
             <div class="separator"></div>
             <div class="activity-content" id="activityContent">
                 {% for activity in activities %}
+                    {% if activity.state.id != 6 %}
                     <div class="activity" data-lat="{{ activity.lieu.Lat }}" data-long="{{ activity.lieu.longitude }}" data-id="{{ activity.id }}">
                         <span class="flex">
                             <img src={{ asset('thumbnails/' ~ activity.pictureFileName) }} alt="activity thumbnails"/>
@@ -31,24 +32,37 @@
                                 <p>Nombre de places : {{ activity.nbLimitParticipants - activity.inscrits|length }}</p>
                             </span>
                             <span class="buttons">
-                                {% if  activity.organisateur == user %}
+                                {% if activity.organisateur == user and activity.state.id == 1 %}
                                     <a href="{{ path("activity_update", { 'id': activity.id }) }}">
                                         <button class="button modify">Modifier</button>
                                     </a>
                                 {% endif %}
-                                {% if  activity in user.activities %}
+                                {% if activity in user.activities and activity.state.id == 2 or activity.state.id == 3 %}
                                     <a href="{{ path("activity_remove_inscrit", { 'id': activity .id}) }}">
                                         <button class="button cancel">Se désister</button>
                                     </a>
                                 {% endif %}
-                                {% if  activity not in user.activities %}
+                                {% if activity not in user.activities and activity.state.id == 2 %}
                                     <a href="{{ path("activity_add_inscrit", { 'id': activity.id }) }}">
                                         <button class="button">S'inscrire</button>
                                     </a>
                                 {% endif %}
+                                {% if activity not in user.activities and activity.state.id == 4 %}
+                                    <button class="button cancel" disable>En cour</button>
+                                {% endif %}
+                                {% if activity not in user.activities and activity.state.id == 3 %}
+                                    <button class="button close" disable>Fermé</button>
+                                {% endif %}
+                                {% if activity not in user.activities and activity.state.id == 5 %}
+                                    <button class="button cancel" disable>Terminé</button>
+                                {% endif %}
+                                {% if activity not in user.activities and activity.state.id == 7 %}
+                                    <button class="button cancel" disable>Annulé</button>
+                                {% endif %}
                             </span>
                         </span>
                     </div>
+                    {% endif %}
                 {% endfor %}
             </div>
         </div>

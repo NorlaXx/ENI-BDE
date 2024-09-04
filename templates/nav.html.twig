@@ -2,12 +2,12 @@
 <nav>
   <ul class="main_ul">
     <li>
-    <img src="{{ asset("images/bdEni.png") }}" >
+    <img class="logo" alt="logo" src="{{ asset("images/bdEni.png") }}" >
     </li>
     <li>
       <ul class="secondary_ul">
         <li><a href="{{ path('app_home') }}">Accueil</a></li>
-        <li><a>Villes</a></li>
+        <li><a href="{{  path('app_lieu_list') }}">Lieux</a></li>
         <li><a href="{{ path('app_home_campus') }}">Campus</a></li>
       </ul>
     </li>

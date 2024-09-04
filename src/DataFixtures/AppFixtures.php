@@ -92,17 +92,26 @@ class AppFixtures extends Fixture
 
         //Création des états des sorties
         $activityState = new ActivityState();
-        $activityState->setLibelle('annulée');
+        $activityState->setLibelle('crées');
         $manager->persist($activityState);
         $activityState2 = new ActivityState();
-        $activityState2->setLibelle('prévue');
+        $activityState2->setLibelle('inscription');
         $manager->persist($activityState2);
         $activityState3 = new ActivityState();
-        $activityState3->setLibelle('archivée');
+        $activityState3->setLibelle('inscription fermé');
         $manager->persist($activityState3);
         $activityState4 = new ActivityState();
-        $activityState4->setLibelle('passée');
+        $activityState4->setLibelle('en cour');
         $manager->persist($activityState4);
+        $activityState5 = new ActivityState();
+        $activityState5->setLibelle('terminée');
+        $manager->persist($activityState5);
+        $activityState6 = new ActivityState();
+        $activityState6->setLibelle('archivée');
+        $manager->persist($activityState6);
+        $activityState7 = new ActivityState();
+        $activityState7->setLibelle('annulée');
+        $manager->persist($activityState7);
 
 
         // Création des utilisateurs
