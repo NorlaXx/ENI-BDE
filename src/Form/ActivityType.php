@@ -82,7 +82,6 @@ class ActivityType extends AbstractType
                     ])
                 ],
             ]);
-        $builder->get('pictureFileName')->addModelTransformer($this->dataTransformer);
     }
 
     public function configureOptions(OptionsResolver $resolver): void
