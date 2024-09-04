@@ -5,7 +5,7 @@ namespace App\Controller;
 
 use App\Form\UserType;
 use App\Security\UserProvider;
-use Doctrine\ORM\EntityManager;
+use App\Service\FileUploaderService;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Exception\ORMException;
 use Doctrine\ORM\OptimisticLockException;
@@ -21,14 +21,12 @@ use Symfony\Component\String\Slugger\SluggerInterface;
 
 class UserController extends AbstractController
 {
-    private $security;
-    private $userProvider;
 
-
-    public function __construct(Security $security)
+    public function __construct(
+        private Security            $security,
+        private FileUploaderService $fileUploaderService
+    )
     {
-        $this->security = $security;
-
     }
 
     #[Route(path: '/profile', name: 'app_profile')]
@@ -39,7 +37,6 @@ class UserController extends AbstractController
         } else {
             return $this->redirectToRoute('app_home');
         }
-
     }
 
     /**
@@ -47,7 +44,7 @@ class UserController extends AbstractController
      * @throws ORMException
      */
     #[Route(path: '/profileEdit', name: 'app_profile_edit')]
-    public function edit(EntityManagerInterface  $entityManager, Request $request, SluggerInterface $slugger): Response
+    public function edit(EntityManagerInterface $entityManager, Request $request, SluggerInterface $slugger): Response
     {
 
         $user = $this->getUser();
@@ -58,18 +55,9 @@ class UserController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $profilePicture = $form->get('profilePicture')->getData();
-
+            /* Upload file using fileUploader Service + set PictureFileName on Entity*/
             if ($profilePicture) {
-                $originalFilename = pathinfo($profilePicture->getClientOriginalName(), PATHINFO_FILENAME);
-                $safeFilename = $slugger->slug($originalFilename);
-                $newFilename = $safeFilename . '-' . uniqid() . '.' . $profilePicture->guessExtension();
-
-                $profilePicture->move(
-                    $this->getParameter('avatars_directory'),
-                    $newFilename
-                );
-
-                $user->setPictureFileName($newFilename);
+                $user->setPictureFileName($this->fileUploaderService->upload($profilePicture));
             }
             $entityManager->persist($user);
             $entityManager->flush();
