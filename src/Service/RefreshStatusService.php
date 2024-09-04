@@ -14,12 +14,12 @@ class RefreshStatusService
         $activities = $this->activityRepository->findAll();
         foreach ($activities as $activity) {
             $currentDate = new \DateTime();
-            $dateIn1Month = new \DateTime();
-            $dateIn1Month->modify('+1 month');
             $dateFinalInscription = $activity->getDateFinalInscription();
             $dateDebut = $activity->getDateDebut();
+            $dateIn1Month = $dateDebut;
+            $dateIn1Month->modify('+1 month');
 
-            if($dateIn1Month > $dateDebut) {
+            if($currentDate > $dateIn1Month) {
                 $this->setStateById($activity, 6);
                 continue;
             }
