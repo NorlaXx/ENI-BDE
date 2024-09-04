@@ -5,6 +5,7 @@ namespace App\Form;
 use App\Entity\Activity;
 use App\Entity\Campus;
 use App\Entity\Lieu;
+use Doctrine\DBAL\Types\DateType;
 use StringToFileTransformer;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
@@ -61,7 +62,7 @@ class ActivityUpdateType extends AbstractType
                 'data_class' => null,
                 'constraints' => [
                     new File([
-                        'maxSize' => '1024k',
+                        'maxSize' => '4096k',
                         'mimeTypes' => [
                             'image/jpeg',
                             'image/png',
