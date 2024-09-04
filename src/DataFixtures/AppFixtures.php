@@ -151,8 +151,8 @@ class AppFixtures extends Fixture
             [
                 'name' => 'Swimming Competition',
                 'description' => 'A competitive swimming event.',
-                'dateDebut' => new \DateTime('2023-11-01 10:00:00'),
-                'dateFinalInscription' => new \DateTime('2023-10-25 23:59:59'),
+                'dateDebut' => new \DateTime('2024-10-01 10:00:00'),
+                'dateFinalInscription' => new \DateTime('2024-10-01 08:00:00'),
                 'duree' => 120,
                 'nbLimitParticipants' => 50,
                 'campus' => $campus1, // Assuming $campus1 is an instance of Campus
@@ -163,8 +163,8 @@ class AppFixtures extends Fixture
             [
                 'name' => 'Park Cleanup',
                 'description' => 'A community park cleanup event.',
-                'dateDebut' => new \DateTime('2023-11-05 09:00:00'),
-                'dateFinalInscription' => new \DateTime('2023-10-30 23:59:59'),
+                'dateDebut' => new \DateTime('2024-10-01 10:00:00'),
+                'dateFinalInscription' => new \DateTime('2024-10-01 08:00:00'),
                 'duree' => 180,
                 'nbLimitParticipants' => 30,
                 'campus' => $campus2, // Assuming $campus2 is an instance of Campus
@@ -175,8 +175,8 @@ class AppFixtures extends Fixture
             [
                 'name' => 'Football Match',
                 'description' => 'A friendly football match.',
-                'dateDebut' => new \DateTime('2023-11-10 15:00:00'),
-                'dateFinalInscription' => new \DateTime('2023-11-05 23:59:59'),
+                'dateDebut' => new \DateTime('2024-10-01 10:00:00'),
+                'dateFinalInscription' => new \DateTime('2024-10-01 08:00:00'),
                 'duree' => 90,
                 'nbLimitParticipants' => 22,
                 'campus' => $campus3, // Assuming $campus3 is an instance of Campus
