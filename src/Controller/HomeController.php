@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Form\ActivityFilterType;
 use App\Form\FilterObject;
+use App\Model\ActivityFilter;
 use App\Repository\ActivityRepository;
 use App\Repository\UserRepository;
 use App\Service\RefreshStatusService;
@@ -22,20 +23,14 @@ class HomeController extends AbstractController
     public function homePage(ActivityRepository $activityRepository, Request $request): Response
     {
         $this->refreshStatusService->refreshStatus();
-
-        $form = $this->createForm(ActivityFilterType::class);
+        $filter = new ActivityFilter();
+        $form = $this->createForm(ActivityFilterType::class, $filter);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $activities = $activityRepository->filter(
                 $this->getUser()->getId(),
-                $form->get("campus")->getData(),
-                $form->get("name")->getData(),
-                $form->get("dateMin")->getData(),
-                $form->get("dateMax")->getData(),
-                $form->get("organisateur")->getData(),
-                $form->get("inscrit")->getData(),
-                $form->get("finis")->getData()
+                $filter
             );
         } else {
             $activities = $activityRepository->findAll();
