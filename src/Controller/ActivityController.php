@@ -102,7 +102,7 @@ class ActivityController extends AbstractController
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             //Récupération du fichier et sauvegarde sur le serveur
-            $file = $form->get('fileName')->getData();
+            $file = $form->get('pictureFileName')->getData();
             if ($file){
                 $activity->setPictureFileName($this->fileUploaderService->upload($file));
             }else{
