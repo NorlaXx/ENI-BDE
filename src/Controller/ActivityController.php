@@ -87,51 +87,39 @@ class ActivityController extends AbstractController
         if (!$activity) {
             throw $this->createNotFoundException('Activity not found');
         }
-        $form = $this->createForm(ActivityType::class, $activity);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $file = $form->get('pictureFileName')->getData();
-            if ($file) {
-                /* Use Uploader Service to move file + set Image name on Entity*/
-                $activity->setPictureFileName($this->fileUploaderService->upload($file));
-            }
-            $this->entityManager->flush();
-            return $this->redirectToRoute('app_home');
-        }
-
-        return $this->render('activity/update.html.twig', [
-            'form' => $form->createView(),
-            'activity' => $activity
-        ]);
+        return $this->handleActivityForm($request, $activity, 'update');
     }
 
     #[Route('/activity/create', name: 'activity_create')]
     public function createActivity(Request $request, SluggerInterface $slugger)
     {
         $activity = new Activity();
+        return $this->handleActivityForm($request, $activity, 'create');
+    }
+
+    private function handleActivityForm(Request $request, Activity $activity, string $action)
+    {
         $form = $this->createForm(ActivityType::class, $activity);
         $form->handleRequest($request);
+
         if ($form->isSubmitted() && $form->isValid()) {
-            //Récupération du fichier et sauvegarde sur le serveur
             $file = $form->get('pictureFileName')->getData();
             if ($file){
                 $activity->setPictureFileName($this->fileUploaderService->upload($file));
-            }else{
+            }else if($action == 'create'){
                 $activity->setPictureFileName('defaut_activity_picture.webp');
             }
-
-            // Ajouter les propriétés manquantes
+    
             $this->activityService->addOtherproperties($activity);
-
-            // Sauvegarde en BDD
-            $this->activityRepository->createActivity($activity);
-
+        
+            $this->entityManager->persist($activity);
+            $this->entityManager->flush();
             return $this->redirectToRoute('app_home');
         }
 
-        return $this->render('activity/create.html.twig', [
-            'form' => $form->createView()
+        return $this->render('activity/' . $action . '.html.twig', [
+            'form' => $form->createView(),
+            'activity' => $activity,
         ]);
     }
 }

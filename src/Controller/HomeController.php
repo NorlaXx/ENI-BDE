@@ -22,7 +22,7 @@ class HomeController extends AbstractController
     #[Route('/', name: 'app_home')]
     public function homePage(ActivityRepository $activityRepository, Request $request): Response
     {
-        $this->refreshStatusService->refreshStatus();
+        $activities = $this->refreshStatusService->refreshStatus();
         $filter = new ActivityFilter();
         $form = $this->createForm(ActivityFilterType::class, $filter);
         $form->handleRequest($request);
@@ -32,9 +32,8 @@ class HomeController extends AbstractController
                 $this->getUser()->getId(),
                 $filter
             );
-        } else {
-            $activities = $activityRepository->findAll();
         }
+        
         return $this->render('home/index.html.twig', [
             'form' => $form->createView(),
             'activities' => $activities,

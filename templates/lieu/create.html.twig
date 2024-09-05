@@ -1,30 +1,20 @@
-{% extends 'base.html.twig' %}
+{% include 'base_logged.html.twig' %}
 
-{% block title %}Création de Lieu{% endblock %}
+{% block stylesheets %}
+    <link rel="stylesheet" href="/styles/form.css">
+{% endblock %}
 
 {% block body %}
-    <div style="text-align: center">
-        {{ form_start(form) }}
-        <div class="my-custom-class-for-errors">
-            {{ form_errors(form) }}
-        </div>
+    <div class="content activity">
+        <div class="overlay"></div>
 
-        <div class="row">
-            <div class="col">
-                {{ form_row(form.name) }}
-            </div>
-            <div class="col" id="some-custom-id">
-                {{ form_row(form.ville) }}
-            </div>
-            <div class="col" id="some-custom-id">
-                {{ form_row(form.cp) }}
-            </div>
-            <div class="col" id="some-custom-id">
-                {{ form_row(form.pictureFileName) }}
-            </div>
+        <div class="form-container">
+            <h2>Ajouter un nouveau lieu !</h2>
+            <span class="description">
+                <p>Vous connaissez un endroit génial pour des activités étudiantes ?</p>
+                <p>Partagez-le avec votre campus et créez de nouvelles opportunités de sorties !</p>
+            </span>
+            {{ include('lieu/_form.html.twig') }}
         </div>
-        <button type="submit">Valider</button>
-        {{ form_end(form) }}
     </div>
-
 {% endblock %}
