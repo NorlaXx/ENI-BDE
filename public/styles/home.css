@@ -46,7 +46,16 @@
 
 .activity-content {
   width: 96%;
-  overflow: auto;
+  overflow-y: auto;
+}
+
+.activity-content::-webkit-scrollbar {
+  display: none;
+}
+
+.activity-content {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
 
 .activity {
