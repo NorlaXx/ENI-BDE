@@ -21,13 +21,9 @@ class Lieu
     #[Assert\Length(max: 255)]
     #[ORM\Column(length: 255)]
     private ?string $name = null;
-    #[Assert\NotBlank]
-    #[Assert\Positive]
     #[ORM\Column(length: 255)]
     private ?string $Lat = null;
 
-    #[Assert\NotBlank]
-    #[Assert\Positive]
     #[ORM\Column(length: 255)]
     private ?string $longitude = null;
 
@@ -41,7 +37,6 @@ class Lieu
     #[ORM\Column(length: 255)]
     private ?string $cp = null;
 
-    #[Assert\NotBlank]
     #[ORM\Column(length: 255)]
     private ?string $fileName = null;
 
