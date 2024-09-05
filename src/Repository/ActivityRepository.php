@@ -50,6 +50,20 @@ class ActivityRepository extends ServiceEntityRepository
         );
         return $query->getResult();
     }
+    public function findAll(): array
+    {
+        $entityManager = $this->getEntityManager();
+
+        $query = $entityManager->createQuery(
+            'SELECT a
+            FROM App\Entity\Activity a
+            INNER JOIN App\Entity\Campus c
+            INNER JOIN App\Entity\Lieu l
+            INNER JOIN App\Entity\ActivityState s
+            ORDER BY a.dateDebut ASC'
+        );
+        return $query->getResult();
+    }
 
     public function update($activity)
     {
