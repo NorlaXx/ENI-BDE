@@ -17,7 +17,7 @@ class ActivityStateRepository extends ServiceEntityRepository
     }
 
     public function getDefaultState(){
-        return $this->findOneBy(['code' => 'ACT_CR']);
+        return $this->findOneBy(['code' => 'ACT_INS']);
     }
 
     public function getStateByCode($code){
