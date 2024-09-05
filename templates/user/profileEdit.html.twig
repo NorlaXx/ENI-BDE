@@ -1,24 +1,27 @@
-{% extends 'base.html.twig' %}
+{% include 'base_logged.html.twig' %}
 
-{% block title %}Modifier son profil!{% endblock %}
+{% block stylesheets %}
+    <link rel="stylesheet" href="/styles/form.css">
+{% endblock %}
 
 {% block body %}
-    <div style="text-align: center">
-        {{ form_start(form) }}
-        <div class="my-custom-class-for-errors">
-            {{ form_errors(form) }}
+ <div class="content modify">
+        <div class="overlay"></div>
+        <div class="form-container">
+            <h2>Modifier votre profil</h2>
+            <span class="description">
+                <p>Envie de mettre à jour vos informations personnelles ?</p>
+                <p>Personnalisez votre profil pour mieux vous présenter à la communauté du campus !</p>
+            </span>
+            {{ form_start(form) }}
+            {{ form_widget(form.pseudo) }}
+            {{ form_widget(form.phone_number) }}
+            {{ form_widget(form.campus) }}
+            {{form_label(form.profilePicture)}}
+            {{form_widget(form.profilePicture)}}
+            <button>Enregistré</button>
+            {{ form_end(form) }}
         </div>
-
-        <div class="row">
-            <div class="col">
-                {{ form_row(form.pseudo) }}
-            </div>
-            <div class="col" id="some-custom-id">
-                {{ form_row(form.phone_number) }}
-            </div>
-        </div>
-        <button type="submit">Valider</button>
-        {{ form_end(form) }}
     </div>
 
 {% endblock %}

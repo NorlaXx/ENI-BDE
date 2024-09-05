@@ -4,12 +4,16 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  background-size: cover;
+  background-repeat: no-repeat;
 }
 
 .activity {
   background-image: url("/images/background_activity_create.png");
-  background-size: cover;
-  background-repeat: no-repeat;
+}
+
+.modify {
+  background-image: url("/images/background-modify-user.png");
 }
 
 .overlay {

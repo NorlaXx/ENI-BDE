@@ -46,6 +46,7 @@
 
 .activity-content {
   width: 96%;
+  overflow: auto;
 }
 
 .activity {
@@ -60,6 +61,7 @@
   margin-top: 25px;
   justify-content: space-between;
   transition: 0.2s;
+  margin-bottom: 5px;
 }
 
 .activity img {

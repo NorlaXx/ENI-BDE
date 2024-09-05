@@ -11,20 +11,27 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class ActivityStateRepository extends ServiceEntityRepository
 {
+    private $allState;
+
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, ActivityState::class);
+        $this->allState = $this->findAll();
     }
 
     public function getDefaultState(){
-        return $this->findOneBy(['code' => 'ACT_INS']);
+        return $this->getStateByCode('ACT_CR');
     }
 
     public function getStateByCode($code){
-        return $this->findOneBy(['code' => $code]);
+        foreach($this->allState as $state){
+            if($state->getCode() == $code){
+                return $state;
+            }
+        }
     }
 
     public function getCancelledState(){
-        return $this->findOneBy(['code' => 'ACT_ANN']);
+        return $this->getStateByCode('ACT_ANN');
     }
 }
