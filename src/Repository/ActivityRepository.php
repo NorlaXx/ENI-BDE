@@ -25,19 +25,6 @@ class ActivityRepository extends ServiceEntityRepository
         $this->entityManager = $entityManager;
     }
 
-    /**
-     * Création d'une sortie
-     *
-     * @param $activity
-     * @return void
-     */
-    public function createActivity($activity): void
-    {
-
-        $this->getEntityManager()->persist($activity);
-        $this->getEntityManager()->flush();
-    }
-
     public function findAllActive(): array
     {
         $entityManager = $this->getEntityManager();
@@ -65,7 +52,7 @@ class ActivityRepository extends ServiceEntityRepository
         return $query->getResult();
     }
 
-    public function update($activity)
+    public function update($activity): void
     {
         $this->getEntityManager()->persist($activity);
         $this->getEntityManager()->flush();

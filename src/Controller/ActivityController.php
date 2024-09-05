@@ -87,7 +87,7 @@ class ActivityController extends AbstractController
         return $this->handleActivityForm($request, $activity, 'create');
     }
 
-    private function handleActivityForm(Request $request, Activity $activity, string $action)
+    private function handleActivityForm(Request $request, Activity $activity, string $action): RedirectResponse|Response
     {
         $form = $this->createForm(ActivityType::class, $activity);
         $form->handleRequest($request);
@@ -102,8 +102,7 @@ class ActivityController extends AbstractController
     
             $this->activityService->addOtherproperties($activity);
         
-            $this->entityManager->persist($activity);
-            $this->entityManager->flush();
+            $this->activityRepository->update($activity);
             return $this->redirectToRoute('app_home');
         }
 
