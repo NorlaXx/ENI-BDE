@@ -51,16 +51,6 @@ class ActivityRepository extends ServiceEntityRepository
         return $query->getResult();
     }
 
-    public function findAllActive(): array
-    {
-        $qb = $this->entityManager->createQueryBuilder();
-        $qb->select(array('activity'))
-            ->from('App\Entity\Activity', 'activity')
-            ->orderBy('activity.dateDebut', 'ASC');
-        $query = $qb->getQuery();
-        return $query->getResult();
-    }
-
     public function update($activity): void
     {
         $this->getEntityManager()->persist($activity);
