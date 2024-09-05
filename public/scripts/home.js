@@ -93,8 +93,6 @@ const resetAllMarkerScale = async () => {
     const marker = allMarker[key];
     marker.setMap(null);
 
-    console.log(marker.latitude, marker.longitude);
-
     let position = {
       lat: parseFloat(marker.latitude),
       lng: parseFloat(marker.longitude),
@@ -129,6 +127,9 @@ const markerHandler = async (lat, long, id) => {
   removeHighlight();
   const myActivity = findActivitiesComponents(id);
   myActivity.classList.add("highlight");
+  myActivity.scrollIntoView({
+    behavior: "smooth",
+  });
 
   marker.setMap(null);
   const pinScaled = new PinElement({
