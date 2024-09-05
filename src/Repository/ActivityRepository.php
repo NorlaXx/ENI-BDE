@@ -38,6 +38,21 @@ class ActivityRepository extends ServiceEntityRepository
         $this->getEntityManager()->flush();
     }
 
+    public function findAll(): array
+    {
+        $entityManager = $this->getEntityManager();
+
+        $query = $entityManager->createQuery(
+            'SELECT a, l, c
+            FROM App\Entity\Activity a
+            INNER JOIN a.lieu l
+            INNER JOIN a.campus c
+            ORDER BY a.dateDebut ASC'
+        );
+
+        return $query->getResult();
+    }
+
     public function findAllActive(): array
     {
         $entityManager = $this->getEntityManager();
