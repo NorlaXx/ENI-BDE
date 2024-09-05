@@ -27,28 +27,22 @@ class ActivityRepository extends ServiceEntityRepository
 
     public function findAllActive(): array
     {
-        $entityManager = $this->getEntityManager();
-
-        $query = $entityManager->createQuery(
-            'SELECT a
-            FROM App\Entity\Activity a
-            WHERE a.state >= 1 
-            ORDER BY a.dateDebut ASC'
-        );
+        $qb = $this->entityManager->createQueryBuilder();
+        $qb->select(array('activity'))
+            ->from('App\Entity\Activity', 'activity')
+            ->where('activity.state >= 1')
+            ->orderBy('activity.dateDebut', 'ASC');
+        $query = $qb->getQuery();
         return $query->getResult();
     }
+    
     public function findAll(): array
     {
-        $entityManager = $this->getEntityManager();
-
-        $query = $entityManager->createQuery(
-            'SELECT a
-            FROM App\Entity\Activity a
-            INNER JOIN App\Entity\Campus c
-            INNER JOIN App\Entity\Lieu l
-            INNER JOIN App\Entity\ActivityState s
-            ORDER BY a.dateDebut ASC'
-        );
+        $qb = $this->entityManager->createQueryBuilder();
+        $qb->select(array('activity'))
+            ->from('App\Entity\Activity', 'activity')
+            ->orderBy('activity.dateDebut', 'ASC');
+        $query = $qb->getQuery();
         return $query->getResult();
     }
 
