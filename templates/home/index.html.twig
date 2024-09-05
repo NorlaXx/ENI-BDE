@@ -24,11 +24,11 @@
             <div class="activity-content" id="activityContent">
                 {% for activity in activities %}
                     {% if activity.state.id != 6 %}
-                    <div class="activity" data-lat="{{ activity.lieu.Lat }}" data-long="{{ activity.lieu.longitude }}" data-id="{{ activity.id }}">
+                    <div class="activity" data-activity={{ activity.convertToJson}}  data-lat="{{ activity.lieu.Lat }}" data-long="{{ activity.lieu.longitude }}" data-id="{{ activity.id }}">
                         <span class="flex">
                             <img src={{ asset('thumbnails/' ~ activity.pictureFileName) }} alt="activity thumbnails"/>
                             <span class="title-description">
-                                <p class="title">{{ activity.name }}</p>
+                                <p class="title"><strong>{{ activity.name }}</strong> ({{ activity.dateDebut|date('Y-m-d') }})</p>
                                 <p class="description">{{ activity.description }}</p>
                             </span>
                         </span>
@@ -78,10 +78,17 @@
                 {% endfor %}
             </div>
         </div>
-        <div class="map">
-            <div id="map"></div>
+        <div class="activity-map">
+            <div id="activity-details"></div>
+            <div class="map">
+                <div id="map"></div>
+            </div>
         </div>
     </div>
+    <div class="activity-details-tmp">
+
+    </div>
+
 
     <script>
         (g => {
@@ -107,4 +114,5 @@
         });
     </script>
     <script src="/scripts/home.js"></script>
+    <script src="/scripts/activity.js"></script>
 {% endblock %}
