@@ -6,10 +6,11 @@
 <div style="text-align: center">
     {{ app.user.pseudo }}
     {{ app.user.email }}
-    <img src="{{ asset('profilePictures/'~ app.user.pictureFileName) }}" height="200px" alt="ProfilePicture">
+    <img src="{{ asset('thumbnails/'~ app.user.pictureFileName) }}" height="200px" alt="ProfilePicture">
     {{ app.user.getPhoneNumber }}
     {{ app.user.campus.name }}
     <a href="{{ path('app_profile_edit') }}"><button>Modifier des informations</button></a>
+    <a href="{{ path('app_forgot_password_request') }}"><button>Modifier mon mot de passe</button></a>
     {# Here is display all the activities user is relation with #}
     {% for activity in app.user.activities %}
         {{ activity.name }}

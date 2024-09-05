@@ -11,29 +11,35 @@ use App\Service\RefreshStatusService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Mailer\Mailer;
+use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Component\Mime\Email;
 use Symfony\Component\Routing\Attribute\Route;
 
 class HomeController extends AbstractController
 {
-    public function __construct(private RefreshStatusService $refreshStatusService)
+    public function __construct(private MailerInterface $mailer,private ActivityRepository $activityRepository, private RefreshStatusService $refreshStatusService)
     {
     }
 
     #[Route('/', name: 'app_home')]
-    public function homePage(ActivityRepository $activityRepository, Request $request): Response
+    public function homePage (MailerInterface $mailer,Request $request): Response
     {
-        $activities = $this->refreshStatusService->refreshStatus();
+
+        $this->refreshStatusService->refreshStatus();
         $filter = new ActivityFilter();
         $form = $this->createForm(ActivityFilterType::class, $filter);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $activities = $activityRepository->filter(
+            $activities = $this->activityRepository->filter(
                 $this->getUser()->getId(),
                 $filter
             );
+        } else {
+            $activities = $this->activityRepository->findAll();
         }
-        
+
         return $this->render('home/index.html.twig', [
             'form' => $form->createView(),
             'activities' => $activities,
