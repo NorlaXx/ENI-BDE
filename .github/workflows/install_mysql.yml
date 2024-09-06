@@ -55,7 +55,7 @@
 
     - name: Create a new database
       community.mysql.mysql_db:
-        name: {{ mysql_database }}
+        name: "{{ mysql_database }}"
         state: present
         login_user: "{{ mysql_user }}"
         login_password: "{{ mysql_root_password }}"
