@@ -17,6 +17,11 @@
           - composer
         state: present
 
+    - name: Remove all Symfony project files
+      ansible.builtin.directory:
+        path: "{{ project_dest }}"
+        state: absent
+
     - name: Ensure /var/www directory exists
       ansible.builtin.file:
         path: /var/www
@@ -25,15 +30,9 @@
         group: www-data
         mode: '0755'
 
-
     - name: Add git safe var/www/project_name
       ansible.builtin.command:
         cmd: git config --global --add safe.directory /root/var/www/ENI-BDE
-
-    - name: remove all symfony project
-      ansible.builtin.file:
-        path: /var/www/ENI-BDE
-        state: absent
 
     - name: Clone project repository into /var/www
       ansible.builtin.git:
@@ -44,7 +43,7 @@
         update: yes
       notify:
         - Set permissions for project folder
-        -
+
     - name: Fetch and pull changes from the remote repository
       ansible.builtin.command:
         cmd: git fetch && git pull
