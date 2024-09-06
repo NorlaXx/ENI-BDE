@@ -6,7 +6,6 @@
     - vars.yml
     - secrets.yml
   tasks:
-
     - name: Remove Mysql conf
       ansible.builtin.apt:
         name:

@@ -66,11 +66,11 @@
         regexp: '^DATABASE_URL=.*'
         replace: "DATABASE_URL={{ db_url }}"
 
-    - name: Replace APP_ENV in .env for Production
+    - name: Replace APP_ENV in .env for Production for fixture execution
       ansible.builtin.replace:
         path: "{{ project_dest }}/.env"
         regexp: '^APP_ENV=.*'
-        replace: "APP_ENV=prod"
+        replace: "APP_ENV=dev"
 
     - name: Replace APP_DEBUG in .env for Production
       ansible.builtin.replace:
@@ -96,6 +96,17 @@
       ansible.builtin.command:
         cmd: php bin/console doctrine:migrations:migrate --no-interaction
         chdir: "{{ project_dest }}"
+
+    - name: Execute fixture load
+      ansible.builtin.command:
+        cmd: php bin/console doctrine:fixtures:load --no-interaction
+        chdir: "{{ project_dest }}"
+
+    - name: Replace APP_ENV in .env for Production after fixture execution
+      ansible.builtin.replace:
+        path: "{{ project_dest }}/.env"
+        regexp: '^APP_ENV=.*'
+        replace: "APP_ENV=prod"
 
   handlers:
     - name: Set permissions for project folder
