@@ -252,4 +252,27 @@ class Activity
         return $this;
     }
 
+    public function convertToJson(): false|string
+    {
+
+        //On
+        $array = [
+            "id" => str_replace(" ", "&@^", $this->getId()),
+            "name" => str_replace(" ", "&@^",$this->getName()),
+            "ville" => str_replace(" ", "&@^",$this->getLieu()->getVille()),
+            "lieu" => str_replace(" ", "&@^",$this->getLieu()->getAddresse()),
+            "description" => str_replace(" ", "&@^",$this->getDescription()),
+            "state" => str_replace(" ", "&@^",$this->getState()->getCode()),
+            "dateDebut" => str_replace(" ", "&@^",$this->getDateDebut()->format('Y-m-d H:i:s')), // Assurez-vous que c'est une chaîne
+            "dateFinalInscription" => str_replace(" ", "&@^",$this->getDateFinalInscription()->format('Y-m-d H:i:s')),
+            "organisateur" => str_replace(" ", "&@^",$this->getOrganisateur()->getPseudo()),
+            "duree" => str_replace(" ", "&@^",$this->getDuree()),
+            "pictureFileName" => str_replace(" ", "&@^",$this->getPictureFileName()),
+            "dateCreation" => str_replace(" ", "&@^",$this->getDateCreation()->format('Y-m-d H:i:s')),
+            "nbLimitParticipants" => str_replace(" ", "&@^",$this->getNbLimitParticipants())
+        ];
+
+        return json_encode($array);
+    }
+
 }
