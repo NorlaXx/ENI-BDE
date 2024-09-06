@@ -1,8 +1,0 @@
----
-- import_playbook: install_mysql.yml
-- import_playbook: install_nginx.yml
-- import_playbook: install_php.yml
-- import_playbook: install_project.yml
-
-
-
