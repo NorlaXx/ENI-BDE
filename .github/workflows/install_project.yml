@@ -32,7 +32,7 @@
 
     - name: remove all symfony project
       ansible.builtin.file:
-        src: /var/www/ENI-BDE
+        path: /var/www/ENI-BDE
         state: absent
 
     - name: Clone project repository into /var/www
