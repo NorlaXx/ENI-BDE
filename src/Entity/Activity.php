@@ -268,7 +268,8 @@ class Activity
             "duree" => str_replace(" ", "&@^",$this->getDuree()),
             "pictureFileName" => str_replace(" ", "&@^",$this->getPictureFileName()),
             "dateCreation" => str_replace(" ", "&@^",$this->getDateCreation()->format('Y-m-d H:i:s')),
-            "nbLimitParticipants" => str_replace(" ", "&@^",$this->getNbLimitParticipants())
+            "nbLimitParticipants" => str_replace(" ", "&@^",$this->getNbLimitParticipants()),
+            "nbParticipants" => str_replace(" ", "&@^",$this->getInscrits()->count())
         ];
 
         return json_encode($array);
