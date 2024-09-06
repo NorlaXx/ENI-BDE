@@ -70,7 +70,7 @@
       ansible.builtin.replace:
         path: "{{ project_dest }}/.env"
         regexp: '^APP_ENV=.*'
-        replace: "APP_ENV=dev"
+        replace: "APP_ENV=prod"
 
     - name: Replace APP_DEBUG in .env for Production
       ansible.builtin.replace:
@@ -95,10 +95,6 @@
     - name: Execute doctrine migration
       ansible.builtin.command:
         cmd: php bin/console doctrine:migrations:migrate --no-interaction
-        chdir: "{{ project_dest }}"
-    - name: Execute fixture load
-      ansible.builtin.command:
-        cmd: php bin/console doctrine:fixtures:load --no-interaction
         chdir: "{{ project_dest }}"
 
   handlers:
