@@ -63,8 +63,8 @@
     - name: Run shell
       ansible.builtin.shell:
         cmd: |
-          export APP_ENV=prod
-          export APP_DEBUG=0
+          APP_ENV=prod
+          APP_DEBUG=0
           php bin/console cache:clear
         chdir: "{{ project_dest }}"
 
