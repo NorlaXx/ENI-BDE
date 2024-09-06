@@ -12,6 +12,7 @@ class ActivityFilter
     private ?\DateTimeInterface $dateMax = null;
     private ?bool $organisateur = null;
     private ?bool $inscrit = null;
+    private ?bool $notInscrit = null;
     private ?bool $finis = null;
 
     public function getName(): ?string
@@ -72,6 +73,16 @@ class ActivityFilter
     public function setInscrit(?bool $inscrit): void
     {
         $this->inscrit = $inscrit;
+    }
+
+    public function getNotInscrit(): ?bool
+    {
+        return $this->notInscrit;
+    }
+
+    public function setNotInscrit(?bool $notInscrit): void
+    {
+        $this->notInscrit = $notInscrit;
     }
 
     public function getFinis(): ?bool

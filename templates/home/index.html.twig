@@ -6,17 +6,10 @@
 
 {% block body %}
     <div class="content">
-        {{ form_start(form) }}
-        {% if errorMessage|default(null) %}
-            <div class="alert alert-danger">{{ errorMessage }}</div>
-        {% endif %}
-        {{ form_widget(form) }}
-        <button>{{ button_label|default('Enregistrer') }}</button>
-        {{ form_end(form) }}
-
         <div class="filter">
             <h2>Filtres (0)</h2>
             <div class="separator"></div>
+            {{ include('home/_form_filter.html.twig') }}
         </div>
         <div class="list">
             <h2>Evenements proposer par votre BDE / élèves</h2>
