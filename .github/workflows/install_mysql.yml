@@ -23,8 +23,6 @@
         cmd: |
           sudo apt-get autoremove -y
           sudo apt-get autoclean -y
-        args:
-          executable: /bin/bash
 
     - name: Remove MySQL Configuration and Data
       ansible.builtin.file:
@@ -44,7 +42,7 @@
     - name: Start MySQL service
       ansible.builtin.service:
         name: mysql
-        state: started
+        state: restarted
         enabled: yes
 
     - name: Ensure /etc/mysql directory exists
@@ -56,6 +54,12 @@
       ansible.builtin.copy:
         src: templates/my.cnf.j2
         dest: /etc/mysql/my.cnf
+
+    - name: Start MySQL service
+      ansible.builtin.service:
+        name: mysql
+        state: restarted
+        enabled: yes
 
     - name: Update MySQL root password for all root accounts
       community.mysql.mysql_user:
