@@ -1,0 +1,62 @@
+[client]
+port            = 3306
+user            = root
+password        = rootPassword123!
+socket          = /var/run/mysqld/mysqld.sock
+
+[mysqld]
+user = mysql
+pid-file        = /var/run/mysqld/mysqld.pid
+socket          = /var/run/mysqld/mysqld.sock
+port            = 3306
+basedir         = /usr
+datadir         = /var/lib/mysql
+tmpdir          = /tmp
+lc-messages-dir = /usr/share/mysql
+skip-external-locking
+
+# Bind address (set to 0.0.0.0 to allow external access)
+bind-address    = 0.0.0.0
+
+# Disabling symbolic-links is recommended to prevent assorted security risks
+symbolic-links=0
+
+# Recommended for better performance
+key_buffer_size         = 16M
+max_allowed_packet      = 64M
+thread_stack            = 192K
+thread_cache_size       = 8
+query_cache_limit       = 1M
+query_cache_size        = 16M
+
+# For large tables
+innodb_buffer_pool_size = 256M
+innodb_log_file_size    = 64M
+innodb_file_per_table   = 1
+innodb_flush_log_at_trx_commit = 1
+
+# Logging
+log_error = /var/log/mysql/error.log
+
+# Recommended settings for production environments
+max_connections         = 150
+table_open_cache        = 2000
+sort_buffer_size        = 4M
+read_buffer_size        = 1M
+read_rnd_buffer_size    = 4M
+
+[mysql]
+# Default behavior for MySQL client
+no-auto-rehash
+
+[mysqldump]
+quick
+quote-names
+max_allowed_packet      = 64M
+
+[isamchk]
+key_buffer              = 16M
+
+[mysqld_safe]
+log-error               = /var/log/mysql/error.log
+pid-file                = /var/run/mysqld/mysqld.pid
