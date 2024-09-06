@@ -1,6 +1,6 @@
 .content {
   width: 100%;
-  height: calc(100vh - 101px);
+  height: calc(100vh - 71px);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -20,8 +20,8 @@
   position: absolute;
   background-color: rgba(0, 0, 0, 0.2);
   width: 100%;
-  top: 101px;
-  height: calc(100vh - 101px);
+  top: 71px;
+  height: calc(100vh - 71px);
   backdrop-filter: blur(10px);
 }
 
