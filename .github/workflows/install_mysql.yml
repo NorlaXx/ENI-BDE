@@ -29,9 +29,9 @@
       ansible.builtin.file:
         path: "{{ item }}"
         state: absent
-        loop:
-          - /etc/mysql
-          - /var/lib/mysql
+      loop:
+        - /etc/mysql
+        - /var/lib/mysql
 
     - name: Install MySQL
       ansible.builtin.apt:

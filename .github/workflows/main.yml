@@ -31,17 +31,17 @@ jobs:
           python -m pip install --upgrade pip
           pip install ansible
 
-      - name: Run install + conf mysql
+      - name: Run install php
         run: |
           ansible-playbook -i .github/workflows/server.yml .github/workflows/install_php.yml
         env:
           ANSIBLE_HOST_KEY_CHECKING: 'false'
-      - name: Run install php
+      - name: Run install mysql
         run: |
           ansible-playbook -i .github/workflows/server.yml .github/workflows/install_mysql.yml
         env:
           ANSIBLE_HOST_KEY_CHECKING: 'false'
-      - name: Run install mysql
+      - name: Run install nginx
         run: |
           ansible-playbook -i .github/workflows/server.yml .github/workflows/install_nginx.yml
         env:
