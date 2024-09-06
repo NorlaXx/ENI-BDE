@@ -6,6 +6,7 @@ activities.forEach((activity) => {
         let latitude = activity.dataset.lat;
         let longitude = activity.dataset.long;
         let jsonData = JSON.parse(activity.dataset.activity);
+        console.log(jsonData);
         let canEdit = activity.dataset.edit === "true";
         let register = activity.dataset.register === "true";
         createComponents(jsonData, latitude, longitude, canEdit, register);

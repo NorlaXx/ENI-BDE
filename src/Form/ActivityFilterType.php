@@ -21,33 +21,38 @@ class ActivityFilterType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('name', TextType::class, [
-                'label' => 'Nom de la sortie',
-                'required' => false,
-            ])
             ->add('campus', EntityType::class, [
                 'class' => Campus::class,
+                'label' => 'Campus :',
                 'choice_label' => 'Name',
                 'required' => false,
             ])
+            ->add('name', TextType::class, [
+                'label' => 'Nom de la sortie :',
+                'required' => false,
+            ])
             ->add('dateMin', DateType::class, [
-                'label' => 'Date min',
+                'label' => 'Début',
                 'required' => false,
             ])
             ->add('dateMax', DateType::class, [
-            'label' => 'Date max',
+            'label' => 'Fin',
                 'required' => false,
             ])
             ->add('organisateur', CheckboxType::class, [
-                'label' => 'Organisateur',
+                'label' => 'Je suis l\'organisateur',
                 'required' => false,
-        ])
+            ])
             ->add('inscrit', CheckboxType::class, [
-                'label' => 'Inscrit',
+                'label' => 'Je suis inscrit',
+                'required' => false,
+            ])
+            ->add('notInscrit', CheckboxType::class, [
+                'label' => 'Je ne suis pas inscrit',
                 'required' => false,
             ])
             ->add('finis', CheckboxType::class, [
-                'label' => 'Finis',
+                'label' => 'Les sorties passées',
                 'required' => false,
             ]);
     }

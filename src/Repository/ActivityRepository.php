@@ -103,8 +103,17 @@ class ActivityRepository extends ServiceEntityRepository
             $param->add(new Parameter('organisateur', $filter->getOrganisateur()));
         }
 
-        if ($filter->getInscrit()) {
+        if ($filter->getInscrit() && $filter->getNotInscrit()){
             $qb->innerJoin('activity.inscrits', 'p', 'WITH', 'p.id = :idUser');
+            $qb->leftJoin('activity.inscrits', 'p2', 'WITH', 'p2.id = :idUser');
+            $qb->andWhere('p2.id IS NULL');
+            $param->add(new Parameter('idUser', $idUser));
+        }elseif ($filter->getInscrit()) {
+            $qb->innerJoin('activity.inscrits', 'p', 'WITH', 'p.id = :idUser');
+            $param->add(new Parameter('idUser', $idUser));
+        }elseif ($filter->getNotInscrit()) {
+            $qb->leftJoin('activity.inscrits', 'p2', 'WITH', 'p2.id = :idUser');
+            $qb->andWhere('p2.id IS NULL');
             $param->add(new Parameter('idUser', $idUser));
         }
 
