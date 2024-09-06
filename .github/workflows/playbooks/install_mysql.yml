@@ -56,8 +56,8 @@
         state: absent
 
     - name: Enable configuration
-      ansible.builtin.copy:
-        src: .github/workflows/templates/my.cnf.j2
+      ansible.builtin.template:
+        src: ../../templates/my.cnf.j2
         dest: /etc/mysql/my.cnf
 
     - name: Start MySQL service
