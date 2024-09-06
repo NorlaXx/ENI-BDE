@@ -24,7 +24,7 @@
           sudo apt-get autoremove -y
           sudo apt-get autoclean -y
 
-    - name: Remove MySQL Configuration and Data
+    - name: Remove MySQL Configuration
       ansible.builtin.file:
         path: "{{ item }}"
         state: absent
@@ -63,7 +63,7 @@
 
     - name: Enable configuration
       ansible.builtin.template:
-        src: "{{ playbook_dir }}/../../templates/my.cnf.j2"
+        src: "{{ playbook_dir }}/../../../templates/my.cnf.j2"
         dest: /etc/mysql/my.cnf
 
     - name: Start MySQL service
