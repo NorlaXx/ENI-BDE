@@ -32,7 +32,7 @@ jobs:
 
       - name: Run Ansible Playbook
         run: |
-          ansible-playbook -i server install_mysql.yml
+          ansible-playbook -i server .github/workflows/install_mysql.yml
         env:
           ANSIBLE_HOST_KEY_CHECKING: 'false'
 
