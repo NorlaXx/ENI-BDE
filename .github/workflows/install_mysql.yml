@@ -24,6 +24,11 @@
         path: /etc/mysql
         state: directory
 
+    - name: Ensure /etc/mysql/mysql.cnf is delete
+      ansible.builtin.file:
+        path: /etc/mysql/mysql.cnf
+        state: absent
+
     - name: Enable configuration
       ansible.builtin.copy:
         src: templates/my.cnf.j2
@@ -50,7 +55,7 @@
 
     - name: Create a new database
       community.mysql.mysql_db:
-        name: app
+        name: {{ mysql_database }}
         state: present
-        login_user: root
+        login_user: "{{ mysql_user }}"
         login_password: "{{ mysql_root_password }}"

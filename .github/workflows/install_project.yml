@@ -25,6 +25,7 @@
         group: www-data
         mode: '0755'
 
+
     - name: Add git safe var/www/project_name
       ansible.builtin.command:
         cmd: git config --global --add safe.directory /root/var/www/ENI-BDE
