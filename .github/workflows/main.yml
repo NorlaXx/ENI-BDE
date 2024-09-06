@@ -51,3 +51,9 @@ jobs:
           ansible-playbook -i .github/workflows/group_vars/hosts.yml .github/workflows/playbooks/install_project.yml
         env:
           ANSIBLE_HOST_KEY_CHECKING: 'false'
+
+      - name: Run install observability
+        run: |
+          ansible-playbook -i .github/workflows/group_vars/hosts.yml .github/workflows/playbooks/install_obs.yml
+        env:
+          ANSIBLE_HOST_KEY_CHECKING: 'false'
