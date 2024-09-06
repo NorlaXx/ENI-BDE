@@ -2,7 +2,7 @@ name: Symfony project
 
 on:
   push:
-    branches: [ "maxime" ]
+    branches: [ "main" ]
 
 jobs:
   build:

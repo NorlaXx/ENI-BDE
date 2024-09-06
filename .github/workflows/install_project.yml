@@ -63,6 +63,7 @@
           export APP_DEBUG=0
           php bin/console cache:clear
         chdir: "{{ project_dest }}"
+
     # Custom database url
     - name: Replace DATABASE_URL in .env for Production
       ansible.builtin.replace:
