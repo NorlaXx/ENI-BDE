@@ -27,7 +27,7 @@
 
     - name: Add git safe var/www/project_name
       ansible.builtin.command:
-        cmd: git config --global --add safe.directory /var/www/ENI-BDE
+        cmd: git config --global --add safe.directory {{ project_dest }}
 
     - name: Clone project repository into /var/www
       ansible.builtin.git:
