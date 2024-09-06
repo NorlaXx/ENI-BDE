@@ -6,24 +6,33 @@
     - vars.yml
     - secrets.yml
   tasks:
-    - name: Remove MySQL-related directories and files
+    - name: Remove Mysql conf
+      ansible.builtin.apt:
+        name:
+          - mysql-server
+          - mysql-client
+          - mysql-common
+          - mysql-server-core-*
+          - mysql-client-core-*
+        state: absent
+        purge: yes
+        update_cache: yes
+
+    - name: Autoremove and Clean Up
+      ansible.builtin.shell:
+        cmd: |
+          sudo apt-get autoremove -y
+          sudo apt-get autoclean -y
+        args:
+          executable: /bin/bash
+
+    - name: Remove MySQL Configuration and Data
       ansible.builtin.file:
         path: "{{ item }}"
         state: absent
       loop:
-        - /var/lib/mysql
         - /etc/mysql
-        - /var/log/mysql
-        -
-    - name: Remove Mysql conf
-      ansible.builtin.shell:
-        cmd: |
-          sudo apt-get remove --purge mysql-server mysql-client mysql-common mysql-server-core-* mysql-client-core-*
-          sudo apt-get autoremove
-          sudo apt-get autoclean
-          sudo rm -rf /etc/mysql /var/lib/mysql
-          sudo apt-get install mysql-server
-        chdir: "{{ project_dest }}"
+        - /var/lib/mysql
 
     - name: Install MySQL
       ansible.builtin.apt:
