@@ -1,0 +1,111 @@
+.myContent {
+  width: 100%;
+  height: calc(100vh - 101px);
+  display: flex;
+}
+
+.box {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.box h2 {
+  margin: 0;
+  color: #3f4250;
+  font-size: 22px;
+  margin-top: 10px;
+}
+
+.box.right {
+  border-left: 1px solid #d9dadd;
+}
+
+.createActivity {
+  text-decoration: none;
+}
+
+.createActivity button {
+  width: 395px;
+  height: 40px;
+  font-size: 20px;
+  margin-top: 20px;
+}
+
+.profilPicture {
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  margin-top: 20px;
+}
+
+.title {
+  margin-top: 10px !important;
+  font-size: 22px;
+  font-weight: bold;
+  color: #3f4250;
+}
+
+.email {
+  font-size: 18px;
+  color: #86878d;
+}
+
+.text {
+  margin: 0;
+}
+
+.more-information {
+  width: 60%;
+  border-radius: 10px;
+  border: 1px solid #d9dadd;
+  margin-top: 40px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+.myInformation {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+}
+
+.myInformation p {
+  margin: 20px 40px;
+  font-size: 18px;
+  color: #3f4250;
+}
+
+.information-title {
+  font-weight: bold;
+}
+
+.modifyProfil {
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+}
+
+@media (max-width: 1300px) {
+  .myContent {
+    flex-direction: column;
+  }
+
+  .box.right {
+    border-left: none;
+    border-top: 1px solid #d9dadd;
+  }
+
+  .modifyProfil {
+    position: relative;
+    margin-top: 20px;
+    margin-left: 0 !important;
+  }
+
+  .createActivity button {
+    margin-left: 0 !important;
+  }
+}
