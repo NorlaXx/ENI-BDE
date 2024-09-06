@@ -263,11 +263,11 @@ class Activity
             "lieu" => str_replace(" ", "&@^",$this->getLieu()->getAddresse()),
             "description" => str_replace(" ", "&@^",$this->getDescription()),
             "state" => str_replace(" ", "&@^",$this->getState()->getCode()),
-            "dateDebut" => str_replace(" ", "&@^",$this->getDateDebut()->format('Y-m-d H:i:s')), // Assurez-vous que c'est une chaîne
-            "dateFinalInscription" => str_replace(" ", "&@^",$this->getDateFinalInscription()->format('Y-m-d H:i:s')),
+            "dateDebut" => str_replace(" ", "&@^",$this->getDateDebut()->format('Y/m/d H:i')), // Assurez-vous que c'est une chaîne
+            "dateFinalInscription" => str_replace(" ", "&@^",$this->getDateFinalInscription()->format('Y/m/d H:i')),
             "duree" => str_replace(" ", "&@^",$this->getDuree()),
             "pictureFileName" => str_replace(" ", "&@^",$this->getPictureFileName()),
-            "dateCreation" => str_replace(" ", "&@^",$this->getDateCreation()->format('Y-m-d H:i:s')),
+            "dateCreation" => str_replace(" ", "&@^",$this->getDateCreation()->format('Y/m/d H:i')),
             "nbLimitParticipants" => str_replace(" ", "&@^",$this->getNbLimitParticipants()),
             "nbParticipants" => str_replace(" ", "&@^",$this->getInscrits()->count())
         ];

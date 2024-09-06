@@ -57,10 +57,15 @@ function createComponents($activity, latitude, longitude, canEdit, register) {
     //Titre de la sortie + infos date et participants
     let titleContainer = document.createElement("div");
     titleContainer.className = "title-container";
-    let titleDom = document.createElement("h2");
-    titleDom.innerHTML = name;
+    let titleDom = document.createElement("p");
+    let titleStrong = document.createElement("strong");
+    titleStrong.innerHTML = name
     let dateDom = document.createElement("p");
     dateDom.innerHTML = "(" + dateDebut + ")";
+
+    titleDom.appendChild(titleStrong);
+    titleDom.appendChild(dateDom);
+
     let partcipantsDom = document.createElement("p");
     partcipantsDom.innerHTML = nbParticipants + "/" + nbLimitParticipants;
     let picto = document.createElement("img");
@@ -68,15 +73,18 @@ function createComponents($activity, latitude, longitude, canEdit, register) {
     partcipantsDom.appendChild(picto);
 
     titleContainer.appendChild(titleDom);
-    titleContainer.appendChild(dateDom);
     titleContainer.appendChild(partcipantsDom);
 
     //Description de la sortie
     let descriptionDom = document.createElement("p");
     descriptionDom.innerHTML = description;
 
+    let separator = document.createElement("div");
+    separator.className = "separator";
+
     titleDescriptionContainer.appendChild(titleContainer);
     titleDescriptionContainer.appendChild(descriptionDom);
+    titleDescriptionContainer.appendChild(separator);
 
     //Détails de la sortie + la map
     let detailsMapContainer = document.createElement("div");
@@ -99,7 +107,7 @@ function createComponents($activity, latitude, longitude, canEdit, register) {
 
     //Map
     let imgMapDom = document.createElement("img");
-    imgMapDom.src = "https://maps.googleapis.com/maps/api/staticmap?center="+latitude+","+longitude+"&zoom=13&size=400x400&markers=color:red%7Clabel:%7C"+latitude+","+longitude+"&key=AIzaSyBMO3LVl_v7xhApZEBfLfG0N6oU5yQUHjA";
+    imgMapDom.src = "https://maps.googleapis.com/maps/api/staticmap?center="+latitude+","+longitude+"&zoom=13&size=350x200&markers=color:red%7Clabel:%7C"+latitude+","+longitude+"&key=AIzaSyBMO3LVl_v7xhApZEBfLfG0N6oU5yQUHjA";
 
     detailsMapContainer.appendChild(detailsDom);
     detailsMapContainer.appendChild(imgMapDom);
