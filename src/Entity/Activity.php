@@ -265,7 +265,6 @@ class Activity
             "state" => str_replace(" ", "&@^",$this->getState()->getCode()),
             "dateDebut" => str_replace(" ", "&@^",$this->getDateDebut()->format('Y-m-d H:i:s')), // Assurez-vous que c'est une chaîne
             "dateFinalInscription" => str_replace(" ", "&@^",$this->getDateFinalInscription()->format('Y-m-d H:i:s')),
-            "organisateur" => str_replace(" ", "&@^",$this->getOrganisateur()->getPseudo()),
             "duree" => str_replace(" ", "&@^",$this->getDuree()),
             "pictureFileName" => str_replace(" ", "&@^",$this->getPictureFileName()),
             "dateCreation" => str_replace(" ", "&@^",$this->getDateCreation()->format('Y-m-d H:i:s')),
