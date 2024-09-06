@@ -33,21 +33,21 @@ jobs:
 
       - name: Run install php
         run: |
-          ansible-playbook -i .github/workflows/server.yml .github/workflows/install_php.yml
+          ansible-playbook -i .github/workflows/group_vars/hosts.yml .github/workflows/playbooks/install_php.yml
         env:
           ANSIBLE_HOST_KEY_CHECKING: 'false'
       - name: Run install mysql
         run: |
-          ansible-playbook -i .github/workflows/server.yml .github/workflows/install_mysql.yml
+          ansible-playbook -i .github/workflows/group_vars/hosts.yml .github/workflows/playbooks/install_mysql.yml
         env:
           ANSIBLE_HOST_KEY_CHECKING: 'false'
       - name: Run install nginx
         run: |
-          ansible-playbook -i .github/workflows/server.yml .github/workflows/install_nginx.yml
+          ansible-playbook -i .github/workflows/group_vars/hosts.yml .github/workflows/playbooks/install_nginx.yml
         env:
           ANSIBLE_HOST_KEY_CHECKING: 'false'
       - name: Run install project
         run: |
-          ansible-playbook -i .github/workflows/server.yml .github/workflows/install_project.yml
+          ansible-playbook -i .github/workflows/group_vars/hosts.yml .github/workflows/playbooks/install_project.yml
         env:
           ANSIBLE_HOST_KEY_CHECKING: 'false'
