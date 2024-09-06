@@ -12,7 +12,7 @@
             <div class="separator"></div>
             <div class="activity-content" id="activityContent">
                 {% for lieu in lieuList %}
-                    <div class="activity" data-lat="{{ lieu.Lat }}" data-long="{{ lieu.longitude }}"
+                    <div class="activity canClick" data-lat="{{ lieu.Lat }}" data-long="{{ lieu.longitude }}"
                          data-id="{{ lieu.id }}">
                         <span class="flex">
                             <img src={{ asset('thumbnails/' ~ lieu.fileName) }} alt="activity thumbnails"/>

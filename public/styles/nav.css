@@ -158,16 +158,3 @@
     display: block;
   }
 }
-
-@keyframes logoSpin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-.logo:hover {
-  animation: logoSpin 1s linear;
-}
