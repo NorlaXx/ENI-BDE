@@ -5,7 +5,7 @@ mysql_user: root
 db_port: 3306
 
 
-project_dest: "/root/var/www/{{ project_name }}"
+project_dest: "/var/www/{{ project_name }}"
 
 server_hostname: private.blizzfull.fr
 project_name: ENI-BDE
