@@ -50,6 +50,12 @@
         path: /etc/mysql
         state: directory
 
+    - name: Debug playbook location
+      debug:
+        msg:
+          - "Playbook directory: {{ playbook_dir }}"
+          - "Current working directory: {{ lookup('pipe', 'pwd') }}"
+          -
     - name: Ensure /etc/mysql/mysql.cnf is delete
       ansible.builtin.file:
         path: /etc/mysql/mysql.cnf
@@ -57,7 +63,7 @@
 
     - name: Enable configuration
       ansible.builtin.template:
-        src: ../../templates/my.cnf.j2
+        src: "{{ playbook_dir }}/../../templates/my.cnf.j2"
         dest: /etc/mysql/my.cnf
 
     - name: Start MySQL service
