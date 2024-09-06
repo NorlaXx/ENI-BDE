@@ -1,9 +1,15 @@
 const canvas = document.getElementById("custom_canvas");
 const jsConfetti = new JSConfetti({ canvas });
 
-// document.querySelector(".burger").addEventListener("click", function () {
-//   document.querySelector("nav ul").classList.toggle("show");
-// });
+document.addEventListener("DOMContentLoaded", function () {
+  const burger = document.querySelector(".burger");
+  const nav = document.querySelector(".secondary_ul");
+
+  burger.addEventListener("click", function () {
+    nav.classList.toggle("active");
+    burger.classList.toggle("active");
+  });
+});
 
 let konamiCode = [];
 let konami = "38384040373937396665";
