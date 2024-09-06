@@ -1,0 +1,18 @@
+mysql_root_password: rootPassword123!
+mysql_database: app
+mysql_password: rootPassword123!
+mysql_user: ${{ secrets.SuperSecret }}
+db_port: 3306
+
+elastic_agent_version: "8.15.1"
+elastic_agent_arch: "linux-x86_64"
+fleet_url: "https://b8096280ea3c4db7879bfcb82f2cd229.fleet.us-central1.gcp.cloud.es.io:443"
+enrollment_token: "emQ4OXg1RUJFd3UxSm9kanFUOVM6Y3hIWFl0S3JSUTI5ejZmT3RMTW9oQQ=="
+
+
+project_dest: "/var/www/{{ project_name }}"
+
+server_hostname: private.blizzfull.fr
+project_name: ENI-BDE
+project_repo: "https://github.com/NorlaXx/ENI-BDE"
+db_url: "mysql://root:rootPassword123!@127.0.0.1:3306/{{ mysql_database }}?serverVersion=8.0.32&charset=utf8mb4"

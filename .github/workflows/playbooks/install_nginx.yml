@@ -6,11 +6,6 @@
     - vars.yml
     - secrets.yml
   tasks:
-  - name: Uninstall apache if present
-    ansible.builtin.apt:
-      name: apache
-      state: absent
-
   - name: Install nginx
     ansible.builtin.apt:
       name: nginx

@@ -128,6 +128,7 @@ class AppFixtures extends Fixture
         // Création des utilisateurs
         $user1 = new User();
         $user1->setPseudo('user1');
+        $user1->setActive(true);
         $user1->setPhoneNumber('0123456789');
         $user1->setEmail('email@email.com');
         $user1->setPassword('$2y$10$MkOCJMhXB7tecvn52C1BG.El9oVvZ4CuwCTlaaNnVSvZxJEQ0wdMC');
@@ -138,6 +139,7 @@ class AppFixtures extends Fixture
 
         $user2 = new User();
         $user2->setPseudo('user2');
+        $user2->setActive(true);
         $user2->setPhoneNumber('0123456789');
         $user2->setEmail('email2@email.com');
         $user2->setPassword('$2y$10$8ArdLO2Y0Li.HUR5R9fOWO4UMiihLOCdf1bARdT/yc/h1GgCbW9eK');
@@ -148,6 +150,7 @@ class AppFixtures extends Fixture
 
         $user3 = new User();
         $user3->setPseudo('user3');
+        $user3->setActive(true);
         $user3->setPhoneNumber('0123456789');
         $user3->setEmail('email3@email.com');
         $user3->setPassword('$2y$10$Dc.xI0OeyS5fGJEhV5TwUOASYMQQiR7wzA7OmPA3M12ckLjoJ8y4i');

@@ -15,15 +15,21 @@ use Symfony\Component\Mailer\Mailer;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Email;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 class HomeController extends AbstractController
 {
-    public function __construct(private MailerInterface $mailer,private ActivityRepository $activityRepository, private RefreshStatusService $refreshStatusService)
+    public function __construct(
+        private MailerInterface      $mailer,
+        private ActivityRepository   $activityRepository,
+        private RefreshStatusService $refreshStatusService,
+    )
     {
     }
 
+    #[IsGranted("ROLE_USER")]
     #[Route('/', name: 'app_home')]
-    public function homePage (MailerInterface $mailer,Request $request): Response
+    public function homePage(Request $request): Response
     {
 
         $this->refreshStatusService->refreshStatus();

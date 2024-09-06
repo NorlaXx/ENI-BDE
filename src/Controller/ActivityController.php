@@ -3,8 +3,10 @@
 namespace App\Controller;
 
 use App\Entity\Activity;
+use App\Form\ActivityFilterType;
 use App\Form\ActivityType;
 use App\Form\CancelType;
+use App\Model\ActivityFilter;
 use App\Repository\ActivityRepository;
 use App\Service\ActivityService;
 use App\Service\FileUploaderService;
@@ -45,6 +47,29 @@ class ActivityController extends AbstractController
         $activity->removeInscrit($this->getUser());
         $this->activityRepository->update($activity);
         return $this->redirectToRoute('app_home');
+    }
+    // TODO: REVIEW FRONT AND ACCESS BUTTON FOR ADMIN
+    #[IsGranted('ROLE_ADMIN')]
+    #[Route('/activity/list', name: 'activity_list')]
+    public function listActivity(Request $request): Response
+    {
+        $filter = new ActivityFilter();
+        $form = $this->createForm(ActivityFilterType::class, $filter);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $activities = $this->activityRepository->filter(
+                $this->getUser()->getId(),
+                $filter
+            );
+        } else {
+            $activities = $this->activityRepository->findAll();
+        }
+
+        return $this->render('activity/list.html.twig', [
+            'form' => $form->createView(),
+            'activities' => $activities,
+        ]);
     }
 
     #[IsGranted('edit', 'activity')]
