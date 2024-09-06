@@ -12,7 +12,7 @@
 }
 
 /* Si la div est vide, on ne l'affiche pas */
-.activity-map #activity-details:empty{
+.activity-map #activity-details:empty {
   display: none;
 }
 
@@ -44,6 +44,7 @@
   margin-top: 20px;
   color: #3f4250;
   font-weight: bold;
+  text-align: center;
 }
 
 .separator {
@@ -91,7 +92,7 @@
   height: 85px;
 }
 
-.title strong{
+.title strong {
   color: #3f4250;
   font-size: 18px;
   font-weight: bold;

@@ -53,6 +53,7 @@
   font-size: 20px;
   margin: 0;
   margin-top: -5px;
+  text-align: center;
 }
 
 form {
@@ -168,4 +169,60 @@ button {
 form button:hover {
   background-color: #0e3a5f;
   transition: 0.2s;
+}
+
+@media screen and (max-width: 950px) {
+  .form-container h2 {
+    font-size: 20px;
+  }
+
+  .description p {
+    font-size: 16px;
+  }
+
+  form input,
+  form select,
+  form textarea,
+  .file-label,
+  button {
+    font-size: 16px;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .form-container {
+    padding: 10px 30px;
+  }
+
+  form input {
+    width: 300px;
+  }
+
+  form select {
+    width: 306px;
+  }
+
+  form textarea {
+    width: 300px;
+  }
+
+  .file-label {
+    width: 300px;
+  }
+
+  .same_line {
+    width: 306px;
+  }
+
+  .same_line > span > input {
+    width: 130px;
+  }
+
+  .same_line > span > label {
+    font-size: 16px;
+  }
+
+  button {
+    width: 300px;
+  }
 }
