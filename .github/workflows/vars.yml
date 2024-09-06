@@ -2,6 +2,7 @@ mysql_root_password: rootPassword123!
 mysql_database: app
 mysql_password: rootPassword123!
 mysql_user: root
+project_dest: "var/www/ENI-BDE"
 
 server_hostname: private.blizzfull.fr
 project_name: ENI-BDE
