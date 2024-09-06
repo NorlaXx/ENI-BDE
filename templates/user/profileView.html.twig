@@ -4,6 +4,7 @@
 
 {% block body %}
 <div style="text-align: center">
+    {% for user in users %}
     {{ user.pseudo }}
     {{ user.email }}
     <img src="{{ asset('profilePictures/'~ user.pictureFileName) }}" height="200px" alt="ProfilePicture">
@@ -12,6 +13,7 @@
     {# Here is display all the activities user is relation with #}
     {% for activity in user.activities %}
         {{ activity.name }}
+    {% endfor %}
     {% endfor %}
 </div>
 

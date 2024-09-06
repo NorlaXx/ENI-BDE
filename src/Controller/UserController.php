@@ -16,6 +16,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Component\String\Slugger\SluggerInterface;
 
 
@@ -23,51 +24,54 @@ class UserController extends AbstractController
 {
 
     public function __construct(
-        private UserRepository $userRepository,
+        private UserRepository      $userRepository,
         private Security            $security,
         private FileUploaderService $fileUploaderService,
-        private ActivityRepository $activityRepository
+        private ActivityRepository  $activityRepository,
+        private EntityManagerInterface $entityManager
     )
     {
     }
-
+    #[IsGranted("ROLE_USER")]
     #[Route(path: '/profil', name: 'app_profile')]
     public function profile(): Response
     {
         $activites = $this->activityRepository->findByCreator($this->getUser());
 
-        if ($this->security->isGranted('ROLE_USER')) {
             return $this->render('user/profile.html.twig', [
                 'activities' => $activites,
                 'user' => $this->getUser(),
             ]);
-        } else {
-            return $this->redirectToRoute('app_home');
         }
-    }
+
+    #[IsGranted("ROLE_USER")]
     #[Route(path: '/profil/{id}', name: 'app_profile_view')]
-    public function profileView(int $id): Response
+    public function profileView(User $user): Response
     {
-        if ($this->security->isGranted('ROLE_USER')) {
-            return $this->render('user/profileView.html.twig', [
-                'user' => $this->userRepository->find($id),
-            ]);
-        } else {
-            return $this->redirectToRoute('app_home');
-        }
+        return $this->render('user/profileView.html.twig', [
+            'user' => $user,
+        ]);
     }
+
+    #[IsGranted("ROLE_ADMIN")]
+    #[Route(path: '/profil/list', name: 'app_profile_list')]
+    public function profileList(): Response
+    {
+        return $this->render('user/profileView.html.twig', [
+            'users' => $this->userRepository->findAll(),
+        ]);
+    }
+
 
     /**
      * @throws OptimisticLockException
      * @throws ORMException
      */
+    #[IsGranted("ROLE_USER")]
     #[Route(path: '/profileEdit', name: 'app_profile_edit')]
-    public function edit(EntityManagerInterface $entityManager, Request $request, SluggerInterface $slugger): Response
+    public function edit(Request $request, SluggerInterface $slugger): Response
     {
-
         $user = $this->getUser();
-
-
         $form = $this->createForm(UserType::class, $user);
         $form->handleRequest($request);
 
@@ -77,9 +81,8 @@ class UserController extends AbstractController
             if ($profilePicture) {
                 $user->setPictureFileName($this->fileUploaderService->upload($profilePicture));
             }
-            $entityManager->persist($user);
-            $entityManager->flush();
-
+            $this->entityManager->persist($user);
+            $this->entityManager->flush();
             return $this->redirectToRoute('app_profile');
         }
 
