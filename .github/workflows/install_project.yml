@@ -18,7 +18,7 @@
         state: present
 
     - name: Remove all Symfony project files
-      ansible.builtin.directory:
+      ansible.builtin.file:
         path: "{{ project_dest }}"
         state: absent
 

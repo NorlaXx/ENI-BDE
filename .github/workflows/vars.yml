@@ -2,6 +2,9 @@ mysql_root_password: rootPassword123!
 mysql_database: app
 mysql_password: rootPassword123!
 mysql_user: root
+db_port: 3306
+
+
 project_dest: "/root/var/www/{{ project_name }}"
 
 server_hostname: private.blizzfull.fr
