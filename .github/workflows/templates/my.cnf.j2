@@ -1,7 +1,7 @@
 [client]
 port            = 3306
-user            = root
-password        = rootPassword123!
+user            = "{{ mysql_user }}"
+password        = "{{ mysql_password }}"
 socket          = /var/run/mysqld/mysqld.sock
 
 [mysqld]
