@@ -71,6 +71,16 @@ class ActivityRepository extends ServiceEntityRepository
         $this->getEntityManager()->persist($activity);
         $this->getEntityManager()->flush();
     }
+
+    public function findByCreator($idUser){
+        $qb = $this->entityManager->createQueryBuilder();
+        $qb->select(array('activity'))
+            ->from('App\Entity\Activity', 'activity')
+            ->where('activity.organisateur = :idUser')
+            ->setParameter('idUser', $idUser);
+
+        return $qb->getQuery()->getResult();
+    }
     
     public function filter(
         int      $idUser,

@@ -1,19 +1,86 @@
-{% extends 'base.html.twig' %}
+{% include 'base_logged.html.twig' %}
 
-{% block title %}Profile personnel{% endblock %}
+{% block stylesheets %}
+    <link rel="stylesheet" href="/styles/home.css">
+    <link rel="stylesheet" href="/styles/profil.css">
+{% endblock %}
 
 {% block body %}
-<div style="text-align: center">
-    {{ app.user.pseudo }}
-    {{ app.user.email }}
-    <img src="{{ asset('profilePictures/'~ app.user.pictureFileName) }}" height="200px" alt="ProfilePicture">
-    {{ app.user.getPhoneNumber }}
-    {{ app.user.campus.name }}
-    <a href="{{ path('app_profile_edit') }}"><button>Modifier des informations</button></a>
-    {# Here is display all the activities user is relation with #}
-    {% for activity in app.user.activities %}
-        {{ activity.name }}
-    {% endfor %}
+<div class="myContent">
+    <div class="box">
+        <h2>Vos informations</h2>
+        <div class="separator"></div>
+        <img src="{{ asset('profilePictures/'~ app.user.pictureFileName) }}" class="profilPicture" alt="ProfilePicture">
+        <p class="text title">{{app.user.pseudo}}</p>
+        <p class="text email">{{app.user.email}}</p>
+        <div class="more-information">
+            <h2>Plus d’information</h2>
+            <div class="separator"></div>
+            <div class="myInformation">
+                <p><span class="information-title">Téléphone : </span>{{app.user.phoneNumber}}</p>
+                <p><span class="information-title">Campus : </span>{{app.user.campus.name}}</p>
+            </div>
+        </div>
+        <a href={{path("app_profile_edit")}} class="createActivity modifyProfil"><button class="button">Modifier le compte</button></a>
+    </div>
+    <div class="box right">
+        <h2>Vos activitées proposé</h2>
+        <div class="separator"></div>
+        <a href={{path("activity_create")}} class="createActivity"><button class="button">Créer une nouvelle activité</button></a>
+        <div class="activity-content" id="activityContent">
+            {% for activity in activities %}
+                {% if activity.state.id != 6 %}
+                <div class="activity" data-lat="{{ activity.lieu.Lat }}" data-long="{{ activity.lieu.longitude }}" data-id="{{ activity.id }}">
+                    <span class="flex">
+                        <img src={{ asset('thumbnails/' ~ activity.pictureFileName) }} alt="activity thumbnails"/>
+                        <span class="title-description">
+                            <p class="title">{{ activity.name }}</p>
+                            <p class="description">{{ activity.description }}</p>
+                        </span>
+                    </span>
+                    <span class="information">
+                        <span class="information_text">
+                            <p>Date limite d'inscription : {{ activity.dateFinalInscription|date('Y-m-d') }}</p>
+                            <p>Nombre de places : {{ activity.nbLimitParticipants - activity.inscrits|length }}</p>
+                        </span>
+                        <span class="buttons">
+                            {% if activity.organisateur == user and activity.state.code == "ACT_CR" %}
+                                <a href="{{ path("activity_update", { 'id': activity.id }) }}">
+                                    <button class="button modify">Modifier</button>
+                                </a>
+                                <a href="{{ path("app_cancel_activity", {'id': activity.id}) }}">
+                                    <button class="button cancel">Annuler</button>
+                                </a>
+                            {% endif %}
+                            {% if activity in user.activities and activity.state.code == "ACT_INS" or activity.state.code == "ACT_INS_F" %}
+                                <a href="{{ path("activity_remove_inscrit", { 'id': activity .id}) }}">
+                                    <button class="button cancel">Se désister</button>
+                                </a>
+                            {% endif %}
+                            {% if activity not in user.activities and activity.state.code == "ACT_INS" %}
+                                <a href="{{ path("activity_add_inscrit", { 'id': activity.id }) }}">
+                                    <button class="button">S'inscrire</button>
+                                </a>
+                            {% endif %}
+                            {% if activity not in user.activities and activity.state.code == "ACT_EN_C" %}
+                                <button class="button cancel" disable>En cour</button>
+                            {% endif %}
+                            {% if activity not in user.activities and activity.state.code == "ACT_INS_F" %}
+                                <button class="button close" disable>Fermé</button>
+                            {% endif %}
+                            {% if activity not in user.activities and activity.state.code == "ACT_TER" %}
+                                <button class="button cancel" disable>Terminé</button>
+                            {% endif %}
+                            {% if activity not in user.activities and activity.state.code == "ACT_ANN" %}
+                                <button class="button cancel" disable>Annulé</button>
+                            {% endif %}
+                        </span>
+                    </span>
+                </div>
+                {% endif %}
+            {% endfor %}
+        </div>
+    </div>
 </div>
 
 {% endblock %}
