@@ -30,6 +30,11 @@
       ansible.builtin.command:
         cmd: git config --global --add safe.directory /root/var/www/ENI-BDE
 
+    - name: remove all symfony project
+      ansible.builtin.file:
+        src: /var/www/ENI-BDE
+        state: absent
+
     - name: Clone project repository into /var/www
       ansible.builtin.git:
         repo: "{{ project_repo }}"
@@ -39,6 +44,11 @@
         update: yes
       notify:
         - Set permissions for project folder
+        -
+    - name: Fetch and pull changes from the remote repository
+      ansible.builtin.command:
+        cmd: git fetch && git pull
+        chdir: "{{ project_dest }}"
 
     - name: Install packages for Symfony
       ansible.builtin.apt:
