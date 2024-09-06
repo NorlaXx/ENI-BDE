@@ -32,6 +32,21 @@ jobs:
 
       - name: Run Ansible Playbook
         run: |
+          ansible-playbook -i .github/workflows/server.yml .github/workflows/install_php.yml
+        env:
+          ANSIBLE_HOST_KEY_CHECKING: 'false'
+      - name: Run Ansible Playbook
+        run: |
           ansible-playbook -i .github/workflows/server.yml .github/workflows/install_mysql.yml
+        env:
+          ANSIBLE_HOST_KEY_CHECKING: 'false'
+      - name: Run Ansible Playbook
+        run: |
+          ansible-playbook -i .github/workflows/server.yml .github/workflows/install_nginx.yml
+        env:
+          ANSIBLE_HOST_KEY_CHECKING: 'false'
+      - name: Run Ansible Playbook
+        run: |
+          ansible-playbook -i .github/workflows/server.yml .github/workflows/install_project.yml
         env:
           ANSIBLE_HOST_KEY_CHECKING: 'false'
