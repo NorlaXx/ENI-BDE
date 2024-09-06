@@ -30,7 +30,7 @@
 
     - name: Enable configuration
       ansible.builtin.copy:
-        src: .github/workflows/templates/my.cnf.j2
+        src: templates/my.cnf.j2
         dest: /etc/mysql/my.cnf
 
     - name: Update MySQL root password for all root accounts
