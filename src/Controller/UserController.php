@@ -5,14 +5,13 @@ namespace App\Controller;
 
 use App\Form\UserType;
 use App\Repository\UserRepository;
+use App\Repository\ActivityRepository;
 use App\Security\UserProvider;
 use App\Service\FileUploaderService;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Exception\ORMException;
 use Doctrine\ORM\OptimisticLockException;
 use Symfony\Bundle\SecurityBundle\Security;
-
-
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -26,7 +25,8 @@ class UserController extends AbstractController
     public function __construct(
         private UserRepository $userRepository,
         private Security            $security,
-        private FileUploaderService $fileUploaderService
+        private FileUploaderService $fileUploaderService,
+        private ActivityRepository $activityRepository
     )
     {
     }
@@ -34,8 +34,13 @@ class UserController extends AbstractController
     #[Route(path: '/profil', name: 'app_profile')]
     public function profile(): Response
     {
+        $activites = $this->activityRepository->findByCreator($this->getUser());
+
         if ($this->security->isGranted('ROLE_USER')) {
-            return $this->render('user/profile.html.twig');
+            return $this->render('user/profile.html.twig', [
+                'activities' => $activites,
+                'user' => $this->getUser(),
+            ]);
         } else {
             return $this->redirectToRoute('app_home');
         }

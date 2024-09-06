@@ -26,18 +26,32 @@ class LieuType extends AbstractType
         $builder
             ->add('name', TextType::class, [
                 'label' => 'Nom de du lieu',
+                'attr' => array(
+                    'placeholder' => 'Nom du lieu'
+                )
             ])
             ->add('ville', TextType::class, [
                 'label' => 'ville',
+                'attr' => array(
+                    'placeholder' => 'Ville'
+                )
             ])
             ->add('cp', TextType::class, [
                 'label' => 'code postal',
+                'attr' => array(
+                    'placeholder' => 'Code postal'
+                )
             ])
             ->add('addresse', TextType::class, [
                 'label' => 'Adresse',
+                'attr' => array(
+                    'placeholder' => 'Adresse'
+                )
             ])
             ->add('fileName', FileType::class, [
-                'mapped' => false,
+                'label' => 'Image (jpeg, png)',
+                'label_attr' => ['class' => 'file-label'],
+                'mapped' => false,  
                 'required' => false,
                 'constraints' => [
                     new File([

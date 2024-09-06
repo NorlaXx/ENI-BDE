@@ -40,6 +40,7 @@ class UserType extends AbstractType
             ])
             ->add('profilePicture', FileType::class, [
                 'label' => 'Profile Picture (PDF, PNG, JPG file)',
+                'label_attr' => ['class' => 'file-label'],
                 'mapped' => false,
                 'required' => false,
                 'constraints' => [

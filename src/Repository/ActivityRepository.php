@@ -25,36 +25,46 @@ class ActivityRepository extends ServiceEntityRepository
         $this->entityManager = $entityManager;
     }
 
-    /**
-     * Création d'une sortie
-     *
-     * @param $activity
-     * @return void
-     */
-    public function createActivity($activity): void
+    public function findAllActive(): array
     {
-
-        $this->getEntityManager()->persist($activity);
-        $this->getEntityManager()->flush();
+        $qb = $this->entityManager->createQueryBuilder();
+        $qb->select(array('activity'))
+            ->from('App\Entity\Activity', 'activity')
+            ->where('activity.state >= 1')
+            ->orderBy('activity.dateDebut', 'ASC');
+        $query = $qb->getQuery();
+        return $query->getResult();
     }
 
-    public function findAllActive(): array
+    public function findAll(): array
     {
         $entityManager = $this->getEntityManager();
 
         $query = $entityManager->createQuery(
-            'SELECT a
+            'SELECT a, l, c
             FROM App\Entity\Activity a
-            WHERE a.state >= 1 
+            INNER JOIN a.lieu l
+            INNER JOIN a.campus c
             ORDER BY a.dateDebut ASC'
         );
+
         return $query->getResult();
     }
 
-    public function update($activity)
+    public function update($activity): void
     {
         $this->getEntityManager()->persist($activity);
         $this->getEntityManager()->flush();
+    }
+
+    public function findByCreator($idUser){
+        $qb = $this->entityManager->createQueryBuilder();
+        $qb->select(array('activity'))
+            ->from('App\Entity\Activity', 'activity')
+            ->where('activity.organisateur = :idUser')
+            ->setParameter('idUser', $idUser);
+
+        return $qb->getQuery()->getResult();
     }
     
     public function filter(
