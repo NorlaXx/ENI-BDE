@@ -44,11 +44,6 @@
       notify:
         - Set permissions for project folder
 
-    - name: Fetch and pull changes from the remote repository
-      ansible.builtin.command:
-        cmd: git fetch && git pull
-        chdir: "{{ project_dest }}"
-
     - name: Install packages for Symfony
       ansible.builtin.apt:
         pkg:
