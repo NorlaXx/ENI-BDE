@@ -3,8 +3,8 @@
   hosts: server
   become: yes
   vars_files:
-    - vars.yml
-    - secrets.yml
+    - "{{ playbook_dir }}/../group_vars/vars.yml"
+    - "{{ playbook_dir }}/../group_vars/secrets.yml"
   tasks:
     - name: Remove Mysql conf
       ansible.builtin.apt:

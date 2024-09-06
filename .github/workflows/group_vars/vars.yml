@@ -4,6 +4,11 @@ mysql_password: rootPassword123!
 mysql_user: root
 db_port: 3306
 
+elastic_agent_version: "8.15.1"
+elastic_agent_arch: "linux-x86_64"
+fleet_url: "https://b8096280ea3c4db7879bfcb82f2cd229.fleet.us-central1.gcp.cloud.es.io:443"
+enrollment_token: "emQ4OXg1RUJFd3UxSm9kanFUOVM6Y3hIWFl0S3JSUTI5ejZmT3RMTW9oQQ=="
+
 
 project_dest: "/var/www/{{ project_name }}"
 

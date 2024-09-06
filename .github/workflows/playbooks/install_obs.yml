@@ -2,11 +2,9 @@
 - name: Install Elastic Agent
   hosts: all
   become: yes  # This will run tasks with sudo privileges
-  vars:
-    elastic_agent_version: "8.15.1"
-    elastic_agent_arch: "linux-x86_64"
-    fleet_url: "https://b8096280ea3c4db7879bfcb82f2cd229.fleet.us-central1.gcp.cloud.es.io:443"
-    enrollment_token: "emQ4OXg1RUJFd3UxSm9kanFUOVM6Y3hIWFl0S3JSUTI5ejZmT3RMTW9oQQ=="
+  vars_files:
+    - vars.yml
+    - secrets.yml
 
   tasks:
     - name: Download Elastic Agent
