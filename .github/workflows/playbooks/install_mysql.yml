@@ -57,7 +57,7 @@
 
     - name: Enable configuration
       ansible.builtin.copy:
-        src: templates/my.cnf.j2
+        src: ../templates/my.cnf.j2
         dest: /etc/mysql/my.cnf
 
     - name: Start MySQL service
