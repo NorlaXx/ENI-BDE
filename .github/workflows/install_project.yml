@@ -59,6 +59,13 @@
       environment:
         COMPOSER_ALLOW_SUPERUSER: 1
 
+    - name: Run composer require fixture bundle
+      ansible.builtin.command:
+        cmd: composer install
+        chdir: "{{ project_dest }}"
+      environment:
+        COMPOSER_ALLOW_SUPERUSER: 1
+
     # Custom database url
     - name: Replace DATABASE_URL in .env for Production
       ansible.builtin.replace:
