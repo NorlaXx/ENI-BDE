@@ -20,6 +20,22 @@ jobs:
       - name: Validate composer.json and composer.lock
         run: composer validate --strict
 
+      - name: Set up Python and Install Ansible
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.x'
+
+      - name: Install Ansible
+        run: |
+          python -m pip install --upgrade pip
+          pip install ansible
+
+      - name: Run Ansible Playbook
+        run: |
+          ansible-playbook -i server install_mysql.yml
+        env:
+          ANSIBLE_HOST_KEY_CHECKING: 'false'
+
       - name: Cache Composer packages
         id: composer-cache
         uses: actions/cache@v3
