@@ -59,8 +59,6 @@
       environment:
         COMPOSER_ALLOW_SUPERUSER: 1
 
-
-
     # Custom database url
     - name: Replace DATABASE_URL in .env for Production
       ansible.builtin.replace:
@@ -68,19 +66,19 @@
         regexp: '^DATABASE_URL=.*'
         replace: "DATABASE_URL={{ db_url }}"
 
-    - name: Replace DATABASE_URL in .env for Production
+    - name: Replace APP_ENV in .env for Production
       ansible.builtin.replace:
         path: "{{ project_dest }}/.env"
         regexp: '^APP_ENV=.*'
-        replace: "APP_ENV=prod"
+        replace: "APP_ENV=dev"
 
-    - name: Replace DATABASE_URL in .env for Production
+    - name: Replace APP_DEBUG in .env for Production
       ansible.builtin.replace:
         path: "{{ project_dest }}/.env"
         regexp: '^APP_DEBUG=.*'
         replace: "APP_DEBUG=0"
 
-    - name: Run shell
+    - name: Run cache:clear
       ansible.builtin.shell:
         cmd: |
           php bin/console cache:clear
@@ -97,11 +95,6 @@
     - name: Execute doctrine migration
       ansible.builtin.command:
         cmd: php bin/console doctrine:migrations:migrate --no-interaction
-        chdir: "{{ project_dest }}"
-
-    - name: Execute fixtures
-      ansible.builtin.command:
-        cmd: php bin/console doctrine:fixtures:load --no-interaction
         chdir: "{{ project_dest }}"
 
   handlers:
