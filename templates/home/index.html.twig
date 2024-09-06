@@ -17,7 +17,7 @@
             <div class="activity-content" id="activityContent">
                 {% for activity in activities %}
                     {% if activity.state.id != 6 %}
-                    <div class="activity" data-activity={{ activity.convertToJson}} data-edit={% if is_granted('edit', activity) %} true {% else %} false {% endif%} data-register={% if is_granted('withdraw', activity) %} true {% else %} false {% endif%} data-lat="{{ activity.lieu.Lat }}" data-long="{{ activity.lieu.longitude }}" data-id="{{ activity.id }}">
+                    <div class="activity canClick" data-activity={{ activity.convertToJson}} data-edit={% if is_granted('edit', activity) %} true {% else %} false {% endif%} data-register={% if is_granted('withdraw', activity) %} true {% else %} false {% endif%} data-lat="{{ activity.lieu.Lat }}" data-long="{{ activity.lieu.longitude }}" data-id="{{ activity.id }}">
                         <span class="flex">
                             <img src={{ asset('thumbnails/' ~ activity.pictureFileName) }} alt="activity thumbnails"/>
                             <span class="title-description">

@@ -16,51 +16,52 @@
   display: none;
 }
 
-#activity-details{
+#activity-details {
   width: 100%;
   padding: 45px 15px 15px;
+  border-left: 1px solid #d9dadd;
 }
 
-#activity-details p{
+#activity-details p {
   margin: 0;
   line-height: 36px;
 }
 
-#activity-details .img-container img{
-    width: 660px;
-    height: 430px;
-    border-radius: 5px;
+#activity-details .img-container img {
+  width: 660px;
+  height: 430px;
+  border-radius: 5px;
 }
 
-#activity-details .title-description-container .title-container{
+#activity-details .title-description-container .title-container {
   display: flex;
   justify-content: space-between;
 }
 
-#activity-details .title-description-container .title-container > p{
+#activity-details .title-description-container .title-container > p {
   display: flex;
 }
 
-#activity-details .title-description-container .title-container p img{
+#activity-details .title-description-container .title-container p img {
   margin-left: 5px;
 }
 
-#activity-details .title-description-container .separator{
+#activity-details .title-description-container .separator {
   width: 100%;
 }
 
-#activity-details .details-container{
+#activity-details .details-container {
   display: flex;
   margin-top: 15px;
   gap: 20px;
   justify-content: space-between;
 }
 
-#activity-details .details-container p{
+#activity-details .details-container p {
   line-height: 20px;
 }
 
-#activity-details .actions-container{
+#activity-details .actions-container {
   margin-top: 30px;
   display: flex;
   justify-content: space-between;
@@ -135,6 +136,13 @@
   transition: 0.2s;
   margin-bottom: 5px;
   cursor: pointer;
+}
+
+.activity:hover {
+  transform: scale(1.01);
+  transition: 0.2s;
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25),
+    0px 0px 0px 5px rgba(20, 74, 127, 0.5);
 }
 
 .activity img {
