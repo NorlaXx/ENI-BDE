@@ -88,9 +88,6 @@ const clickOnActivity = async (lat, long, id) => {
   removeHighlight();
   const myActivity = findActivitiesComponents(id);
   myActivity.classList.add("highlight");
-  myActivity.scrollIntoView({
-    behavior: "smooth",
-  });
 
   marker.setMap(null);
   const pinScaled = new PinElement({

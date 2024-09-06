@@ -46,20 +46,20 @@
                         <span class="buttons">
                             {% if activity.organisateur == user and activity.state.code == "ACT_CR" %}
                                 <a href="{{ path("activity_update", { 'id': activity.id }) }}">
-                                    <button class="button modify">Modifier</button>
+                                    <button class="button modify"><span>Modifier</span></button>
                                 </a>
                                 <a href="{{ path("app_cancel_activity", {'id': activity.id}) }}">
-                                    <button class="button cancel">Annuler</button>
+                                    <button class="button cancel"><span>Annuler</span></button>
                                 </a>
                             {% endif %}
                             {% if activity in user.activities and activity.state.code == "ACT_INS" or activity.state.code == "ACT_INS_F" %}
                                 <a href="{{ path("activity_remove_inscrit", { 'id': activity .id}) }}">
-                                    <button class="button cancel">Se désister</button>
+                                    <button class="button cancel"><span>Se désister</span></button>
                                 </a>
                             {% endif %}
                             {% if activity not in user.activities and activity.state.code == "ACT_INS" %}
                                 <a href="{{ path("activity_add_inscrit", { 'id': activity.id }) }}">
-                                    <button class="button">S'inscrire</button>
+                                    <button class="button"><span>S'inscrire</span></button>
                                 </a>
                             {% endif %}
                             {% if activity not in user.activities and activity.state.code == "ACT_EN_C" %}
