@@ -11,25 +11,23 @@ jobs:
     runs-on: ubuntu-latest
     environment: production
     steps:
+      # Step 1: Check out the repository
+      - name: Checkout Repository
+        uses: actions/checkout@v3
 
+      # Step 2: Set up Python and Install Ansible
+      - name: Set up Python and Install Ansible
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.x'  # Specify the desired Python version
       - name: Install Ansible
-        shell: bash
         run: |
-          sudo apt update
-          sudo apt install -y ansible
+          python -m pip install --upgrade pip
+          pip install ansible
 
-      - name: Run Ansible Playbook install php
+      # Step 3: Execute the Ansible Playbook
+      - name: Run Ansible Playbook
         run: |
-          ansible-playbook -i server install_mysql.yml
-
-      - name: Run Ansible Playbook install php
-        run: |
-          ansible-playbook -i server install_php.yml
-
-      - name: Run Ansible Playbook install nginx
-        run: |
-          ansible-playbook -i server install_nginx.yml
-
-      - name: Run Ansible Playbook install project
-        run: |
-          ansible-playbook -i server install_project.yml
+          ansible-playbook -i inventory playbook.yml
+        env:
+          ANSIBLE_HOST_KEY_CHECKING: 'false'
