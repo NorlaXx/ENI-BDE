@@ -18,6 +18,18 @@ jobs:
           sudo apt update
           sudo apt install -y ansible
 
-      - name: Run Ansible Playbook
+      - name: Run Ansible Playbook install php
         run: |
           ansible-playbook -i server install_mysql.yml
+
+      - name: Run Ansible Playbook install php
+        run: |
+          ansible-playbook -i server install_php.yml
+
+      - name: Run Ansible Playbook install nginx
+        run: |
+          ansible-playbook -i server install_nginx.yml
+
+      - name: Run Ansible Playbook install project
+        run: |
+          ansible-playbook -i server install_project.yml
