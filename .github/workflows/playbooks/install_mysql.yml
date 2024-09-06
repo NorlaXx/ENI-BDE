@@ -54,8 +54,11 @@
       ansible.builtin.file:
         path: /etc/mysql/mysql.cnf
         state: absent
-    - name: Copy nginx configuration
-      template: src=my.cnf.j2 dest=/etc/mysql/my.cnf
+
+    - name: Enable configuration
+      ansible.builtin.copy:
+        src: .github/workflows/templates/my.cnf.j2
+        dest: /etc/mysql/my.cnf
 
     - name: Start MySQL service
       ansible.builtin.service:
