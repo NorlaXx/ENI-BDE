@@ -5,5 +5,5 @@ mysql_user: root
 
 server_hostname: private.blizzfull.fr
 project_name: ENI-BDE
-
+project_repo: "https://github.com/NorlaXx/ENI-BDE"
 db_url: "mysql://{{ mysql_user }}:{{ mysql_password }}@127.0.0.1:3306/{{ mysql_database }}?serverVersion=8.0.32&charset=utf8mb4"
