@@ -1,0 +1,24 @@
+name: Deploy with Ansible
+
+on:
+  push:
+    branches:
+      - maxime
+
+jobs:
+  deploy:
+    name: Deploy Ansible Playbook
+    if: github.event.pull_request.merged == true
+    runs-on: ubuntu-latest
+    environment: production
+    steps:
+
+      - name: Install Ansible
+        shell: bash
+        run: |
+          sudo apt update
+          sudo apt install -y ansible
+
+      - name: Run Ansible Playbook
+        run: |
+          ansible-playbook -i server install_mysql

@@ -1,0 +1,4 @@
+[server]
+private.blizzfull.fr ansible_user=root ansible_port=22103 ansible_ssh_pass=bipbipiamasheep
+
+

@@ -1,0 +1,8 @@
+mysql_port: 3306
+
+venv_path: /root/myenv
+
+project_repo: "https://github.com/NorlaXx/ENI-BDE"
+
+project_dest: "/var/www/ENI-BDE"
+
