@@ -9,6 +9,10 @@
         <li><a href="{{ path('app_home') }}">Accueil</a></li>
         <li><a href="{{  path('app_lieu_list') }}">Lieux</a></li>
         <li><a href="{{ path('app_home_campus') }}">Campus</a></li>
+        {% if is_granted('ROLE_ADMIN') %}
+          <li><a href="{{ path('app_profil_list') }}">Utilisateurs</a></li>
+          <li><a href="{{ path('activity_list') }}">Activités</a></li>
+        {% endif %}
       </ul>
     </li>
     <li><a href="{{ path("app_profile") }}"><img class="profil-picture" src="{{ asset('profilePictures/'~ app.user.pictureFileName) }}" alt="icon" /></a></li>
