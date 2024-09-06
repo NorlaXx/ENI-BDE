@@ -28,6 +28,11 @@
         state: started
         enabled: yes
 
+    - name: Ensure /etc/mysql directory exists
+      ansible.builtin.file:
+        path: /etc/mysql
+        state: directory
+
     - name: Enable configuration
       ansible.builtin.copy:
         src: templates/my.cnf.j2
