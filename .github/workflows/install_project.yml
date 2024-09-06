@@ -59,14 +59,7 @@
       environment:
         COMPOSER_ALLOW_SUPERUSER: 1
 
-    # Set prod env on Symfony .env
-    - name: Run shell
-      ansible.builtin.shell:
-        cmd: |
-          APP_ENV=prod
-          APP_DEBUG=0
-          php bin/console cache:clear
-        chdir: "{{ project_dest }}"
+
 
     # Custom database url
     - name: Replace DATABASE_URL in .env for Production
@@ -74,6 +67,24 @@
         path: "{{ project_dest }}/.env"
         regexp: '^DATABASE_URL=.*'
         replace: "DATABASE_URL={{ db_url }}"
+
+    - name: Replace DATABASE_URL in .env for Production
+      ansible.builtin.replace:
+        path: "{{ project_dest }}/.env"
+        regexp: '^APP_ENV=.*'
+        replace: "APP_ENV=prod"
+
+    - name: Replace DATABASE_URL in .env for Production
+      ansible.builtin.replace:
+        path: "{{ project_dest }}/.env"
+        regexp: '^APP_DEBUG=.*'
+        replace: "APP_DEBUG=0"
+
+    - name: Run shell
+      ansible.builtin.shell:
+        cmd: |
+          php bin/console cache:clear
+        chdir: "{{ project_dest }}"
 
     - name: Ensure MySQL root user has all privileges
       community.mysql.mysql_user:
