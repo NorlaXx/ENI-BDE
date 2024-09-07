@@ -16,7 +16,7 @@ class ActivityState
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $libelle = null;
+    private ?string $wording = null;
 
     /**
      * @var Collection<int, Activity>
@@ -37,14 +37,14 @@ class ActivityState
         return $this->id;
     }
 
-    public function getLibelle(): ?string
+    public function getWording(): ?string
     {
-        return $this->libelle;
+        return $this->wording;
     }
 
-    public function setLibelle(string $libelle): static
+    public function setWording(string $wording): static
     {
-        $this->libelle = $libelle;
+        $this->wording = $wording;
 
         return $this;
     }

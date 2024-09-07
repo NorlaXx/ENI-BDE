@@ -68,8 +68,8 @@ class LieuController extends AbstractController
                 $lieu->setFileName($this->fileUploaderService->upload($profilePicture));
             }
 
-            $latlng = $this->lieuService->getLatLng($lieu->getAddresse(), $lieu->getVille(), $lieu->getCp());
-            $lieu->setLat($latlng['lat']);
+            $latlng = $this->lieuService->getLatLng($lieu->getAddress(), $lieu->getCity(), $lieu->getPostalCode());
+            $lieu->setLatitude($latlng['lat']);
             $lieu->setLongitude($latlng['lng']);
 
             $this->entityManager->persist($lieu);

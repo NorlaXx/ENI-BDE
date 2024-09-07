@@ -65,7 +65,7 @@ class ActivityVoter extends Voter
      */
     private function canEdit(Activity $activity, User $user): bool
     {
-        if ($activity->getOrganisateur() === $user && $activity->getState()->getCode() == "ACT_CR"){
+        if ($activity->getOrganizer() === $user && $activity->getState()->getCode() == "ACT_CR"){
             return true;
         }
 
@@ -102,7 +102,7 @@ class ActivityVoter extends Voter
     {
         if (!$user->getActivities()->contains($activity) && // L'utilisateur n'est pas déjà dans l'activité
             $activity->getState()->getCode() == "ACT_INS" && // L'activité est ouverte aux inscriptions
-            $activity->getInscrits()->count() < $activity->getNbLimitParticipants() // Il reste des places
+            $activity->getRegistered()->count() < $activity->getNbLimitParticipants() // Il reste des places
         ){
             return true;
         }

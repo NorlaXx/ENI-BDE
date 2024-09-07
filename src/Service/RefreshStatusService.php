@@ -20,8 +20,8 @@ class RefreshStatusService
 
         foreach ($activities as $activity) {
             $currentDate = new \DateTime();
-            $dateFinalInscription = $activity->getDateFinalInscription();
-            $dateDebut = $activity->getDateDebut();
+            $dateFinalInscription = $activity->getRegistrationDateLimit();
+            $dateDebut = $activity->getStartDate();
             $dateIn1Month = $dateDebut;
             $dateIn1Month->modify('+1 month');
 

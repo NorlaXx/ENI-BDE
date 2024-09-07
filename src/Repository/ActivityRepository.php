@@ -31,7 +31,7 @@ class ActivityRepository extends ServiceEntityRepository
         $qb->select(array('activity'))
             ->from('App\Entity\Activity', 'activity')
             ->where('activity.state >= 1')
-            ->orderBy('activity.dateDebut', 'ASC');
+            ->orderBy('activity.startDate', 'ASC');
         $query = $qb->getQuery();
         return $query->getResult();
     }
@@ -45,7 +45,7 @@ class ActivityRepository extends ServiceEntityRepository
             FROM App\Entity\Activity a
             INNER JOIN a.lieu l
             INNER JOIN a.campus c
-            ORDER BY a.dateDebut ASC'
+            ORDER BY a.startDate ASC'
         );
 
         return $query->getResult();
@@ -61,7 +61,7 @@ class ActivityRepository extends ServiceEntityRepository
         $qb = $this->entityManager->createQueryBuilder();
         $qb->select(array('activity'))
             ->from('App\Entity\Activity', 'activity')
-            ->where('activity.organisateur = :idUser')
+            ->where('activity.organizer = :idUser')
             ->setParameter('idUser', $idUser);
 
         return $qb->getQuery()->getResult();
@@ -88,37 +88,37 @@ class ActivityRepository extends ServiceEntityRepository
             $param->add(new Parameter('campus', $filter->getCampus()));
         }
 
-        if ($filter->getDateMin() != null) {
-            $qb->andWhere('activity.dateDebut >= :dateMin');
-            $param->add(new Parameter('dateMin', $filter->getDateMin()));
+        if ($filter->getMinDate() != null) {
+            $qb->andWhere('activity.startDate >= :minDate');
+            $param->add(new Parameter('minDate', $filter->getMinDate()));
         }
 
-        if ($filter->getDateMax() != null) {
-            $qb->andWhere('activity.dateDebut <= :dateMax');
-            $param->add(new Parameter('dateMax', $filter->getDateMax()));
+        if ($filter->getMaxDate() != null) {
+            $qb->andWhere('activity.startDate <= :maxDate');
+            $param->add(new Parameter('maxDate', $filter->getMaxDate()));
         }
 
-        if ($filter->getOrganisateur() != null) {
-            $qb->andWhere('activity.organisateur = :organisateur');
-            $param->add(new Parameter('organisateur', $filter->getOrganisateur()));
+        if ($filter->getOrganizer() != null) {
+            $qb->andWhere('activity.organizer = :organizer');
+            $param->add(new Parameter('organizer', $filter->getOrganizer()));
         }
 
-        if ($filter->getInscrit() && $filter->getNotInscrit()){
-            $qb->innerJoin('activity.inscrits', 'p', 'WITH', 'p.id = :idUser');
-            $qb->leftJoin('activity.inscrits', 'p2', 'WITH', 'p2.id = :idUser');
+        if ($filter->getRegistered() && $filter->getNotRegistered()){
+            $qb->innerJoin('activity.registered', 'p', 'WITH', 'p.id = :idUser');
+            $qb->leftJoin('activity.registered', 'p2', 'WITH', 'p2.id = :idUser');
             $qb->andWhere('p2.id IS NULL');
             $param->add(new Parameter('idUser', $idUser));
-        }elseif ($filter->getInscrit()) {
-            $qb->innerJoin('activity.inscrits', 'p', 'WITH', 'p.id = :idUser');
+        }elseif ($filter->getRegistered()) {
+            $qb->innerJoin('activity.registered', 'p', 'WITH', 'p.id = :idUser');
             $param->add(new Parameter('idUser', $idUser));
-        }elseif ($filter->getNotInscrit()) {
-            $qb->leftJoin('activity.inscrits', 'p2', 'WITH', 'p2.id = :idUser');
+        }elseif ($filter->getNotRegistered()) {
+            $qb->leftJoin('activity.registered', 'p2', 'WITH', 'p2.id = :idUser');
             $qb->andWhere('p2.id IS NULL');
             $param->add(new Parameter('idUser', $idUser));
         }
 
-        if ($filter->getFinis() != null) {
-            $qb->andWhere('activity.dateDebut < :now');
+        if ($filter->getFinished() != null) {
+            $qb->andWhere('activity.startDate < :now');
             $param->add(new Parameter('now', new DateTime()));
         }
 

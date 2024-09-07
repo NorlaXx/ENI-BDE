@@ -31,27 +31,27 @@ class ActivityFilterType extends AbstractType
                 'label' => 'Nom de la sortie :',
                 'required' => false,
             ])
-            ->add('dateMin', DateType::class, [
+            ->add('minDate', DateType::class, [
                 'label' => 'Début',
                 'required' => false,
             ])
-            ->add('dateMax', DateType::class, [
+            ->add('maxDate', DateType::class, [
             'label' => 'Fin',
                 'required' => false,
             ])
-            ->add('organisateur', CheckboxType::class, [
+            ->add('organizer', CheckboxType::class, [
                 'label' => 'Je suis l\'organisateur',
                 'required' => false,
             ])
-            ->add('inscrit', CheckboxType::class, [
+            ->add('registered', CheckboxType::class, [
                 'label' => 'Je suis inscrit',
                 'required' => false,
             ])
-            ->add('notInscrit', CheckboxType::class, [
+            ->add('notRegistered', CheckboxType::class, [
                 'label' => 'Je ne suis pas inscrit',
                 'required' => false,
             ])
-            ->add('finis', CheckboxType::class, [
+            ->add('finished', CheckboxType::class, [
                 'label' => 'Les sorties passées',
                 'required' => false,
             ]);

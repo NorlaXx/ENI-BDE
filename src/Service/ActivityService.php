@@ -28,8 +28,8 @@ class ActivityService
     public function addOtherproperties(Activity $activity): void
     {
         $activity->setState($this->activityStateRepository->getDefaultState());
-        $activity->setOrganisateur($this->security->getUser());
-        $activity->setDateCreation(new DateTime());
+        $activity->setOrganizer($this->security->getUser());
+        $activity->setCreationDate(new DateTime());
     }
 
     /**

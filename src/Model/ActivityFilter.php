@@ -8,12 +8,12 @@ class ActivityFilter
 {
     private ?string $name = null;
     private ?Campus $campus = null;
-    private ?\DateTimeInterface $dateMin = null;
-    private ?\DateTimeInterface $dateMax = null;
-    private ?bool $organisateur = null;
-    private ?bool $inscrit = null;
-    private ?bool $notInscrit = null;
-    private ?bool $finis = null;
+    private ?\DateTimeInterface $minDate = null;
+    private ?\DateTimeInterface $maxDate = null;
+    private ?bool $organizer = null;
+    private ?bool $registered = null;
+    private ?bool $notRegistered = null;
+    private ?bool $finished = null;
 
     public function getName(): ?string
     {
@@ -35,64 +35,64 @@ class ActivityFilter
         $this->campus = $campus;
     }
 
-    public function getDateMin(): ?\DateTimeInterface
+    public function getMinDate(): ?\DateTimeInterface
     {
-        return $this->dateMin;
+        return $this->minDate;
     }
 
-    public function setDateMin(?\DateTimeInterface $dateMin): void
+    public function setMinDate(?\DateTimeInterface $minDate): void
     {
-        $this->dateMin = $dateMin;
+        $this->minDate = $minDate;
     }
 
-    public function getDateMax(): ?\DateTimeInterface
+    public function getMaxDate(): ?\DateTimeInterface
     {
-        return $this->dateMax;
+        return $this->maxDate;
     }
 
-    public function setDateMax(?\DateTimeInterface $dateMax): void
+    public function setMaxDate(?\DateTimeInterface $maxDate): void
     {
-        $this->dateMax = $dateMax;
+        $this->maxDate = $maxDate;
     }
 
-    public function getOrganisateur(): ?bool
+    public function getOrganizer(): ?bool
     {
-        return $this->organisateur;
+        return $this->organizer;
     }
 
-    public function setOrganisateur(?bool $organisateur): void
+    public function setOrganizer(?bool $organizer): void
     {
-        $this->organisateur = $organisateur;
+        $this->organizer = $organizer;
     }
 
-    public function getInscrit(): ?bool
+    public function getRegistered(): ?bool
     {
-        return $this->inscrit;
+        return $this->registered;
     }
 
-    public function setInscrit(?bool $inscrit): void
+    public function setRegistered(?bool $registered): void
     {
-        $this->inscrit = $inscrit;
+        $this->registered = $registered;
     }
 
-    public function getNotInscrit(): ?bool
+    public function getNotRegistered(): ?bool
     {
-        return $this->notInscrit;
+        return $this->notRegistered;
     }
 
-    public function setNotInscrit(?bool $notInscrit): void
+    public function setNotRegistered(?bool $notRegistered): void
     {
-        $this->notInscrit = $notInscrit;
+        $this->notRegistered = $notRegistered;
     }
 
-    public function getFinis(): ?bool
+    public function getFinished(): ?bool
     {
-        return $this->finis;
+        return $this->finished;
     }
 
-    public function setFinis(?bool $finis): void
+    public function setFinished(?bool $finished): void
     {
-        $this->finis = $finis;
+        $this->finished = $finished;
     }
 
 

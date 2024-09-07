@@ -13,29 +13,29 @@
     </div>
     <p class="form-date">Date :</p>
     <div>
-        {{ form_label(form.dateMin) }}
-        {{ form_widget(form.dateMin) }}
+        {{ form_label(form.minDate) }}
+        {{ form_widget(form.minDate) }}
     </div>
     <div>
-        {{ form_label(form.dateMax) }}
-        {{ form_widget(form.dateMax) }}
+        {{ form_label(form.maxDate) }}
+        {{ form_widget(form.maxDate) }}
     </div>
     <p class="form-others">Autres :</p>
     <div>
-        {{ form_label(form.organisateur) }}
-        {{ form_widget(form.organisateur) }}
+        {{ form_label(form.organizer) }}
+        {{ form_widget(form.organizer) }}
     </div>
     <div>
-        {{ form_label(form.inscrit) }}
-        {{ form_widget(form.inscrit) }}
+        {{ form_label(form.registered) }}
+        {{ form_widget(form.registered) }}
     </div>
     <div>
-        {{ form_label(form.notInscrit) }}
-        {{ form_widget(form.notInscrit) }}
+        {{ form_label(form.notRegistered) }}
+        {{ form_widget(form.notRegistered) }}
     </div>
     <div>
-        {{ form_label(form.finis) }}
-        {{ form_widget(form.finis) }}
+        {{ form_label(form.finished) }}
+        {{ form_widget(form.finished) }}
     </div>
 
 <button class="button">{{ button_label|default('Filtrer') }}</button>

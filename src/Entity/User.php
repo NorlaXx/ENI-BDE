@@ -49,23 +49,23 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * @var Collection<int, Activity>
      */
-    #[ORM\ManyToMany(targetEntity: Activity::class, mappedBy: 'inscrits')]
+    #[ORM\ManyToMany(targetEntity: Activity::class, mappedBy: 'registered')]
     private Collection $activities;
     #[ORM\ManyToOne(inversedBy: 'users')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Campus $Campus = null;
     #[Assert\Length(max: 255)]
     #[ORM\Column(length: 255, nullable: true)]
-    private ?string $pictureFileName = null;
+    private ?string $fileName = null;
 
     #[ORM\Column]
     private ?bool $isActive = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $nom = null;
+    private ?string $lastName = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $prenom = null;
+    private ?string $firstName = null;
 
     public function __construct()
     {
@@ -210,7 +210,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         if (!$this->ActivitiesOwner->contains($activitiesOwner)) {
             $this->ActivitiesOwner->add($activitiesOwner);
-            $activitiesOwner->setOrganisateur($this);
+            $activitiesOwner->setOrganizer($this);
         }
 
         return $this;
@@ -220,8 +220,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         if ($this->ActivitiesOwner->removeElement($activitiesOwner)) {
             // set the owning side to null (unless already changed)
-            if ($activitiesOwner->getOrganisateur() === $this) {
-                $activitiesOwner->setOrganisateur(null);
+            if ($activitiesOwner->getOrganizer() === $this) {
+                $activitiesOwner->setOrganizer(null);
             }
         }
 
@@ -240,14 +240,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function getPictureFileName(): ?string
+    public function getFileName(): ?string
     {
-        return $this->pictureFileName;
+        return $this->fileName;
     }
 
-    public function setPictureFileName(?string $pictureFileName): static
+    public function setFileName(?string $fileName): static
     {
-        $this->pictureFileName = $pictureFileName;
+        $this->fileName = $fileName;
 
         return $this;
     }
@@ -264,26 +264,26 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function getNom(): ?string
+    public function getLastName(): ?string
     {
-        return $this->nom;
+        return $this->lastName;
     }
 
-    public function setNom(string $nom): static
+    public function setLastName(string $lastName): static
     {
-        $this->nom = $nom;
+        $this->lastName = $lastName;
 
         return $this;
     }
 
-    public function getPrenom(): ?string
+    public function getFirstName(): ?string
     {
-        return $this->prenom;
+        return $this->firstName;
     }
 
-    public function setPrenom(string $prenom): static
+    public function setFirstName(string $firstName): static
     {
-        $this->prenom = $prenom;
+        $this->firstName = $firstName;
 
         return $this;
     }

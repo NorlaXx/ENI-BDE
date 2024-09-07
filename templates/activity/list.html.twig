@@ -25,19 +25,19 @@
                 {% for activity in activities %}
                     {% if activity.state.id != 6 %}
                         <div class="activity"
-                             data-activity={{ activity.convertToJson }}  data-lat="{{ activity.lieu.Lat }}"
+                             data-activity={{ activity.convertToJson }}  data-lat="{{ activity.lieu.latitude }}"
                              data-long="{{ activity.lieu.longitude }}" data-id="{{ activity.id }}">
                         <span class="flex">
-                            <img src={{ asset('thumbnails/' ~ activity.pictureFileName) }} alt="activity thumbnails"/>
+                            <img src={{ asset('thumbnails/' ~ activity.fileName) }} alt="activity thumbnails"/>
                             <span class="title-description">
-                                <p class="title"><strong>{{ activity.name }}</strong> ({{ activity.dateDebut|date('Y-m-d') }})</p>
+                                <p class="title"><strong>{{ activity.name }}</strong> ({{ activity.startDate|date('Y-m-d') }})</p>
                                 <p class="description">{{ activity.description }}</p>
                             </span>
                         </span>
                             <span class="information">
                             <span class="information_text">
-                                <p>Date limite d'inscription : {{ activity.dateFinalInscription|date('Y-m-d') }}</p>
-                                <p>Nombre de places : {{ activity.nbLimitParticipants - activity.inscrits|length }}</p>
+                                <p>Date limite d'inscription : {{ activity.registrationDateLimit|date('Y-m-d') }}</p>
+                                <p>Nombre de places : {{ activity.nbLimitParticipants - activity.registered|length }}</p>
                             </span>
                             <span class="buttons">
                                 {% if is_granted('edit', activity) %}

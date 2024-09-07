@@ -29,15 +29,15 @@ function createComponents($activity, latitude, longitude, canEdit, register) {
     //Récupération de toutes les données
     let id = $activity.id.replaceAll("&@^", " ");
     let name = $activity.name.replaceAll("&@^", " ");
-    let ville = $activity.ville.replaceAll("&@^", " ");
+    let city = $activity.city.replaceAll("&@^", " ");
     let lieu = $activity.lieu.replaceAll("&@^", " ");
     let description = $activity.description.replaceAll("&@^", " ");
     let state = $activity.state.replaceAll("&@^", " ");
-    let pictureFileName = $activity.pictureFileName.replaceAll("&@^", " ");
-    let dateDebut = $activity.dateDebut.replaceAll("&@^", " ");
-    let dateFinalInscription = $activity.dateFinalInscription.replaceAll("&@^", " ");
-    let duree = $activity.duree.replaceAll("&@^", " ");
-    let dateCreation = $activity.dateCreation.replaceAll("&@^", " ");
+    let fileName = $activity.fileName.replaceAll("&@^", " ");
+    let startDate = $activity.startDate.replaceAll("&@^", " ");
+    let registrationDateLimit = $activity.registrationDateLimit.replaceAll("&@^", " ");
+    let duration = $activity.duration.replaceAll("&@^", " ");
+    let creationDate = $activity.creationDate.replaceAll("&@^", " ");
     let nbLimitParticipants = $activity.nbLimitParticipants.replaceAll("&@^", " ");
     let nbParticipants = $activity.nbParticipants.replaceAll("&@^", " ");
 
@@ -48,7 +48,7 @@ function createComponents($activity, latitude, longitude, canEdit, register) {
     let imgContainer = document.createElement("div");
     imgContainer.className = "img-container";
     let pictureDom = document.createElement("img");
-    pictureDom.src = "/thumbnails/" + pictureFileName;
+    pictureDom.src = "/thumbnails/" + fileName;
     imgContainer.appendChild(pictureDom);
 
     //Titre et description
@@ -62,7 +62,7 @@ function createComponents($activity, latitude, longitude, canEdit, register) {
     let titleStrong = document.createElement("strong");
     titleStrong.innerHTML = name
     let dateDom = document.createElement("p");
-    dateDom.innerHTML = "(" + dateDebut + ")";
+    dateDom.innerHTML = "(" + startDate + ")";
 
     titleDom.appendChild(titleStrong);
     titleDom.appendChild(dateDom);
@@ -95,11 +95,11 @@ function createComponents($activity, latitude, longitude, canEdit, register) {
     let locationDom = document.createElement("p");
     locationDom.innerHTML = "Lieu : " + lieu;
     let cityDom = document.createElement("p");
-    cityDom.innerHTML = "Ville : " + ville;
+    cityDom.innerHTML = "Ville : " + city;
     let durationDom = document.createElement("p");
-    durationDom.innerHTML = "Duree : " + duree + " min";
+    durationDom.innerHTML = "Duree : " + duration + " min";
     let endRegisterDateDom = document.createElement("p");
-    endRegisterDateDom.innerHTML = "Date fin inscription : " + dateFinalInscription;
+    endRegisterDateDom.innerHTML = "Date fin inscription : " + registrationDateLimit;
 
     detailsDom.appendChild(locationDom);
     detailsDom.appendChild(cityDom);

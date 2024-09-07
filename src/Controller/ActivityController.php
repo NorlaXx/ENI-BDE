@@ -118,11 +118,11 @@ class ActivityController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $file = $form->get('pictureFileName')->getData();
+            $file = $form->get('fileName')->getData();
             if ($file){
-                $activity->setPictureFileName($this->fileUploaderService->upload($file));
+                $activity->setFileName($this->fileUploaderService->upload($file));
             }else if($action == 'create'){
-                $activity->setPictureFileName('defaut_activity_picture.webp');
+                $activity->setFileName('defaut_activity_picture.webp');
             }
     
             $this->activityService->addOtherproperties($activity);

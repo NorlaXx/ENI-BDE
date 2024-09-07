@@ -70,7 +70,7 @@ class UserController extends AbstractController
             if(!$this->userRepository->findBy(['email' => $user->getEmail()])) {
                 /*  set default PictureFileName on Entity */
                 $user->setActive(true);
-                $user->setPictureFileName("icons8-avatar-48-66d71c8776738.png");
+                $user->setFileName("icons8-avatar-48-66d71c8776738.png");
                 $this->entityManager->persist($user);
                 $this->entityManager->flush();
                 return $this->redirectToRoute('app_profil_list');
@@ -148,7 +148,7 @@ class UserController extends AbstractController
             $profilePicture = $form->get('profilePicture')->getData();
             /* Upload file using fileUploader Service + set PictureFileName on Entity*/
             if ($profilePicture) {
-                $user->setPictureFileName($this->fileUploaderService->upload($profilePicture));
+                $user->setFileName($this->fileUploaderService->upload($profilePicture));
             }
             $this->entityManager->persist($user);
             $this->entityManager->flush();

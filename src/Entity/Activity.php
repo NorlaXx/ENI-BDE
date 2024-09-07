@@ -26,7 +26,7 @@ class Activity
      * @var Collection<int, user>
      */
     #[ORM\ManyToMany(targetEntity: User::class, inversedBy: 'activities')]
-    private Collection $inscrits;
+    private Collection $registered;
 
     #[ORM\ManyToOne(inversedBy: 'activities')]
     #[ORM\JoinColumn(nullable: false)]
@@ -43,31 +43,31 @@ class Activity
     #[ORM\JoinColumn(nullable: false)]
     private ?ActivityState $state = null;
 
-    #[Assert\GreaterThan(propertyPath: 'dateFinalInscription')]
+    #[Assert\GreaterThan(propertyPath: 'registrationDateLimit')]
     #[Assert\GreaterThan('today')]
     #[Assert\NotBlank]
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
-    private ?\DateTimeInterface $dateDebut = null;
+    private ?\DateTimeInterface $startDate = null;
 
     #[Assert\NotBlank]
     #[Assert\GreaterThan('today')]
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
-    private ?\DateTimeInterface $dateFinalInscription = null;
+    private ?\DateTimeInterface $registrationDateLimit = null;
 
     #[ORM\ManyToOne(inversedBy: 'ActivitiesOwner')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?User $organisateur = null;
+    private ?User $organizer = null;
 
     #[Assert\NotBlank]
     #[Assert\Positive]
     #[ORM\Column]
-    private ?int $duree = null;
+    private ?int $duration = null;
 
     #[ORM\Column(length: 255, nullable: true)]
-    private ?string $pictureFileName = null;
+    private ?string $fileName = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
-    private ?\DateTimeInterface $dateCreation = null;
+    private ?\DateTimeInterface $creationDate = null;
 
     #[Assert\NotBlank]
     #[Assert\Positive]
@@ -76,7 +76,7 @@ class Activity
 
     public function __construct()
     {
-        $this->inscrits = new ArrayCollection();
+        $this->registered = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -99,15 +99,15 @@ class Activity
     /**
      * @return Collection<int, user>
      */
-    public function getInscrits(): Collection
+    public function getRegistered(): Collection
     {
-        return $this->inscrits;
+        return $this->registered;
     }
 
     public function addInscrit(user $inscrit): static
     {
-        if (!$this->inscrits->contains($inscrit)) {
-            $this->inscrits->add($inscrit);
+        if (!$this->registered->contains($inscrit)) {
+            $this->registered->add($inscrit);
         }
 
         return $this;
@@ -115,7 +115,7 @@ class Activity
 
     public function removeInscrit(User $inscrit): static
     {
-        $this->inscrits->removeElement($inscrit);
+        $this->registered->removeElement($inscrit);
 
         return $this;
     }
@@ -168,74 +168,74 @@ class Activity
         return $this;
     }
 
-    public function getDateDebut(): ?\DateTimeInterface
+    public function getStartDate(): ?\DateTimeInterface
     {
-        return $this->dateDebut;
+        return $this->startDate;
     }
 
-    public function setDateDebut(?\DateTimeInterface $dateDebut): static
+    public function setStartDate(?\DateTimeInterface $startDate): static
     {
-        $this->dateDebut = $dateDebut;
+        $this->startDate = $startDate;
 
         return $this;
     }
 
-    public function getDateFinalInscription(): ?\DateTimeInterface
+    public function getRegistrationDateLimit(): ?\DateTimeInterface
     {
-        return $this->dateFinalInscription;
+        return $this->registrationDateLimit;
     }
 
-    public function setDateFinalInscription(?\DateTimeInterface $dateFinalInscription): static
+    public function setRegistrationDateLimit(?\DateTimeInterface $registrationDateLimit): static
     {
-        $this->dateFinalInscription = $dateFinalInscription;
+        $this->registrationDateLimit = $registrationDateLimit;
 
         return $this;
     }
 
-    public function getOrganisateur(): ?User
+    public function getOrganizer(): ?User
     {
-        return $this->organisateur;
+        return $this->organizer;
     }
 
-    public function setOrganisateur(?User $organisateur): static
+    public function setOrganizer(?User $organizer): static
     {
-        $this->organisateur = $organisateur;
+        $this->organizer = $organizer;
 
         return $this;
     }
 
-    public function getDuree(): ?int
+    public function getDuration(): ?int
     {
-        return $this->duree;
+        return $this->duration;
     }
 
-    public function setDuree(int $duree): static
+    public function setDuration(int $duration): static
     {
-        $this->duree = $duree;
+        $this->duration = $duration;
 
         return $this;
     }
 
-    public function getPictureFileName(): ?string
+    public function getFileName(): ?string
     {
-        return $this->pictureFileName;
+        return $this->fileName;
     }
 
-    public function setPictureFileName(?string $pictureFileName): static
+    public function setFileName(?string $fileName): static
     {
-        $this->pictureFileName = $pictureFileName;
+        $this->fileName = $fileName;
 
         return $this;
     }
 
-    public function getDateCreation(): ?\DateTimeInterface
+    public function getCreationDate(): ?\DateTimeInterface
     {
-        return $this->dateCreation;
+        return $this->creationDate;
     }
 
-    public function setDateCreation(\DateTimeInterface $dateCreation): static
+    public function setCreationDate(\DateTimeInterface $creationDate): static
     {
-        $this->dateCreation = $dateCreation;
+        $this->creationDate = $creationDate;
 
         return $this;
     }
@@ -259,17 +259,17 @@ class Activity
         $array = [
             "id" => str_replace(" ", "&@^", $this->getId()),
             "name" => str_replace(" ", "&@^",$this->getName()),
-            "ville" => str_replace(" ", "&@^",$this->getLieu()->getVille()),
-            "lieu" => str_replace(" ", "&@^",$this->getLieu()->getAddresse()),
+            "city" => str_replace(" ", "&@^",$this->getLieu()->getCity()),
+            "lieu" => str_replace(" ", "&@^",$this->getLieu()->getAddress()),
             "description" => str_replace(" ", "&@^",$this->getDescription()),
             "state" => str_replace(" ", "&@^",$this->getState()->getCode()),
-            "dateDebut" => str_replace(" ", "&@^",$this->getDateDebut()->format('Y/m/d H:i')), // Assurez-vous que c'est une chaîne
-            "dateFinalInscription" => str_replace(" ", "&@^",$this->getDateFinalInscription()->format('Y/m/d H:i')),
-            "duree" => str_replace(" ", "&@^",$this->getDuree()),
-            "pictureFileName" => str_replace(" ", "&@^",$this->getPictureFileName()),
-            "dateCreation" => str_replace(" ", "&@^",$this->getDateCreation()->format('Y/m/d H:i')),
+            "startDate" => str_replace(" ", "&@^",$this->getStartDate()->format('Y/m/d H:i')), // Assurez-vous que c'est une chaîne
+            "registrationDateLimit" => str_replace(" ", "&@^",$this->getRegistrationDateLimit()->format('Y/m/d H:i')),
+            "duration" => str_replace(" ", "&@^",$this->getDuration()),
+            "fileName" => str_replace(" ", "&@^",$this->getFileName()),
+            "creationDate" => str_replace(" ", "&@^",$this->getCreationDate()->format('Y/m/d H:i')),
             "nbLimitParticipants" => str_replace(" ", "&@^",$this->getNbLimitParticipants()),
-            "nbParticipants" => str_replace(" ", "&@^",$this->getInscrits()->count())
+            "nbParticipants" => str_replace(" ", "&@^",$this->getRegistered()->count())
         ];
 
         return json_encode($array);

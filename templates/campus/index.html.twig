@@ -11,8 +11,8 @@
             <div class="separator"></div>
             <div class="activity-content" id="activityContent">
                 {% for campus in campusList %}
-                    <div class="activity canClick" data-lat="{{ campus.lat }}" data-long="{{ campus.longitude }}" data-id="{{campus.id}}">
-                        <img src={{ asset('thumbnails/' ~ campus.pictureFileName) }} alt="activity thumbnails"/>
+                    <div class="activity canClick" data-lat="{{ campus.latitude }}" data-long="{{ campus.longitude }}" data-id="{{campus.id}}">
+                        <img src={{ asset('thumbnails/' ~ campus.fileName) }} alt="activity thumbnails"/>
                         <span class="title-description">
                             <p class="title">{{ campus.name }}</p>
                         </span>

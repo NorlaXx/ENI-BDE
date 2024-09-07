@@ -22,7 +22,7 @@
                 <td>{{ user.phoneNumber }}</td>
                 <td>{{ user.campus.name }}</td>
                 <td>
-                    <img height="50px" src="{{ asset('profilePictures/'~ app.user.pictureFileName) }}"
+                    <img height="50px" src="{{ asset('profilePictures/'~ app.user.fileName) }}"
                          class="profilPicture" alt="ProfilePicture">
                 </td>
                 <td><a href="{{ path('app_user_delete', {'id' : user.id}) }}">
