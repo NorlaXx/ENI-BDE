@@ -99,8 +99,8 @@ class ActivityRepository extends ServiceEntityRepository
         }
 
         if ($filter->getOrganizer() != null) {
-            $qb->andWhere('activity.organizer = :organizer');
-            $param->add(new Parameter('organizer', $filter->getOrganizer()));
+            $qb->andWhere('activity.organizer = :id');
+            $param->add(new Parameter('id', $idUser));
         }
 
         if ($filter->getRegistered() && $filter->getNotRegistered()){

@@ -72,9 +72,7 @@ class LieuController extends AbstractController
             $lieu->setLatitude($latlng['lat']);
             $lieu->setLongitude($latlng['lng']);
 
-            $this->entityManager->persist($lieu);
-            $this->entityManager->flush();
-
+            $this->lieuRepository->update($lieu);
             return $this->redirectToRoute('app_lieu_list');
         }
 

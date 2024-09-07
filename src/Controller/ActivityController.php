@@ -55,21 +55,8 @@ class ActivityController extends AbstractController
     {
         $filter = new ActivityFilter();
         $form = $this->createForm(ActivityFilterType::class, $filter);
-        $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $activities = $this->activityRepository->filter(
-                $this->getUser()->getId(),
-                $filter
-            );
-        } else {
-            $activities = $this->activityRepository->findAll();
-        }
-
-        return $this->render('activity/list.html.twig', [
-            'form' => $form->createView(),
-            'activities' => $activities,
-        ]);
+        return $this->render('activity/list.html.twig', $this->activityService->findByFilter($request, $form, $filter));
     }
 
     #[IsGranted('edit', 'activity')]

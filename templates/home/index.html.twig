@@ -49,19 +49,19 @@
                                         <button class="button"><span>Rejoindre</span></button>
                                     </a>
                                 {% endif %}
-                                {% if activity not in user.activities and activity.state.code == "ACT_CR" %}
+                                {% if activity not in app.user.activities and activity.state.code == "ACT_CR" %}
                                     <button class="button" disable>Créée</button>
                                 {% endif %}
-                                {% if activity not in user.activities and activity.state.code == "ACT_EN_C" %}
+                                {% if activity not in app.user.activities and activity.state.code == "ACT_EN_C" %}
                                     <button class="button" disable>En cours</button>
                                 {% endif %}
-                                {% if activity not in user.activities and activity.state.code == "ACT_INS_F" %}
+                                {% if activity not in app.user.activities and activity.state.code == "ACT_INS_F" %}
                                     <button class="button close" disable>Fermée</button>
                                 {% endif %}
-                                {% if activity not in user.activities and activity.state.code == "ACT_TER" %}
+                                {% if activity not in app.user.activities and activity.state.code == "ACT_TER" %}
                                     <button class="button cancel" disable>Terminée</button>
                                 {% endif %}
-                                {% if activity not in user.activities and activity.state.code == "ACT_ANN" %}
+                                {% if activity not in app.user.activities and activity.state.code == "ACT_ANN" %}
                                     <button class="button cancel" disable>Annulée</button>
                                 {% endif %}
                             </span>
