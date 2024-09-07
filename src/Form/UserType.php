@@ -34,6 +34,14 @@ class UserType extends AbstractType
                 'label' => 'Pseudo',
                 'required' => false,
             ])
+            ->add('nom', TextType::class, [
+                'label' => 'Nom',
+                'required' => true,
+            ])
+            ->add('prenom', TextType::class, [
+                'label' => 'Prénom',
+                'required' => true,
+            ])
             ->add('campus', EntityType::class, [
                 'class' => Campus::class,
                 'choice_label' => 'name',
