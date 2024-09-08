@@ -5,6 +5,9 @@
         <a style="text-decoration: none" href="{{ path('app_user_create') }}">
             <button class="button"> Ajouter un utilisateur </button>
         </a>
+        <a style="text-decoration: none" href="">
+            <button class="button"> Télécharger un fichier template </button>
+        </a>
         {{ form_start(form) }}
         {{ form_label(form.csvFile) }}
         {{ form_widget(form.csvFile) }}

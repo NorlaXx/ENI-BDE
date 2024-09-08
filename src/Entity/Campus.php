@@ -24,6 +24,7 @@ class Campus
     #[ORM\Column(length: 255)]
     private ?string $longitude = null;
 
+
     #[ORM\Column]
     private ?int $nblimitPlaces = null;
 
@@ -41,6 +42,15 @@ class Campus
 
     #[ORM\Column(length: 255)]
     private ?string $fileName = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $postalCode = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $adresse = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $city = null;
 
     public function __construct()
     {
@@ -169,6 +179,42 @@ class Campus
     public function setFileName(string $fileName): static
     {
         $this->fileName = $fileName;
+
+        return $this;
+    }
+
+    public function getPostalCode(): ?string
+    {
+        return $this->postalCode;
+    }
+
+    public function setPostalCode(string $postalCode): static
+    {
+        $this->postalCode = $postalCode;
+
+        return $this;
+    }
+
+    public function getAdresse(): ?string
+    {
+        return $this->adresse;
+    }
+
+    public function setAdresse(string $adresse): static
+    {
+        $this->adresse = $adresse;
+
+        return $this;
+    }
+
+    public function getCity(): ?string
+    {
+        return $this->city;
+    }
+
+    public function setCity(string $city): static
+    {
+        $this->city = $city;
 
         return $this;
     }
