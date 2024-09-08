@@ -1,0 +1,28 @@
+<link rel="stylesheet" href="/styles/nav.css">
+<nav>
+  <ul class="main_ul">
+    <li>
+    <a href={{path("app_home")}}><img class="logo" alt="logo" src="{{ asset("images/bdEni.png") }}" ></a>
+    </li>
+    <li>
+      <ul class="secondary_ul">
+        <li><a href="{{ path('app_home') }}">Accueil</a></li>
+        <li><a href="{{  path('app_lieu_list') }}">Lieux</a></li>
+        <li><a href="{{ path('app_home_campus') }}">Campus</a></li>
+        {% if is_granted('ROLE_ADMIN') %}
+          <li><a href="{{ path('app_profil_list') }}">Utilisateurs</a></li>
+        {% endif %}
+        <li class="profil"><a href="{{ path('app_profile') }}">Profil</a></li>
+      </ul>
+    </li>
+    <li><a href="{{ path("app_profile") }}"><img class="profil-picture" src="{{ asset('profilePictures/'~ app.user.fileName) }}" alt="icon" /></a></li>
+    <li class="burger">
+      <div></div>
+      <div></div>
+      <div></div>
+    </li>
+  </ul>
+</nav>
+<canvas id="custom_canvas"></canvas>
+<script src="https://cdn.jsdelivr.net/npm/js-confetti@0.9.0/dist/js-confetti.browser.js"></script>
+<script src="/scripts/nav.js" type="module"></script>

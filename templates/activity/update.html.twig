@@ -1,0 +1,19 @@
+{% include 'base_logged.html.twig' %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="/styles/form.css">
+{% endblock %}
+
+{% block body %}
+    <div class="content activity">
+        <div class="overlay"></div>
+
+        <div class="form-container">
+            <h2>Modification de sortie !</h2>
+            <span class="description">
+                <p>Envie de modifier ta sortie a cause d'une erreur ?</p>
+                <p>Tu as de la chance on est sympa !</p>
+            </span>
+
+    {{ include('activity/_form.html.twig') }}
+{% endblock %}

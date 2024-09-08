@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}BD-E-ni | Connexion{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="/styles/login.css">
+{% endblock %}
+
+{% block body %}
+    <img src="/images/icon.png" alt="icon" class="icon">
+    <div class="content">
+        <form method="post">
+            {% if error %}
+                <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+            {% endif %}
+
+            <h2>Ravis de vous revoir</h2>
+
+            <input placeholder="Email" type="email" value="{{ last_username }}" name="_username" id="username" class="form-control" autocomplete="email" required autofocus>
+            <input placeholder="Mot de passe" type="password" name="_password" id="password" class="form-control" autocomplete="current-password" required>
+
+            <input type="hidden" name="_csrf_token"
+                value="{{ csrf_token('authenticate') }}"
+            >
+
+                <div class="checkbox mb-3">
+                    <span id="bipbip">
+                        <input type="checkbox" name="_remember_me" id="_remember_me">
+                        <label for="_remember_me">Se souvenir de moi</label>
+                    </span>
+                    <a>mot de passe oublié</a>
+                </div>
+
+            <button class="btn btn-lg btn-primary" type="submit">
+                Sign in
+            </button>
+        </form>
+    </div>
+{% endblock %}

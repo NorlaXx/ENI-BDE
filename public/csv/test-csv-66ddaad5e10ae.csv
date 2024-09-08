@@ -1,0 +1,6 @@
+email,phoneNumber,pseudo,campusName,pictureFileName,isActive,nom,prenom
+john.doe@example.com,1234567890,johndoe,Rennes,default.jpg,true,Doe,John
+jane.smith@example.com,0987654321,janesmith,Rennes,default.jpg,true,Smith,Jane
+mike.jones@example.com,1122334455,mikejones,Rennes,default.jpg,false,Jones,Mike
+emily.davis@example.com,5566778899,emilyd,Rennes,default.jpg,true,Davis,Emily
+alex.wilson@example.com,6677889900,alexwilson,Rennes,default.jpg,false,Wilson,Alex

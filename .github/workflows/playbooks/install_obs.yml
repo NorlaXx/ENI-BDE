@@ -1,0 +1,29 @@
+---
+- name: Install Elastic Agent
+  hosts: all
+  become: yes  # This will run tasks with sudo privileges
+  vars_files:
+    - vars.yml
+    - secrets.yml
+
+  tasks:
+    - name: Download Elastic Agent
+      get_url:
+        url: "https://artifacts.elastic.co/downloads/beats/elastic-agent/elastic-agent-{{ elastic_agent_version }}-{{ elastic_agent_arch }}.tar.gz"
+        dest: "/tmp/elastic-agent-{{ elastic_agent_version }}-{{ elastic_agent_arch }}.tar.gz"
+
+    - name: Extract Elastic Agent archive
+      unarchive:
+        src: "/tmp/elastic-agent-{{ elastic_agent_version }}-{{ elastic_agent_arch }}.tar.gz"
+        dest: "/tmp"
+        remote_src: yes
+
+    - name: Install Elastic Agent
+      command:
+        cmd: "./elastic-agent install --url={{ fleet_url }} --enrollment-token={{ enrollment_token }}"
+        chdir: "/tmp/elastic-agent-{{ elastic_agent_version }}-{{ elastic_agent_arch }}"
+
+    - name: Clean up downloaded archive
+      file:
+        path: "/tmp/elastic-agent-{{ elastic_agent_version }}-{{ elastic_agent_arch }}.tar.gz"
+        state: absent

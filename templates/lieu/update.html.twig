@@ -1,0 +1,20 @@
+{% include 'base_logged.html.twig' %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="/styles/form.css">
+{% endblock %}
+
+{% block body %}
+    <div class="content activity">
+        <div class="overlay"></div>
+
+        <div class="form-container">
+            <h2>Modifier un lieu !</h2>
+            <span class="description">
+                <p>Un lieu a changé ou vous souhaitez ajouter des informations ?</p>
+                <p>Mettez à jour les détails pour garder votre campus informé !</p>
+            </span>
+            {{ include('lieu/_form.html.twig') }}
+        </div>
+    </div>
+{% endblock %}

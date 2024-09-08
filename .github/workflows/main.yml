@@ -1,0 +1,59 @@
+name: Symfony project
+
+on:
+  push:
+    branches: [ "main" ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: 8.3
+
+      - name: Validate composer.json and composer.lock
+        run: composer validate
+
+      - name: Set up Python and Install Ansible
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.x'
+
+
+      - name: Install Ansible
+        run: |
+          python -m pip install --upgrade pip
+          pip install ansible
+
+      - name: Run install php
+        run: |
+          ansible-playbook -i .github/workflows/playbooks/hosts.yml .github/workflows/playbooks/install_php.yml
+        env:
+          ANSIBLE_HOST_KEY_CHECKING: 'false'
+      - name: Run install mysql
+        run: |
+          ansible-playbook -i .github/workflows/playbooks/hosts.yml .github/workflows/playbooks/install_mysql.yml
+        env:
+          ANSIBLE_HOST_KEY_CHECKING: 'false'
+      - name: Run install nginx
+        run: |
+          ansible-playbook -i .github/workflows/playbooks/hosts.yml .github/workflows/playbooks/install_nginx.yml
+        env:
+          ANSIBLE_HOST_KEY_CHECKING: 'false'
+      - name: Run install project
+        run: |
+          ansible-playbook -i .github/workflows/playbooks/hosts.yml .github/workflows/playbooks/install_project.yml
+        env:
+          ANSIBLE_HOST_KEY_CHECKING: 'false'
+
+      - name: Run install observability
+        run: |
+          ansible-playbook -i .github/workflows/hosts.yml .github/workflows/playbooks/install_obs.yml
+        env:
+          ANSIBLE_HOST_KEY_CHECKING: 'false'

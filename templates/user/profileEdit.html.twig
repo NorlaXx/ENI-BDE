@@ -1,0 +1,35 @@
+{% include 'base_logged.html.twig' %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="/styles/form.css">
+{% endblock %}
+
+{% block body %}
+ <div class="content modify">
+        <div class="overlay"></div>
+        <div class="form-container">
+            <h2>Modifier votre profil</h2>
+            <span class="description">
+                <p>Envie de mettre à jour vos informations personnelles ?</p>
+                <p>Personnalisez votre profil pour mieux vous présenter à la communauté du campus !</p>
+            </span>
+            {{ form_start(form) }}
+            <input type="hidden" name="_csrf_token" value="{{ csrf_token('form') }}">
+            {{ form_label(form.pseudo) }}
+            {{ form_widget(form.pseudo) }}
+            {{ form_label(form.nom) }}
+            {{ form_widget(form.nom) }}
+            {{ form_label(form.prenom) }}
+            {{ form_widget(form.prenom) }}
+            {{ form_label(form.phone_number) }}
+            {{ form_widget(form.phone_number) }}
+            {{ form_label(form.campus) }}
+            {{ form_widget(form.campus) }}
+            {{form_label(form.profilePicture)}}
+            {{form_widget(form.profilePicture)}}
+            <button>Enregistré</button>
+            {{ form_end(form, {'render_rest': false}) }}
+        </div>
+    </div>
+
+{% endblock %}

@@ -1,0 +1,22 @@
+{{ form_start(form) }}
+    {{form_widget(form.name)}}
+    {{form_widget(form.campus)}}
+    {{form_widget(form.lieu)}}
+    {{form_widget(form.description)}}
+    <span class="same_line">
+        <span>
+            {{form_label(form.startDate)}}
+            {{form_widget(form.startDate)}}
+        </span>
+        <span>
+            {{form_label(form.registrationDateLimit)}}
+            {{form_widget(form.registrationDateLimit)}}
+        </span>
+    </span>
+    {{form_widget(form.nbLimitParticipants)}}
+    {{form_widget(form.duration)}}
+    {{form_label(form.fileName)}}
+    {{form_widget(form.fileName)}}
+
+    <button>Enregistré</button>
+{{ form_end(form)}}

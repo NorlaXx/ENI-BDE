@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Profil de {{ user.pseudo }}{% endblock %}
+
+{% block body %}
+<div style="text-align: center">
+    {{ user.pseudo }}
+    {{ user.email }}
+    <img src="{{ asset('profilePictures/'~ user.fileName) }}" height="200px" alt="ProfilePicture">
+    {{ user.getPhoneNumber }}
+    {{ user.campus.name }}
+    {# Here is display all the activities user is relation with #}
+    {% for activity in user.activities %}
+        {{ activity.name }}
+    {% endfor %}
+</div>
+
+{% endblock %}

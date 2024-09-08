@@ -1,0 +1,48 @@
+{% include 'base_logged.html.twig' %}
+
+{% block body %}
+    <div style="text-align: center">
+        <a style="text-decoration: none" href="{{ path('app_user_create') }}">
+            <button class="button"> Ajouter un utilisateur </button>
+        </a>
+        {{ form_start(form) }}
+        {{ form_label(form.csvFile) }}
+        {{ form_widget(form.csvFile) }}
+        <button type="submit">Importer</button>
+        {{ form_end(form) }}
+        <table>
+            <tr>
+                <th>Pseudo</th>
+                <th>Email</th>
+                <th>Tel</th>
+                <th>Campus</th>
+                <th>Avatar</th>
+                <th>Delete</th>
+                <th>Desactivate</th>
+            </tr
+                    {% for user in users %}>
+            <tr>
+                <td>{{ user.pseudo }} </td>
+                <td>{{ user.email }} </td>
+                <td>{{ user.phoneNumber }}</td>
+                <td>{{ user.campus.name }}</td>
+                <td>
+                    <img height="50px" src="{{ asset('profilePictures/'~ app.user.fileName) }}"
+                         class="profilPicture" alt="ProfilePicture">
+                </td>
+                <td><a href="{{ path('app_user_delete', {'id' : user.id}) }}">
+                        <button>Delete</button>
+                    </a>
+                </td>
+                <td>
+                    <a href="{{ path('app_user_desactivate', {'id' : user.id}) }}">
+                        <button>Desactivate</button>
+                    </a>
+                </td>
+
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+
+{% endblock %}
