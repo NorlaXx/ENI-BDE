@@ -177,7 +177,7 @@ class AppFixtures extends Fixture
                 'nbLimitParticipants' => 50,
                 'campus' => $campus1, // Assuming $campus1 is an instance of Campus
                 'lieu' => $lieu1, // Assuming $lieu1 is an instance of Lieu
-                'state' => $activityState, // Assuming $activityState2 is an instance of ActivityState
+                'state' => $activityState2, // Assuming $activityState2 is an instance of ActivityState
                 'organizer' => $user1 // Assuming $user1 is an instance of User
             ],
             [
@@ -189,7 +189,7 @@ class AppFixtures extends Fixture
                 'nbLimitParticipants' => 30,
                 'campus' => $campus2, // Assuming $campus2 is an instance of Campus
                 'lieu' => $lieu2, // Assuming $lieu2 is an instance of Lieu
-                'state' => $activityState, // Assuming $activityState2 is an instance of ActivityState
+                'state' => $activityState2, // Assuming $activityState2 is an instance of ActivityState
                 'organizer' => $user2 // Assuming $user2 is an instance of User
             ],
             [
@@ -201,7 +201,7 @@ class AppFixtures extends Fixture
                 'nbLimitParticipants' => 22,
                 'campus' => $campus3, // Assuming $campus3 is an instance of Campus
                 'lieu' => $lieu3, // Assuming $lieu3 is an instance of Lieu
-                'state' => $activityState, // Assuming $activityState2 is an instance of ActivityState
+                'state' => $activityState2, // Assuming $activityState2 is an instance of ActivityState
                 'organizer' => $user3 // Assuming $user3 is an instance of User
             ]
         ];
@@ -221,7 +221,14 @@ class AppFixtures extends Fixture
             $activity->setState($activityData['state']);
             $activity->setOrganizer($activityData['organizer']);
             $activity->setFileName('activity_ident.jpg');
+            $user1->addActivity($activity);
+            $user2->addActivity($activity);
+            $user3->addActivity($activity);
+
             $manager->persist($activity);
+            $manager->persist($user1);
+            $manager->persist($user2);
+            $manager->persist($user3);
         }
 
         $manager->flush();

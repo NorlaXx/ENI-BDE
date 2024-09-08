@@ -66,6 +66,8 @@ class LieuController extends AbstractController
             $profilePicture = $form->get('fileName')->getData();
             if ($profilePicture) {
                 $lieu->setFileName($this->fileUploaderService->upload("thumbnails",$profilePicture));
+            } else {
+                $lieu->setFileName("default.png");
             }
 
             $latlng = $this->lieuService->getLatLng($lieu->getAddress(), $lieu->getCity(), $lieu->getPostalCode());
