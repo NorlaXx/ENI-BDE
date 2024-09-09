@@ -118,9 +118,10 @@ class ActivityController extends AbstractController
             }else if($action == 'create'){
                 $activity->setFileName('defaut_activity_picture.webp');
             }
-    
-            $this->activityService->addOtherproperties($activity);
-        
+
+            $isShare = (bool)$form->get('save')->isClicked();
+
+            $this->activityService->addOtherproperties($isShare, $activity);
             $this->activityRepository->update($activity);
             return $this->redirectToRoute('app_home');
         }
