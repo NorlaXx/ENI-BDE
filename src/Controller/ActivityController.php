@@ -98,6 +98,13 @@ class ActivityController extends AbstractController
         $activity = new Activity();
         return $this->handleActivityForm($request, $activity, 'create');
     }
+    #[Route('/activity/user/list/{id}', name: 'app_user_activity_list')]
+    public function listUser(int $id): RedirectResponse|Response
+    {
+        return $this->render('activity/activity.user.list.html.twig', [
+            'userList' => $this->activityRepository->find($id)->getRegistered(),
+        ]);
+    }
 
     private function handleActivityForm(Request $request, Activity $activity, string $action): RedirectResponse|Response
     {
@@ -107,7 +114,7 @@ class ActivityController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $file = $form->get('fileName')->getData();
             if ($file){
-                $activity->setFileName($this->fileUploaderService->upload($file));
+                $activity->setFileName($this->fileUploaderService->upload("thumbnails",$file));
             }else if($action == 'create'){
                 $activity->setFileName('defaut_activity_picture.webp');
             }

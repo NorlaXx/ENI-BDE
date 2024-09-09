@@ -4,14 +4,17 @@ namespace App\Controller;
 
 
 use App\Entity\User;
+use App\Form\CsvImport;
 use App\Form\UserType;
 use App\Repository\UserRepository;
 use App\Repository\ActivityRepository;
 use App\Security\UserProvider;
+use App\Service\CsvImportService;
 use App\Service\FileUploaderService;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Exception\ORMException;
 use Doctrine\ORM\OptimisticLockException;
+use PhpParser\Node\Scalar\MagicConst\File;
 use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -31,6 +34,7 @@ class UserController extends AbstractController
         private MailerInterface $mailer,
         private UserRepository         $userRepository,
         private Security               $security,
+        private CsvImportService     $csvImportService,
         private FileUploaderService    $fileUploaderService,
         private ActivityRepository     $activityRepository,
         private EntityManagerInterface $entityManager
@@ -84,9 +88,24 @@ class UserController extends AbstractController
 
     #[IsGranted("ROLE_ADMIN")]
     #[Route(path: '/profil/list', name: 'app_profil_list')]
-    public function profileList(): Response
+    public function profileList(Request $request): Response
     {
+        $form = $this->createForm(CsvImport::class, new File());
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $csvFile = $this->fileUploaderService->upload("csv",$form->get("csvFile")->getData());
+            $results = $this->csvImportService->importCsv("csv/" . $csvFile);
+            if (!empty($results['errors'])) {
+                foreach ($results['errors'] as $error) {
+                    $this->addFlash('error', $error);
+                }
+            }
+            return $this->redirectToRoute('app_profil_list');
+        }
+
         return $this->render('user/profileList.html.twig', [
+            'form' => $form->createView(),
             'users' => $this->userRepository->findAll(),
         ]);
     }
@@ -148,7 +167,7 @@ class UserController extends AbstractController
             $profilePicture = $form->get('profilePicture')->getData();
             /* Upload file using fileUploader Service + set PictureFileName on Entity*/
             if ($profilePicture) {
-                $user->setFileName($this->fileUploaderService->upload($profilePicture));
+                $user->setFileName($this->fileUploaderService->upload("thumbnails", $profilePicture));
             }
             $this->entityManager->persist($user);
             $this->entityManager->flush();

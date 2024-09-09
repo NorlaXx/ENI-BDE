@@ -17,7 +17,11 @@
             <div class="activity-content" id="activityContent">
                 {% for activity in activities %}
                     {% if activity.state.id != 6 %}
-                    <div class="activity canClick" data-activity={{ activity.convertToJson}} data-edit={% if is_granted('edit', activity) %} true {% else %} false {% endif%} data-register={% if is_granted('withdraw', activity) %} true {% else %} false {% endif%} data-lat="{{ activity.lieu.latitude }}" data-long="{{ activity.lieu.longitude }}" data-id="{{ activity.id }}">
+                        <div class="activity canClick"
+                             data-activity={{ activity.convertToJson }} data-edit={% if is_granted('edit', activity) %} true {% else %} false {% endif %}
+                             data-register={% if is_granted('withdraw', activity) %} true {% else %} false {% endif %}
+                             data-lat="{{ activity.lieu.latitude }}" data-long="{{ activity.lieu.longitude }}"
+                             data-id="{{ activity.id }}">
                         <span class="flex">
                             <img src={{ asset('thumbnails/' ~ activity.fileName) }} alt="activity thumbnails"/>
                             <span class="title-description">
@@ -25,13 +29,29 @@
                                 <p class="description">{{ activity.description }}</p>
                             </span>
                         </span>
-                        <span class="information">
+                            <span class="information">
                             <span class="information_text">
                                 <p>Date limite d'inscription : {{ activity.registrationDateLimit|date('Y-m-d') }}</p>
-                                <p>Nombre de places : {{ activity.nbLimitParticipants - activity.registered|length }}</p>
+                                <p>Nombre de places : {{ activity.nbLimitParticipants - activity.registered|length }}
+                           </p>
+                                <span style="display: inline flex">
+                                {% for item in activity.registered|slice(0, 5, true) %}
+                                    <a href="{{ path('app_profile', {'id' : item.id}) }}">
+                                    <img style="width: 35px;
+                                        height: 35px;
+                                        border-radius: 50%;
+                                        object-fit: cover;
+                                        display: block;"
+                                         src="{{ asset('profilePictures/'~ item.fileName) }}">
+                                        </a>
+                                {% endfor %}
+                                     <a href="{{ path('app_user_activity_list' , {'id' : activity.id}) }}">
+                                <img src="{{ asset('images/....png') }}" style="height: 20px; width: 20px">
+                                </a>
+                                    </span>
                             </span>
                             <span class="buttons">
-                                {% if is_granted('edit', activity) %}
+                                {% if is_granted('edit', activity) and activity.state.code != "ACT_ANN" %}
                                     <a href="{{ path("activity_update", { 'id': activity.id }) }}">
                                         <button class="button modify"><span>Modifier</span></button>
                                     </a>
@@ -66,7 +86,7 @@
                                 {% endif %}
                             </span>
                         </span>
-                    </div>
+                        </div>
                     {% endif %}
                 {% endfor %}
             </div>
