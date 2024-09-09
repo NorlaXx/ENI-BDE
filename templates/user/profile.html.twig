@@ -30,7 +30,7 @@
     <div class="box right">
         <h2>Vos activitées proposé</h2>
         <div class="separator"></div>
-        <a href={{path("activity_create")}} class="createActivity"><button class="button">Créer une nouvelle activité</button></a>
+        <a href={{path("app_activity_create")}} class="createActivity"><button class="button">Créer une nouvelle activité</button></a>
         <div class="activity-content" id="activityContent">
             {% for activity in activities %}
                 {% if activity.state.id != 6 %}

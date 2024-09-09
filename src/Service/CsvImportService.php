@@ -54,7 +54,7 @@ class CsvImportService
 
     private function processRow(array $data): void
     {
-        [$email, $phoneNumber, $pseudo, $campusName, $pictureFileName, $isActive, $nom, $prenom] = $data;
+        [$email, $phoneNumber, $pseudo, $campusName, $lastName, $firstName] = $data;
 
         $user = new User();
         $user->setEmail($email);
@@ -69,15 +69,17 @@ class CsvImportService
         $user->setPseudo($pseudo);
 
         $campus = $this->entityManager->getRepository(Campus::class)->findOneBy(['name' => $campusName]);
+
+//        Si le nom du campus n'est pas connue, valuer set a Rennes par defaut
         if (!$campus) {
-            throw new \Exception("Campus not found: $campusName");
+             $campus = $this->entityManager->getRepository(Campus::class)->findOneBy(['name' => "Rennes"]);
         }
         $user->setCampus($campus);
 
         $user->setFileName("default.jpg");
         $user->setActive(true);
-        $user->setLastName($nom);
-        $user->setFirstName($prenom);
+        $user->setLastName($lastName);
+        $user->setFirstName($firstName);
 
         $this->entityManager->persist($user);
     }

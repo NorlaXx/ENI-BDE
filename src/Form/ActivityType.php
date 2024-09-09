@@ -67,8 +67,10 @@ class ActivityType extends AbstractType
                     'placeholder' => 'Durée'
                 )
             ])
-            ->add('share', SubmitType::class, ['label' => 'Enregistrer'])
-            ->add('save', SubmitType::class, ['label' => 'Publier'])
+            ->add('share', SubmitType::class, ['label' => 'Enregistrer sans publier'])
+
+            ->add('save', SubmitType::class, ['label' => 'Enregistrer et Publier'])
+
             ->add('fileName', FileType::class, [
                 'label' => 'Upload une image',
                 'label_attr' => ['class' => 'file-label'],
