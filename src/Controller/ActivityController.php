@@ -103,6 +103,13 @@ class ActivityController extends AbstractController
         }
         return $this->handleActivityForm($request, $activity, 'update');
     }
+    #[Route('/activity/user/list/{id}', name: 'app_user_activity_list')]
+    public function listUser(int $id): RedirectResponse|Response
+    {
+        return $this->render('activity/activity.user.list.html.twig', [
+            'userList' => $this->activityRepository->find($id)->getRegistered(),
+        ]);
+    }
 
     #[Route('/activity/create', name: 'app_activity_create')]
     public function createActivity(Request $request): RedirectResponse|Response
