@@ -23,12 +23,34 @@ function getNbFilter(){
 
     document.addEventListener('DOMContentLoaded', () => {
         const filledFieldsCount = localStorage.getItem('filledFieldsCount');
+        localStorage.removeItem('filledFieldsCount');
 
         if (filledFieldsCount !== null) {
             subtitle.innerHTML = '';
             subtitle.innerHTML = `Filtres (${filledFieldsCount})`;
         }
+
     });
 }
+
+function responsiveFilter(){
+    document.getElementById("toggle-form-button").addEventListener("click", function() {
+        const formContainer = document.getElementById("form-container");
+        const button = this;
+
+        // Toggle the "active" class to show or hide the form
+        if (formContainer.classList.contains("active")) {
+            formContainer.classList.remove("active");
+            formContainer.classList.add("hidden");
+            button.textContent = "Afficher le formulaire";
+        } else {
+            formContainer.classList.remove("hidden");
+            formContainer.classList.add("active");
+            button.textContent = "Masquer le formulaire";
+        }
+    });
+}
+
+responsiveFilter();
 
 getNbFilter();

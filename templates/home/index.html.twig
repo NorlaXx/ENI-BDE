@@ -8,49 +8,80 @@
     {{ include('components/popup.html.twig')}}
     <div class="content">
         <div class="filter">
-            <h2>Filtres (0)</h2>
+            <div class="subtitle">
+                <h2>Filtres (0)</h2>
+                <button id="toggle-form-button">Afficher le formulaire</button>
+            </div>
             <div class="separator"></div>
-            {{ include('home/_form_filter.html.twig') }}
+            <div id="form-container" class="hidden">
+                {{ include('home/_form_filter.html.twig') }}
+            </div>
         </div>
         <div class="list">
             <h2>Evenements proposer par votre BDE / élèves</h2>
-            <p class="missing">Ajouter une sortie ? <a href="{{ path('app_activity_create') }}"> cliquez Ici !</a></p>
             <div class="separator"></div>
             <div class="activity-content" id="activityContent">
                 {% for activity in activities %}
                     {% if activity.state.id != 6 %}
                         <div class="activity canClick"
-                             data-activity={{ activity.convertToJson }} data-edit={% if is_granted('edit', activity) %} true {% else %} false {% endif %}
-                             data-register={% if is_granted('withdraw', activity) %} true {% else %} false {% endif %}
-                             data-lat="{{ activity.lieu.latitude }}" data-long="{{ activity.lieu.longitude }}"
-                             data-id="{{ activity.id }}">
-                        <span class="flex">
-                            <img src={{ asset('thumbnails/' ~ activity.fileName) }} alt="activity thumbnails"/>
-                            <span class="title-description">
-                                <p class="title"><strong>{{ activity.name }}</strong> ({{ activity.startDate|date('Y-m-d') }})</p>
-                                <p class="description">{{ activity.description }}</p>
+                         data-activity={{ activity.convertToJson }} data-edit={% if is_granted('edit', activity) %} true {% else %} false {% endif %}
+                         data-register={% if is_granted('withdraw', activity) %} true {% else %} false {% endif %}
+                         data-lat="{{ activity.lieu.latitude }}" data-long="{{ activity.lieu.longitude }}"
+                         data-id="{{ activity.id }}">
+                            <span class="flex">
+                                <img src={{ asset('thumbnails/' ~ activity.fileName) }} alt="activity thumbnails"/>
+                                <span class="title-description">
+                                    <p class="title"><strong>{{ activity.name }}</strong> ({{ activity.startDate|date('Y-m-d') }})</p>
+                                    <p class="description">{{ activity.description }}</p>
+                                </span>
                             </span>
-                        </span>
                             <span class="information">
-                            <span class="information_text">
-                                <p>Date limite d'inscription : {{ activity.registrationDateLimit|date('Y-m-d') }}</p>
-                                <p>Nombre de places : {{ activity.nbLimitParticipants - activity.registered|length }}
-                           </p>
-                                <span style="display: inline flex">
-                                {% for item in activity.registered|slice(0, 5, true) %}
-                                    <a href="{{ path('app_profile', {'id' : item.id}) }}">
-                                    <img style="width: 35px;
-                                        height: 35px;
-                                        border-radius: 50%;
-                                        object-fit: cover;
-                                        display: block;"
-                                         src="{{ asset('profilePictures/'~ item.fileName) }}">
-                                        </a>
-                                {% endfor %}
-                                     <a href="{{ path('app_user_activity_list' , {'id' : activity.id}) }}">
-                                <img src="{{ asset('images/....png') }}" style="height: 20px; width: 20px">
-                                </a>
+                                <span class="information_text">
+                                    <span class="data">
+                                        <p>Date limite d'inscription : {{ activity.registrationDateLimit|date('Y-m-d') }}</p>
+                                        <p>Nombre de places : {{ activity.nbLimitParticipants - activity.registered|length }}</p>
                                     </span>
+                                </span>
+                                <span class="buttons">
+                                    <span class="actions">
+                                        {% if is_granted('edit', activity) and activity.state.code != "ACT_INS" and activity.state.code != "ACT_ANN" %}
+                                            <a href="{{ path("activity_update", { 'id': activity.id }) }}">
+                                                <button class="button modify"><span>Modifier</span></button>
+                                            </a>
+                                            <a href="{{ path("app_cancel_activity", {'id': activity.id}) }}">
+                                                <button class="button cancel"><span>Annuler</span></button>
+                                            </a>
+                                        {% endif %}
+                                        {% if is_granted('withdraw', activity) %}
+                                            <a href="{{ path("activity_remove_inscrit", { 'id': activity .id}) }}">
+                                                <button class="button cancel"><span>Se désister</span></button>
+                                            </a>
+                                        {% endif %}
+                                        {% if is_granted('register', activity) %}
+                                            <a href="{{ path("activity_add_inscrit", { 'id': activity.id }) }}">
+                                                <button class="button"><span>Rejoindre</span></button>
+                                            </a>
+                                        {% endif %}
+                                    </span>
+                                    <span class="state">
+                                        {% if activity.state.code == "ACT_CR" %}
+                                            <button class="button" disable>Créée</button>
+                                        {% endif %}
+                                        {% if activity.state.code == "ACT_EN_C" %}
+                                            <button class="button" disable>En cours</button>
+                                        {% endif %}
+                                        {% if activity.state.code == "ACT_INS_F" %}
+                                            <button class="button close" disable>Fermée</button>
+                                        {% endif %}
+                                        {% if activity.state.code == "ACT_TER" %}
+                                            <button class="button cancel" disable>Terminée</button>
+                                        {% endif %}
+                                        {% if activity.state.code == "ACT_ANN" %}
+                                            <button class="button cancel" disable>Annulée</button>
+                                        {% endif %}
+                                    </span>
+                                </span>
+                            </span>
                             </span>
                             <span class="buttons">
                                 {% if is_granted('edit', activity) and activity.state.code != "ACT_INS" and activity.state.code != "ACT_ANN" %}
@@ -128,5 +159,5 @@
     </script>
     <script src="/scripts/home.js"></script>
     <script src="/scripts/activity.js"></script>
-    <script src="/scripts/filter.js"></script>
+    <script src="/scripts/form_filter.js"></script>
 {% endblock %}
