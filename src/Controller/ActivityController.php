@@ -92,7 +92,7 @@ class ActivityController extends AbstractController
         return $this->handleActivityForm($request, $activity, 'update');
     }
 
-    #[Route('/activity/create', name: 'activity_create')]
+    #[Route('/activity/create', name: 'app_activity_create')]
     public function createActivity(Request $request): RedirectResponse|Response
     {
         $activity = new Activity();

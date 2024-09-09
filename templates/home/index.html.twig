@@ -13,7 +13,7 @@
         </div>
         <div class="list">
             <h2>Evenements proposer par votre BDE / élèves</h2>
-            <p class="missing">Ajouter une sortie ? <a href="{{ path('app_campus_create') }}"> cliquez Ici !</a></p>
+            <p class="missing">Ajouter une sortie ? <a href="{{ path('app_activity_create') }}"> cliquez Ici !</a></p>
             <div class="separator"></div>
             <div class="activity-content" id="activityContent">
                 {% for activity in activities %}
@@ -52,10 +52,12 @@
                                     </span>
                             </span>
                             <span class="buttons">
-                                {% if is_granted('edit', activity) and activity.state.code != "ACT_ANN" %}
+                                {% if is_granted('edit', activity) and activity.state.code != "ACT_INS" and activity.state.code != "ACT_ANN" %}
                                     <a href="{{ path("activity_update", { 'id': activity.id }) }}">
                                         <button class="button modify"><span>Modifier</span></button>
                                     </a>
+                                    {% endif %}
+                                {% if is_granted('ROLE_ADMIN') and activity.state.code != "ACT_ANN" %}
                                     <a href="{{ path("app_cancel_activity", {'id': activity.id}) }}">
                                         <button class="button cancel"><span>Annuler</span></button>
                                     </a>

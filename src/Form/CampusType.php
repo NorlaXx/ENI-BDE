@@ -2,22 +2,17 @@
 
 namespace App\Form;
 
-use App\Entity\Activity;
 use App\Entity\Campus;
-use App\Entity\Lieu;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\File;
 
-class ActivityType extends AbstractType
+class CampusType extends AbstractType
 {
 
     public function __construct()
@@ -28,47 +23,36 @@ class ActivityType extends AbstractType
     {
         $builder
             ->add('name', TextType::class, [
-                'label' => 'Nom de la sortie',
+                'label' => 'Nom du Campus',
                 'attr' => array(
-                    'placeholder' => 'Nom de la sortie'
+                    'placeholder' => 'Nom du Campus'
                 )
             ])
-            ->add('campus', EntityType::class, [
-                'class' => Campus::class,
-                'choice_label' => 'name',
-            ])
-            ->add('lieu', EntityType::class, [
-                'class' => Lieu::class,
-                'choice_label' => 'name',
-            ])
-            ->add('description', TextareaType::class, [
-                'label' => 'Description',
+            ->add('nblimitPlaces', IntegerType::class, [
+                'label' => 'Nombre de places totales',
                 'attr' => array(
-                    'placeholder' => 'Description'
+                    'placeholder' => 'Nombre de places totales'
                 )
             ])
-            ->add('startDate', DateTimeType::class, [
-                'label' => 'Date de début',
-                'required' => false,
-            ])
-            ->add('registrationDateLimit', DateTimeType::class, [
-                'label' => 'Date de fin d\'inscription',
-                'required' => false,
-            ])
-            ->add('nbLimitParticipants', IntegerType::class, [
-                'label' => 'nombre de place',
+            ->add('postalCode', IntegerType::class, [
+                'label' => 'Code Postale',
                 'attr' => array(
-                    'placeholder' => 'Nombre de place'
+                    'placeholder' => 'Code Postale'
                 )
             ])
-            ->add('duration', IntegerType::class, [
-                'label' => 'Durée',
+            ->add('adresse', TextType::class, [
+                'label' => 'Adresse',
                 'attr' => array(
-                    'placeholder' => 'Durée'
+                    'placeholder' => 'Adresse'
                 )
             ])
-            ->add('share', SubmitType::class, ['label' => 'Enregistrer'])
-            ->add('save', SubmitType::class, ['label' => 'Publier'])
+
+            ->add('city', TextType::class, [
+                'label' => 'Ville',
+                'attr' => array(
+                    'placeholder' => 'Ville'
+                )
+            ])
             ->add('fileName', FileType::class, [
                 'label' => 'Upload une image',
                 'label_attr' => ['class' => 'file-label'],
@@ -90,7 +74,7 @@ class ActivityType extends AbstractType
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => Activity::class
+            'data_class' => Campus::class
         ]);
     }
 
