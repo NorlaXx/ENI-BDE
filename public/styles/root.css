@@ -19,6 +19,7 @@
   --color-cancel: #800020;
   --color-cancel-opacity-50: rgba(128, 0, 32, 0.5);
   --color-modify: #c4651a;
+  --background-color: #fff
 
   /* Font Sizes */
   --font-size-xxs: 10px;
