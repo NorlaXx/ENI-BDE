@@ -5,6 +5,9 @@
 {% endblock %}
 
 {% block body %}
+    {% for message in app.flashes('error') %}
+        <div class="alert alert-danger">{{ message }}</div>
+    {% endfor %}
      <div class="content">
         <span class="flex-center">
         <h2>Listes des utilisateurs</h2>

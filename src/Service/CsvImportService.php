@@ -4,11 +4,14 @@ namespace App\Service;
 
 use App\Entity\Campus;
 use App\Entity\User;
+use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\PasswordHasher\EventListener\PasswordHasherListener;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
-class CsvImportService
+class CsvImportService extends AbstractController
 {
 
 
@@ -57,7 +60,14 @@ class CsvImportService
         [$email, $phoneNumber, $pseudo, $campusName, $lastName, $firstName] = $data;
 
         $user = new User();
-        $user->setEmail($email);
+        if($this->entityManager->getRepository(User::class)->findOneBy(['email' => $email])){
+            $this->addFlash('error', 'Tous les emails doivent être uniques!');
+            $this->redirectToRoute("app_profil_liste");
+        } else {
+            $user->setEmail($email);
+        }
+
+
         $user->setRoles(["ROLE_USER"]);
 //        Set "password" to default password for new User
         $hashedPassword = $this->passwordHasher->hashPassword(

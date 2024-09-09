@@ -61,7 +61,7 @@ class UserType extends AbstractType
             ->add('password', TextType::class, [
                 'label' => 'password',
                 'attr' => ['placeholder' => 'password'],
-                'required' => true,
+                'required' => false,
             ])
             ->add('profilePicture', FileType::class, [
                 'label' => 'Profile Picture (PDF, PNG, JPG file)',

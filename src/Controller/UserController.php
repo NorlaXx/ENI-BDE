@@ -22,6 +22,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Mailer\Exception\TransportExceptionInterface;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Email;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Component\String\Slugger\SluggerInterface;
@@ -37,7 +38,8 @@ class UserController extends AbstractController
         private CsvImportService     $csvImportService,
         private FileUploaderService    $fileUploaderService,
         private ActivityRepository     $activityRepository,
-        private EntityManagerInterface $entityManager
+        private EntityManagerInterface $entityManager,
+        private UserPasswordHasherInterface $passwordHasher,
     )
     {
     }
@@ -73,6 +75,11 @@ class UserController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             if(!$this->userRepository->findBy(['email' => $user->getEmail()])) {
                 /*  set default PictureFileName on Entity */
+                $hashedPassword = $this->passwordHasher->hashPassword(
+                    $user,
+                    "password"
+                );
+                $user->setPassword($hashedPassword);
                 $user->setActive(true);
                 $user->setFileName("icons8-avatar-48-66d71c8776738.png");
                 $this->entityManager->persist($user);
