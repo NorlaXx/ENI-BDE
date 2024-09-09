@@ -25,12 +25,12 @@
                 <p><span class="information-title">Prénom : </span>{{app.user.firstName}}</p>
             </div>
         </div>
-        <a href={{path("app_profile_edit")}} class="createActivity modifyProfil"><button class="button">Modifier le compte</button></a>
+        <a href={{path("app_profile_edit")}} class="profile-button modifyProfil"><button class="button">Modifier le compte</button></a>
     </div>
     <div class="box right">
         <h2>Vos activitées proposé</h2>
         <div class="separator"></div>
-        <a href={{path("app_activity_create")}} class="createActivity"><button class="button">Créer une nouvelle activité</button></a>
+        <a href={{path("app_activity_create")}} class="profile-button createActivity"><button class="button">Créer une nouvelle activité</button></a>
         <div class="activity-content" id="activityContent">
             {% for activity in activities %}
                 {% if activity.state.id != 6 %}
