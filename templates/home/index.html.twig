@@ -33,36 +33,36 @@
                             <span class="buttons">
                                 {% if is_granted('edit', activity) %}
                                     <a href="{{ path("activity_update", { 'id': activity.id }) }}">
-                                        <button class="button modify"><span>Modifier</span></button>
+                                        <button class="button modify"><span><i class="fa-solid fa-pen"></i> Modifier</span></button>
                                     </a>
                                     <a href="{{ path("app_cancel_activity", {'id': activity.id}) }}">
-                                        <button class="button cancel"><span>Annuler</span></button>
+                                        <button class="button cancel"><span><i class="fa-solid fa-ban"></i> Annuler</span></button>
                                     </a>
                                 {% endif %}
                                 {% if is_granted('withdraw', activity) %}
                                     <a href="{{ path("activity_remove_inscrit", { 'id': activity .id}) }}">
-                                        <button class="button cancel"><span>Se désister</span></button>
+                                        <button class="button cancel"><span><i class="fa-solid fa-right-to-bracket fa-reverse"></i> Se désister</span></button>
                                     </a>
                                 {% endif %}
                                 {% if is_granted('register', activity) %}
                                     <a href="{{ path("activity_add_inscrit", { 'id': activity.id }) }}">
-                                        <button class="button"><span>Rejoindre</span></button>
+                                        <button class="button"><span><i class="fa-solid fa-right-to-bracket"></i> Rejoindre</span></button>
                                     </a>
                                 {% endif %}
                                 {% if activity not in app.user.activities and activity.state.code == "ACT_CR" %}
-                                    <button class="button" disable>Créée</button>
+                                    <button class="button" disable><i class="fa-solid fa-check"></i> Créée</button>
                                 {% endif %}
                                 {% if activity not in app.user.activities and activity.state.code == "ACT_EN_C" %}
-                                    <button class="button" disable>En cours</button>
+                                    <button class="button" disable><i class="fa-solid fa-bars-progress"></i> En cours</button>
                                 {% endif %}
                                 {% if activity not in app.user.activities and activity.state.code == "ACT_INS_F" %}
-                                    <button class="button close" disable>Fermée</button>
+                                    <button class="button close" disable><i class="fa-solid fa-circle-xmark"></i> Fermée</button>
                                 {% endif %}
                                 {% if activity not in app.user.activities and activity.state.code == "ACT_TER" %}
-                                    <button class="button cancel" disable>Terminée</button>
+                                    <button class="button cancel" disable><i class="fa-solid fa-hourglass-end"></i> Terminée</button>
                                 {% endif %}
                                 {% if activity not in app.user.activities and activity.state.code == "ACT_ANN" %}
-                                    <button class="button cancel" disable>Annulée</button>
+                                    <button class="button cancel" disable><i class="fa-solid fa-ban"></i> Annulée</button>
                                 {% endif %}
                             </span>
                         </span>
