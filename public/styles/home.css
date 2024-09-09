@@ -4,6 +4,10 @@
   display: flex;
 }
 
+#participants {
+  cursor: pointer;
+}
+
 .list,
 .activity-map {
   display: flex;

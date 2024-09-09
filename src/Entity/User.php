@@ -288,4 +288,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
+    public function convertToJson()
+    {
+        return json_encode([
+            'id' => str_replace(" ", "&@^", $this->getId()),
+            'email' => str_replace(" ", "&@^", $this->getEmail()),
+            'roles' => str_replace(" ", "&@^", $this->getRoles()),
+            'phone_number' => str_replace(" ", "&@^", $this->getPhoneNumber()),
+            'pseudo' => str_replace(" ", "&@^", $this->getPseudo()),
+            'fileName' => str_replace(" ", "&@^", $this->getFileName()),
+            'isActive' => str_replace(" ", "&@^", $this->isActive()),
+            'lastName' => str_replace(" ", "&@^", $this->getLastName()),
+            'firstName' => str_replace(" ", "&@^", $this->getFirstName()),
+        ]);
+    }
 }

@@ -254,8 +254,14 @@ class Activity
 
     public function convertToJson(): false|string
     {
+        $userList = [];
 
-        //On
+        foreach ($this->getRegistered() as $user) {
+            $userList[] = $user->convertToJson();
+        }
+
+        $userJson = implode("|", $userList);
+
         $array = [
             "id" => str_replace(" ", "&@^", $this->getId()),
             "name" => str_replace(" ", "&@^",$this->getName()),
@@ -269,7 +275,8 @@ class Activity
             "fileName" => str_replace(" ", "&@^",$this->getFileName()),
             "creationDate" => str_replace(" ", "&@^",$this->getCreationDate()->format('Y/m/d H:i')),
             "nbLimitParticipants" => str_replace(" ", "&@^",$this->getNbLimitParticipants()),
-            "nbParticipants" => str_replace(" ", "&@^",$this->getRegistered()->count())
+            "nbParticipants" => str_replace(" ", "&@^",$this->getRegistered()->count()),
+            "userList" => $userJson
         ];
 
         return json_encode($array);
