@@ -17,7 +17,9 @@
     {{form_widget(form.duration)}}
     {{form_label(form.fileName)}}
     {{form_widget(form.fileName)}}
-    {{form_widget(form.share)}}
-    {{form_widget(form.save)}}
+    <span class="actions">
+        {{form_widget(form.share)}}
+        {{form_widget(form.save)}}
+    </span>
 
 {{ form_end(form)}}

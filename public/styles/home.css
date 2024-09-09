@@ -274,6 +274,10 @@
   flex-direction: row;
 }
 
+.buttons .state button{
+  cursor: default;
+}
+
 .buttons a {
   text-decoration: none;
 }
