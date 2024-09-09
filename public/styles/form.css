@@ -1,6 +1,6 @@
 .content {
   width: 100%;
-  height: calc(100vh - 71px);
+  height: var(--content-height);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -18,7 +18,7 @@
 
 .overlay {
   position: absolute;
-  background-color: rgba(0, 0, 0, 0.2);
+  background-color: var(--color-overlay);
   width: 100%;
   top: 71px;
   height: calc(100vh - 71px);
@@ -27,8 +27,8 @@
 
 .form-container {
   z-index: 90;
-  background-color: white;
-  border-radius: 10px;
+  background-color: var(--color-white);
+  border-radius: var(--border-radius-medium);
   display: flex;
   align-items: center;
   padding: 10px 65px;
@@ -36,10 +36,10 @@
 }
 
 .form-container h2 {
-  color: #3f4250;
-  font-size: 28px;
+  color: var(--color-secondary);
+  font-size: var(--font-size-xxl);
   margin: 0;
-  margin-bottom: 5px;
+  margin-bottom: var(--spacing-xs);
 }
 
 .description {
@@ -49,8 +49,8 @@
 }
 
 .description p {
-  color: #3f4250;
-  font-size: 20px;
+  color: var(--color-secondary);
+  font-size: var(--font-size-xl);
   margin: 0;
   margin-top: -5px;
   text-align: center;
@@ -62,37 +62,31 @@ form {
   align-items: center;
 }
 
-form input {
+form input,
+form select,
+form textarea,
+.file-label {
   text-align: center;
-  color: #3f4250;
-  width: 500px;
+  color: var(--color-secondary);
+  border: 1px solid var(--color-border);
+  border-radius: var(--border-radius-small);
+  font-size: var(--font-size-large);
+  margin-top: var(--spacing-m);
+}
+
+form input {
+  width: var(--width-button);
   height: 40px;
-  border: 1px solid #d9dadd;
-  border-radius: 5px;
-  font-size: 18px;
-  margin-top: 15px;
 }
 
 form select {
-  text-align: center;
-  color: #3f4250;
   width: 506px;
   height: 46px;
-  border: 1px solid #d9dadd;
-  border-radius: 5px;
-  font-size: 18px;
-  margin-top: 15px;
 }
 
 form textarea {
-  text-align: center;
-  color: #3f4250;
   width: 500px;
   height: 80px;
-  border: 1px solid #d9dadd;
-  border-radius: 5px;
-  font-size: 18px;
-  margin-top: 15px;
   resize: vertical;
 }
 
@@ -102,18 +96,13 @@ form textarea {
   justify-content: center;
   width: 500px;
   height: 30px;
-  border: 1px solid #d9dadd;
-  border-radius: 5px;
-  color: #3f4250;
   cursor: pointer;
-  font-size: 18px;
-  transition: 0.2s;
-  margin-top: 15px;
+  transition: var(--transition-default);
 }
 
 .file-label:hover {
-  background-color: #f2f2f2;
-  transition: 0.2s;
+  background-color: var(--color-white);
+  transition: var(--transition-default);
 }
 
 input[type="file"] {
@@ -145,47 +134,44 @@ input[type="file"] {
 }
 
 .same_line > span > label {
-  color: #3f4250;
-  font-size: 18px;
+  color: var(--color-secondary);
+  font-size: var(--font-size-large);
   width: 100%;
   text-align: center;
-  margin-top: 7px;
+  margin-top: var(--spacing-xs);
 }
 
 button {
-  width: 500px;
+  width: var(--width-button);
   height: 40px;
-  background-color: #144a7f;
+  background-color: var(--color-primary);
   border: none;
-  border-radius: 5px;
+  border-radius: var(--border-radius-small);
   cursor: pointer;
-  color: white;
-  font-size: 18px;
-  transition: 0.2s;
-  margin-top: 15px;
-  margin-bottom: 20px;
+  color: var(--color-white);
+  font-size: var(--font-size-large);
+  transition: var(--transition-default);
+  margin-top: var(--spacing-m);
+  margin-bottom: var(--spacing-l);
 }
 
 form button:hover {
-  background-color: #0e3a5f;
-  transition: 0.2s;
+  background-color: var(--color-primary-dark);
+  transition: var(--transition-default);
 }
 
 @media screen and (max-width: 950px) {
   .form-container h2 {
-    font-size: 20px;
-  }
-
-  .description p {
-    font-size: 16px;
+    font-size: var(--font-size-xl);
   }
 
   form input,
   form select,
   form textarea,
   .file-label,
-  button {
-    font-size: 16px;
+  button,
+  .description p {
+    font-size: var(--font-size-normal);
   }
 }
 
@@ -219,7 +205,7 @@ form button:hover {
   }
 
   .same_line > span > label {
-    font-size: 16px;
+    font-size: var(--font-size-normal);
   }
 
   button {
