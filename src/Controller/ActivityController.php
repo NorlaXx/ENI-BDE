@@ -95,7 +95,7 @@ class ActivityController extends AbstractController
     }
 
     #[IsGranted('edit', 'activity')]
-    #[Route('/activity/update/{id}', name: 'activity_update')]
+    #[Route('/activity/update/{id}', name: 'app_activity_update')]
     public function updateActivity(Activity $activity, Request $request): RedirectResponse|Response
     {
         if (!$activity) {
@@ -104,7 +104,7 @@ class ActivityController extends AbstractController
         return $this->handleActivityForm($request, $activity, 'update');
     }
 
-    #[Route('/activity/create', name: 'activity_create')]
+    #[Route('/activity/create', name: 'app_activity_create')]
     public function createActivity(Request $request): RedirectResponse|Response
     {
         $activity = new Activity();
@@ -123,8 +123,9 @@ class ActivityController extends AbstractController
             }else if($action == 'create'){
                 $activity->setFileName('defaut_activity_picture.webp');
             }
-    
-            $this->activityService->addOtherproperties($activity);
+            $isShare = (bool)$form->get('save')->isClicked();
+
+            $this->activityService->addOtherproperties($isShare, $activity);
         
             $this->activityRepository->update($activity);
             return $this->redirectToRoute('app_home');

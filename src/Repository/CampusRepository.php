@@ -20,4 +20,5 @@ class CampusRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Campus::class);
     }
+
 }

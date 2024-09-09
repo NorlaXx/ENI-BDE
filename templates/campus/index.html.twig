@@ -9,15 +9,21 @@
         <div class="list campus">
             <h2>Liste des Campus</h2>
             {% if is_granted('ROLE_ADMIN') %}
-            <p class="missing">Ajouter un campus ? <a href="{{ path('app_campus_create') }}">Ajoute le !</a></p>
+                <p class="missing">Ajouter un campus ? <a href="{{ path('app_campus_create') }}">Ajoute le !</a></p>
             {% endif %}
             <div class="separator"></div>
             <div class="activity-content" id="activityContent">
                 {% for campus in campusList %}
-                    <div class="activity canClick" data-lat="{{ campus.latitude }}" data-long="{{ campus.longitude }}" data-id="{{campus.id}}">
+                    <div class="activity canClick" data-lat="{{ campus.latitude }}" data-long="{{ campus.longitude }}"
+                         data-id="{{ campus.id }}">
                         <img src={{ asset('thumbnails/' ~ campus.fileName) }} alt="activity thumbnails"/>
                         <span class="title-description">
                             <p class="title">{{ campus.name }}</p>
+                            {% if is_granted('ROLE_ADMIN') %}
+                                <a href="{{ path("app_campus_update", { 'id': campus.id }) }}">
+                                        <button class="button modify"><span>Modifier</span></button>
+                                    </a>
+                            {% endif %}
                         </span>
                     </div>
                 {% endfor %}

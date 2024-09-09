@@ -13,7 +13,6 @@
         </div>
         <div class="list">
             <h2>Evenements proposer par votre BDE / élèves</h2>
-            <p class="missing">Ajouter une activité ? <a href="{{ path('activity_create') }}">Ajoute le !</a></p>
             <div class="separator"></div>
             <div class="activity-content" id="activityContent">
                 {% for activity in activities %}
@@ -26,7 +25,7 @@
                         <span class="flex">
                             <img src={{ asset('thumbnails/' ~ activity.fileName) }} alt="activity thumbnails"/>
                             <span class="title-description">
-                                <p class="title"><strong>{{ activity.name }}</strong> ({{ activity.startDate|date('Y-m-d') }})</p>
+                                <p class="title"><strong>{{ activity.name|slice(0, 15) ~ (activity.name|length > 20 ? '...' : '') }}</strong> ({{ activity.startDate|date('Y-m-d') }})</p>
                                 <p class="description">{{ activity.description }}</p>
                             </span>
                         </span>
@@ -45,11 +44,14 @@
                                          src="{{ asset('profilePictures/'~ item.fileName) }}">
                                         </a>
                                 {% endfor %}
+                                     <a href="{{ path('app_user_activity_list' , {'id' : activity.id}) }}">
+                                <img src="{{ asset('images/....png') }}" style="height: 20px; width: 20px">
+                                </a>
                                     </span>
                             </span>
                             <span class="buttons">
                                 {% if is_granted('edit', activity) and activity.state.code != "ACT_ANN" %}
-                                    <a href="{{ path("activity_update", { 'id': activity.id }) }}">
+                                    <a href="{{ path("app_activity_update", { 'id': activity.id }) }}">
                                         <button class="button modify"><span>Modifier</span></button>
                                     </a>
                                     <a href="{{ path("app_cancel_activity", {'id': activity.id}) }}">
@@ -66,19 +68,16 @@
                                         <button class="button"><span>Rejoindre</span></button>
                                     </a>
                                 {% endif %}
-                                {% if activity not in app.user.activities and activity.state.code == "ACT_CR" %}
-                                    <button class="button" disable>Créée</button>
-                                {% endif %}
-                                {% if activity not in app.user.activities and activity.state.code == "ACT_EN_C" %}
+                                {% if activity.state.code == "ACT_EN_C" %}
                                     <button class="button" disable>En cours</button>
                                 {% endif %}
-                                {% if activity not in app.user.activities and activity.state.code == "ACT_INS_F" %}
+                                {% if activity.state.code == "ACT_INS_F" %}
                                     <button class="button close" disable>Fermée</button>
                                 {% endif %}
-                                {% if activity not in app.user.activities and activity.state.code == "ACT_TER" %}
+                                {% if activity.state.code == "ACT_TER" %}
                                     <button class="button cancel" disable>Terminée</button>
                                 {% endif %}
-                                {% if activity not in app.user.activities and activity.state.code == "ACT_ANN" %}
+                                {% if activity.state.code == "ACT_ANN" %}
                                     <button class="button cancel" disable>Annulée</button>
                                 {% endif %}
                             </span>

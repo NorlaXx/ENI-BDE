@@ -235,14 +235,9 @@ class AppFixtures extends Fixture
             $activity->setState($activityData['state']);
             $activity->setOrganizer($activityData['organizer']);
             $activity->setFileName('activity_ident.jpg');
-            $user1->addActivity($activity);
-            $user2->addActivity($activity);
-            $user3->addActivity($activity);
 
             $manager->persist($activity);
-            $manager->persist($user1);
-            $manager->persist($user2);
-            $manager->persist($user3);
+
         }
 
         $manager->flush();

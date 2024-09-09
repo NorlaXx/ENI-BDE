@@ -7,9 +7,11 @@ use App\Entity\Campus;
 use App\Entity\Lieu;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ButtonType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -66,6 +68,8 @@ class ActivityType extends AbstractType
                     'placeholder' => 'Durée'
                 )
             ])
+            ->add('share', SubmitType::class, ['label' => 'Enregistrer'])
+            ->add('save', SubmitType::class, ['label' => 'Publier'])
             ->add('fileName', FileType::class, [
                 'label' => 'Upload une image',
                 'label_attr' => ['class' => 'file-label'],
