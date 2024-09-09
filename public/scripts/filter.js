@@ -8,7 +8,8 @@ function getNbFilter(){
 
         inputs.forEach(input => {
             // Pour les champs de type 'text', 'email', 'number', et les 'select'
-            if ((input.type === 'text' || input.type === 'email' || input.type === 'number' || input.tagName.toLowerCase() === 'select') && input.value) {
+            console.log(input.type);
+            if ((input.type === 'text' || input.type === 'email' || input.type === 'number' || input.type === 'date' || input.tagName.toLowerCase() === 'select') && input.value) {
                 filledFieldsCount++;
             }
 
