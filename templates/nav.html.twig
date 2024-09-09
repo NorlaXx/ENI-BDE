@@ -11,7 +11,6 @@
         <li><a href="{{ path('app_home_campus') }}">Campus</a></li>
         {% if is_granted('ROLE_ADMIN') %}
           <li><a href="{{ path('app_profil_list') }}">Utilisateurs</a></li>
-          <li><a href="{{ path('activity_list') }}">Activités</a></li>
         {% endif %}
         <li class="profil"><a href="{{ path('app_profile') }}">Profil</a></li>
       </ul>
