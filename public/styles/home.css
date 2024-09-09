@@ -105,6 +105,38 @@
   margin-top: 10px;
 }
 
+.filter form {
+  width: 85%;
+}
+
+.filter form .column{
+  display: flex;
+  flex-direction: column;
+}
+
+.filter form .form-subtitle{
+  font-size: 22px;
+  line-height: 27px;
+  margin: 10px 0;
+}
+
+.filter form input, .filter form select{
+  text-align: center;
+  color: #3f4250;
+  border: 1px solid #d9dadd;
+  border-radius: 5px;
+  font-size: 18px;
+  line-height: 27px;
+}
+
+.filter form button{
+  margin: 30px 0 0;
+  padding: 5px;
+  height: unset;
+  width: 100%;
+  font-size: 22px;
+}
+
 .activity-content {
   width: 96%;
   overflow-y: auto;

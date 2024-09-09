@@ -3,39 +3,39 @@
         <div class="alert alert-danger">{{ errorMessage }}</div>
     {% endif %}
 
-    <div>
+    <div class="column">
         {{ form_label(form.campus) }}
         {{ form_widget(form.campus) }}
     </div>
-    <div>
+    <div class="column">
         {{ form_label(form.name) }}
         {{ form_widget(form.name) }}
     </div>
-    <p class="form-date">Date :</p>
-    <div>
+    <p class="form-subtitle form-date">Date :</p>
+    <div class="column">
         {{ form_label(form.minDate) }}
         {{ form_widget(form.minDate) }}
     </div>
-    <div>
+    <div class="column">
         {{ form_label(form.maxDate) }}
         {{ form_widget(form.maxDate) }}
     </div>
-    <p class="form-others">Autres :</p>
+    <p class="form-subtitle form-others">Autres :</p>
     <div>
-        {{ form_label(form.organizer) }}
         {{ form_widget(form.organizer) }}
+        {{ form_label(form.organizer) }}
     </div>
     <div>
-        {{ form_label(form.registered) }}
         {{ form_widget(form.registered) }}
+        {{ form_label(form.registered) }}
     </div>
     <div>
-        {{ form_label(form.notRegistered) }}
         {{ form_widget(form.notRegistered) }}
+        {{ form_label(form.notRegistered) }}
     </div>
     <div>
-        {{ form_label(form.finished) }}
         {{ form_widget(form.finished) }}
+        {{ form_label(form.finished) }}
     </div>
 
 <button class="button">{{ button_label|default('Filtrer') }}</button>
