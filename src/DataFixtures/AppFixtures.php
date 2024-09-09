@@ -20,21 +20,31 @@ class AppFixtures extends Fixture
                 'name' => 'Rennes',
                 'latitude' => 48.03914488370492,
                 'longitude' => -1.6920911818491027,
-                'nbLimitPlaces' => 20
+                'nbLimitPlaces' => 20,
+                'postalCode' => 35000,
+                'city' => 'Rennes',
+                'address' => '10 rue de la piscine'
             ],
             [
+
                 'id' => 2,
-                'name' => 'Nantes',
+                'name' => 'Quimper',
                 'latitude' => 47.55166565445708,
                 'longitude' => -1.4327962718513467,
-                'nbLimitPlaces' => 18
+                'nbLimitPlaces' => 18,
+                'postalCode' => 35000,
+                'city' => 'Rennes',
+                'address' => '10 rue de la piscine'
             ],
             [
                 'id' => 3,
-                'name' => 'Quimper',
-                'latitude' => 47.97754750308657,
-                'longitude' => -4.083039206994787,
-                'nbLimitPlaces' => 15
+                'name' => 'Nantes',
+                'latitude' => 47.55166565445708,
+                'longitude' => -1.4327962718513467,
+                'nbLimitPlaces' => 18,
+                'postalCode' => 35000,
+                'city' => 'Rennes',
+                'address' => '10 rue de la piscine'
             ]
         ];
 
@@ -73,10 +83,14 @@ class AppFixtures extends Fixture
             $campusVar = "campus" . $campusData['id'];
             $$campusVar = new Campus();
             $$campusVar->setName($campusData['name']);
+            $$campusVar->setPostalCode($campusData['postalCode']);
+            $$campusVar->setCity($campusData['city']);
+            $$campusVar->setAdresse($campusData['address']);
             $$campusVar->setLatitude($campusData['latitude']);
             $$campusVar->setLongitude($campusData['longitude']);
             $$campusVar->setNblimitPlaces($campusData['nbLimitPlaces']);
             $$campusVar->setFileName('campus_ident.jpg');
+
             $manager->persist($$campusVar);
         }
 
@@ -135,7 +149,7 @@ class AppFixtures extends Fixture
         $user1->setEmail('email@email.com');
         $user1->setPassword('$2y$10$MkOCJMhXB7tecvn52C1BG.El9oVvZ4CuwCTlaaNnVSvZxJEQ0wdMC');
         $user1->setRoles(['ROLE_USER', 'ROLE_ADMIN']);
-        $user1->setCampus($campus1); // Assuming $campus1 is an instance of Campus
+        $user1->setCampus($campus2); // Assuming $campus1 is an instance of Campus
         $user1->setFileName('default.jpg');
         $manager->persist($user1);
 
