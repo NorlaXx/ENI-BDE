@@ -4,6 +4,10 @@
   display: flex;
 }
 
+#participants {
+  cursor: pointer;
+}
+
 .list,
 .activity-map {
   display: flex;
@@ -109,18 +113,19 @@
   width: 85%;
 }
 
-.filter form .column{
+.filter form .column {
   display: flex;
   flex-direction: column;
 }
 
-.filter form .form-subtitle{
+.filter form .form-subtitle {
   font-size: 22px;
   line-height: 27px;
   margin: 10px 0;
 }
 
-.filter form input, .filter form select{
+.filter form input,
+.filter form select {
   text-align: center;
   color: #3f4250;
   border: 1px solid #d9dadd;
@@ -129,7 +134,7 @@
   line-height: 27px;
 }
 
-.filter form button{
+.filter form button {
   margin: 30px 0 0;
   padding: 5px;
   height: unset;
@@ -184,7 +189,7 @@
 }
 
 .title strong {
-  color: var(--color-primary);
+  color: var(--color-secondary);
   font-size: var(--font-size-large);
   font-weight: bold;
   margin: 0;
