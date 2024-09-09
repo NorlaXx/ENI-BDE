@@ -9,9 +9,9 @@ body {
 }
 
 .content {
-  background-color: white;
-  -webkit-box-shadow: 8px 4px 15px 0px rgba(0, 0, 0, 0.25);
-  box-shadow: 8px 4px 15px 0px rgba(0, 0, 0, 0.25);
+  background-color: var(--color-white);
+  -webkit-box-shadow: var(--box-shadow-large);
+  box-shadow: var(--box-shadow-large);
   height: 100%;
   display: flex;
   align-items: center;
@@ -27,35 +27,35 @@ form {
 form input {
   width: 435px;
   border: 1px solid #d9dadd;
-  border-radius: 5px;
+  border-radius: var(--border-radius-small);
   height: 50px;
-  font-size: 24px;
-  color: #3f4250;
-  margin-top: 25px;
-  padding-left: 10px;
+  font-size: var(--font-size-xxl);
+  color: var(--color-secondary);
+  margin-top: var(--spacing-xxl);
+  padding-left: var(--spacing-s);
 }
 
 form h2 {
-  font-size: 28px;
-  color: #3f4250;
+  font-size: var(--font-size-xxxl);
+  color: var(--color-secondary);
   margin-bottom: 0;
 }
 
 form button {
   width: 448px;
   height: 50px;
-  background-color: #144a7f;
+  background-color: var(--color-primary);
   border: none;
-  border-radius: 5px;
+  border-radius: var(--border-radius-small);
   cursor: pointer;
   color: white;
-  font-size: 24px;
-  transition: 0.2s;
+  font-size: var(--font-size-xxl);
+  transition: var(--transition-default);
 }
 
 form button:hover {
-  background-color: #0e3a5f;
-  transition: 0.2s;
+  background-color: var(--color-primary-dark);
+  transition: var(--transition-default);
 }
 
 .checkbox {
@@ -66,29 +66,29 @@ form button:hover {
 }
 
 .checkbox a {
-  color: #727683;
-  font-size: 18px;
+  color: var(--color-text-light);
+  font-size: var(--font-size-large);
   text-decoration: none;
   cursor: pointer;
 }
 
 .checkbox label {
-  color: #3f4250;
-  font-size: 18px;
+  color: var(--color-secondary);
+  font-size: var(--font-size-large);
 }
 
 .checkbox input {
   width: fit-content;
   height: fit-content;
-  margin-top: 15px;
-  margin-bottom: 15px;
+  margin-top: var(--spacing-m);
+  margin-bottom: var(--spacing-m);
   padding-left: 0;
 }
 
 .icon {
   position: absolute;
-  top: 20px;
-  left: 20px;
+  top: var(--spacing-l);
+  left: var(--spacing-l);
   width: 100px;
   height: 100px;
 }
