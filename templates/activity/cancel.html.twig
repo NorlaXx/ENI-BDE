@@ -6,11 +6,12 @@
 
 {% block body %}
     <div class="content activity">
-
+        <div class="overlay"></div>
+    
         <div class="form-container">
             <h2>Annuler une sortie</h2>
             <p>Nom de la sortie : {{ activity.name }}</p>
-            <p>Date de la sortie : {{ activity.dateDebut|date('Y-m-d') }}</p>
+            <p>Date de la sortie : {{ activity.startDate|date('Y-m-d') }}</p>
             <p>Campus : {{ activity.campus.name }}</p>
             <p>Lieu : {{ activity.lieu.name }}</p>
 

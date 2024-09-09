@@ -65,6 +65,55 @@ const onLoadHandler = async () => {
 
     allMarker[lat + ";" + long] = marker;
   }
+
+  const allCanClick = document.querySelectorAll(".canClick");
+  allCanClick.forEach((element) => {
+    element.addEventListener("click", async (e) => {
+      const { lat, long, id } = e.target.dataset;
+      clickOnActivity(lat, long, id);
+    });
+  });
+};
+
+const clickOnActivity = async (lat, long, id) => {
+  const { AdvancedMarkerElement, PinElement } = await google.maps.importLibrary(
+    "marker"
+  );
+
+  await resetAllMarkerScale();
+
+  const marker = allMarker[lat + ";" + long];
+  if (!marker) return;
+
+  removeHighlight();
+  const myActivity = findActivitiesComponents(id);
+  myActivity.classList.add("highlight");
+
+  marker.setMap(null);
+  const pinScaled = new PinElement({
+    scale: 1.2,
+  });
+
+  lat = parseFloat(lat);
+  long = parseFloat(long);
+
+  const markerViewScaled = new AdvancedMarkerElement({
+    map,
+    position: { lat, lng: long },
+    content: pinScaled.element,
+  });
+
+  markerViewScaled.addListener("click", () => {
+    markerHandler(lat, long, id);
+  });
+
+  markerViewScaled.id = id;
+  markerViewScaled.latitude = lat;
+  markerViewScaled.longitude = long;
+
+  allMarker[lat + ";" + long] = markerViewScaled;
+
+  map.panTo({ lat, lng: long });
 };
 
 const findActivitiesComponents = (_id) => {

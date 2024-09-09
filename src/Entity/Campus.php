@@ -19,13 +19,13 @@ class Campus
     private ?string $name = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $lat = null;
+    private ?string $latitude = null;
 
     #[ORM\Column(length: 255)]
     private ?string $longitude = null;
 
     #[ORM\Column]
-    private ?int $nombrePlaceMax = null;
+    private ?int $nblimitPlaces = null;
 
     /**
      * @var Collection<int, Activity>
@@ -40,7 +40,15 @@ class Campus
     private Collection $users;
 
     #[ORM\Column(length: 255)]
-    private ?string $pictureFileName = null;
+    private ?string $fileName = null;
+    #[ORM\Column(length: 255)]
+    private ?string $postalCode = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $adresse = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $city = null;
 
     public function __construct()
     {
@@ -65,14 +73,14 @@ class Campus
         return $this;
     }
 
-    public function getLat(): ?string
+    public function getLatitude(): ?string
     {
-        return $this->lat;
+        return $this->latitude;
     }
 
-    public function setLat(string $lat): static
+    public function setLatitude(string $latitude): static
     {
-        $this->lat = $lat;
+        $this->latitude = $latitude;
 
         return $this;
     }
@@ -89,14 +97,14 @@ class Campus
         return $this;
     }
 
-    public function getNombrePlaceMax(): ?int
+    public function getNblimitPlaces(): ?int
     {
-        return $this->nombrePlaceMax;
+        return $this->nblimitPlaces;
     }
 
-    public function setNombrePlaceMax(int $nombrePlaceMax): static
+    public function setNblimitPlaces(int $nblimitPlaces): static
     {
-        $this->nombrePlaceMax = $nombrePlaceMax;
+        $this->nblimitPlaces = $nblimitPlaces;
 
         return $this;
     }
@@ -161,15 +169,46 @@ class Campus
         return $this;
     }
 
-    public function getPictureFileName(): ?string
+    public function getFileName(): ?string
     {
-        return $this->pictureFileName;
+        return $this->fileName;
     }
 
-    public function setPictureFileName(string $pictureFileName): static
+    public function setFileName(string $fileName): static
     {
-        $this->pictureFileName = $pictureFileName;
+        $this->fileName = $fileName;
 
         return $this;
     }
+
+    public function getPostalCode(): ?string
+    {
+        return $this->postalCode;
+    }
+
+    public function setPostalCode(?string $postalCode): void
+    {
+        $this->postalCode = $postalCode;
+    }
+
+    public function getAdresse(): ?string
+    {
+        return $this->adresse;
+    }
+
+    public function setAdresse(?string $adresse): void
+    {
+        $this->adresse = $adresse;
+    }
+
+    public function getCity(): ?string
+    {
+        return $this->city;
+    }
+
+    public function setCity(?string $city): void
+    {
+        $this->city = $city;
+    }
+
 }

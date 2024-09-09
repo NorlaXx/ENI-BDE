@@ -4,9 +4,11 @@ namespace App\Form;
 
 use App\Entity\Campus;
 use App\Entity\User;
+use phpDocumentor\Reflection\PseudoTypes\StringValue;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\DataTransformerInterface;
+use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -26,16 +28,39 @@ class UserType extends AbstractType
         $builder
             ->add('phone_number', TextType::class, [
                 'label' => 'Phone Number',
+                'attr' => ['placeholder' => 'Numéro de téléphone'],
                 'required' => false,
             ])
             ->add('pseudo', TextType::class, [
                 'label' => 'Pseudo',
+                'attr' => ['placeholder' => 'Pseudo'],
                 'required' => false,
+            ])
+            ->add('lastName', TextType::class, [
+                'label' => 'Nom',
+                'attr' => ['placeholder' => 'Nom'],
+                'required' => true,
+            ])
+            ->add('firstName', TextType::class, [
+                'label' => 'Prénom',
+                'attr' => ['placeholder' => 'Prénom'],
+                'required' => true,
             ])
             ->add('campus', EntityType::class, [
                 'class' => Campus::class,
                 'choice_label' => 'name',
+                'placeholder' => 'Choisir un campus',
                 'label' => 'Campus',
+                'required' => false,
+            ])
+            ->add('email', EmailType::class, [
+                'label' => 'Email',
+                'attr' => ['placeholder' => 'Email'],
+                'required' => true,
+            ])
+            ->add('password', TextType::class, [
+                'label' => 'password',
+                'attr' => ['placeholder' => 'password'],
                 'required' => false,
             ])
             ->add('profilePicture', FileType::class, [
@@ -62,7 +87,9 @@ class UserType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => User::class, // Associate this form with the User entity
+            'csrf_protection' => false,
         ]);
+
     }
 
 }

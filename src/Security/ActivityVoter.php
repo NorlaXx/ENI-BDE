@@ -4,6 +4,7 @@ namespace App\Security;
 
 use App\Entity\Activity;
 use App\Entity\User;
+use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 
@@ -12,6 +13,11 @@ class ActivityVoter extends Voter
     const EDIT = 'edit';
     const WITHDRAW = 'withdraw';
     const REGISTER = 'register';
+
+    public function __construct(private Security $security)
+    {
+    }
+
 
     /**
      * @inheritDoc
@@ -65,7 +71,10 @@ class ActivityVoter extends Voter
      */
     private function canEdit(Activity $activity, User $user): bool
     {
-        if ($activity->getOrganisateur() === $user && $activity->getState()->getCode() == "ACT_CR"){
+        if ($this->security->isGranted('ROLE_ADMIN')) {
+            return true;
+        }
+        if ($activity->getOrganizer() === $user && $activity->getState()->getCode() == "ACT_CR"){
             return true;
         }
 
@@ -102,7 +111,7 @@ class ActivityVoter extends Voter
     {
         if (!$user->getActivities()->contains($activity) && // L'utilisateur n'est pas déjà dans l'activité
             $activity->getState()->getCode() == "ACT_INS" && // L'activité est ouverte aux inscriptions
-            $activity->getInscrits()->count() < $activity->getNbLimitParticipants() // Il reste des places
+            $activity->getRegistered()->count() < $activity->getNbLimitParticipants() // Il reste des places
         ){
             return true;
         }

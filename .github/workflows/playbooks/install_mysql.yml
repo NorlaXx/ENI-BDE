@@ -5,7 +5,34 @@
   vars_files:
     - vars.yml
     - secrets.yml
+
   tasks:
+    - name: Remove Mysql conf
+      ansible.builtin.apt:
+        name:
+          - mysql-server
+          - mysql-client
+          - mysql-common
+          - mysql-server-core-*
+          - mysql-client-core-*
+        state: absent
+        purge: yes
+        update_cache: yes
+
+    - name: Autoremove and Clean Up
+      ansible.builtin.shell:
+        cmd: |
+          sudo apt-get autoremove -y
+          sudo apt-get autoclean -y
+
+    - name: Remove MySQL Configuration
+      ansible.builtin.file:
+        path: "{{ item }}"
+        state: absent
+      loop:
+        - /etc/mysql
+        - /var/lib/mysql
+
     - name: Install MySQL
       ansible.builtin.apt:
         name: mysql-server
@@ -24,14 +51,20 @@
         path: /etc/mysql
         state: directory
 
+    - name: Debug playbook location
+      debug:
+        msg:
+          - "Playbook directory: {{ playbook_dir }}"
+          - "Current working directory: {{ lookup('pipe', 'pwd') }}"
+          -
     - name: Ensure /etc/mysql/mysql.cnf is delete
       ansible.builtin.file:
         path: /etc/mysql/mysql.cnf
         state: absent
 
     - name: Enable configuration
-      ansible.builtin.copy:
-        src: templates/my.cnf.j2
+      ansible.builtin.template:
+        src: my.cnf.j2
         dest: /etc/mysql/my.cnf
 
     - name: Start MySQL service

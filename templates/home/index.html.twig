@@ -5,18 +5,17 @@
 {% endblock %}
 
 {% block body %}
+    {{ include('components/popup.html.twig')}}
     <div class="content">
-        {{ form_start(form) }}
-        {% if errorMessage|default(null) %}
-            <div class="alert alert-danger">{{ errorMessage }}</div>
-        {% endif %}
-        {{ form_widget(form) }}
-        <button>{{ button_label|default('Enregistrer') }}</button>
-        {{ form_end(form) }}
-
         <div class="filter">
-            <h2>Filtres (0)</h2>
+            <div class="subtitle">
+                <h2>Filtres (0)</h2>
+                <button id="toggle-form-button">Afficher le formulaire</button>
+            </div>
             <div class="separator"></div>
+            <div id="form-container" class="hidden">
+                {{ include('home/_form_filter.html.twig') }}
+            </div>
         </div>
         <div class="list">
             <h2>Evenements proposer par votre BDE / élèves</h2>
@@ -24,56 +23,66 @@
             <div class="activity-content" id="activityContent">
                 {% for activity in activities %}
                     {% if activity.state.id != 6 %}
-                    <div class="activity" data-activity={{ activity.convertToJson}}  data-lat="{{ activity.lieu.Lat }}" data-long="{{ activity.lieu.longitude }}" data-id="{{ activity.id }}">
-                        <span class="flex">
-                            <img src={{ asset('thumbnails/' ~ activity.pictureFileName) }} alt="activity thumbnails"/>
-                            <span class="title-description">
-                                <p class="title"><strong>{{ activity.name }}</strong> ({{ activity.dateDebut|date('Y-m-d') }})</p>
-                                <p class="description">{{ activity.description }}</p>
+                        <div class="activity canClick"
+                         data-activity={{ activity.convertToJson }} data-edit={% if is_granted('edit', activity) %} true {% else %} false {% endif %}
+                         data-register={% if is_granted('withdraw', activity) %} true {% else %} false {% endif %}
+                         data-lat="{{ activity.lieu.latitude }}" data-long="{{ activity.lieu.longitude }}"
+                         data-id="{{ activity.id }}">
+                            <span class="flex">
+                                <img src={{ asset('thumbnails/' ~ activity.fileName) }} alt="activity thumbnails"/>
+                                <span class="title-description">
+                                    <p class="title"><strong>{{ activity.name }}</strong> ({{ activity.startDate|date('Y-m-d') }})</p>
+                                    <p class="description">{{ activity.description }}</p>
+                                </span>
                             </span>
-                        </span>
-                        <span class="information">
-                            <span class="information_text">
-                                <p>Date limite d'inscription : {{ activity.dateFinalInscription|date('Y-m-d') }}</p>
-                                <p>Nombre de places : {{ activity.nbLimitParticipants - activity.inscrits|length }}</p>
+                            <span class="information">
+                                <span class="information_text">
+                                    <span class="data">
+                                        <p>Date limite d'inscription : {{ activity.registrationDateLimit|date('Y-m-d') }}</p>
+                                        <p>Nombre de places : {{ activity.nbLimitParticipants - activity.registered|length }}</p>
+                                    </span>
+                                </span>
+                                <span class="buttons">
+                                    <span class="actions">
+                                        {% if is_granted('edit', activity) and activity.state.code != "ACT_INS" and activity.state.code != "ACT_ANN" %}
+                                            <a href="{{ path("activity_update", { 'id': activity.id }) }}">
+                                                <button class="button modify"><span><i class="fa-solid fa-pen"></i> Modifier</span></button>
+                                            </a>
+                                            <a href="{{ path("app_cancel_activity", {'id': activity.id}) }}">
+                                                <button class="button cancel"><span><i class="fa-solid fa-ban"></i> Annuler</span></button>
+                                            </a>
+                                        {% endif %}
+                                        {% if is_granted('withdraw', activity) %}
+                                            <a href="{{ path("activity_remove_inscrit", { 'id': activity .id}) }}">
+                                                <button class="button cancel"><span><i class="fa-solid fa-right-to-bracket fa-reverse"></i> Se désister</span></button>
+                                            </a>
+                                        {% endif %}
+                                        {% if is_granted('register', activity) %}
+                                            <a href="{{ path("activity_add_inscrit", { 'id': activity.id }) }}">
+                                                <button class="button"><span><i class="fa-solid fa-right-to-bracket"></i> Rejoindre</span></button>
+                                            </a>
+                                        {% endif %}
+                                    </span>
+                                    <span class="state">
+                                        {% if activity.state.code == "ACT_CR" %}
+                                            <button class="button" disable><i class="fa-solid fa-check"></i> Créée</button>
+                                        {% endif %}
+                                        {% if activity.state.code == "ACT_EN_C" %}
+                                            <button class="button" disable><i class="fa-solid fa-bars-progress"></i> En cours</button>
+                                        {% endif %}
+                                        {% if activity.state.code == "ACT_INS_F" %}
+                                            <button class="button close" disable><i class="fa-solid fa-circle-xmark"></i> Fermée</button>
+                                        {% endif %}
+                                        {% if activity.state.code == "ACT_TER" %}
+                                            <button class="button cancel" disable><i class="fa-solid fa-hourglass-end"></i> Terminée</button>
+                                        {% endif %}
+                                        {% if activity.state.code == "ACT_ANN" %}
+                                            <button class="button cancel" disable><i class="fa-solid fa-ban"></i> Annulée</button>
+                                        {% endif %}
+                                    </span>
+                                </span>
                             </span>
-                            <span class="buttons">
-                                {% if is_granted('edit', activity) %}
-                                    <a href="{{ path("activity_update", { 'id': activity.id }) }}">
-                                        <button class="button modify">Modifier</button>
-                                    </a>
-                                    <a href="{{ path("app_cancel_activity", {'id': activity.id}) }}">
-                                        <button class="button cancel">Annuler</button>
-                                    </a>
-                                {% endif %}
-                                {% if is_granted('withdraw', activity) %}
-                                    <a href="{{ path("activity_remove_inscrit", { 'id': activity .id}) }}">
-                                        <button class="button cancel">Se désister</button>
-                                    </a>
-                                {% endif %}
-                                {% if is_granted('register', activity) %}
-                                    <a href="{{ path("activity_add_inscrit", { 'id': activity.id }) }}">
-                                        <button class="button">S'inscrire</button>
-                                    </a>
-                                {% endif %}
-                                {% if activity not in user.activities and activity.state.code == "ACT_CR" %}
-                                    <button class="button" disable>Créée</button>
-                                {% endif %}
-                                {% if activity not in user.activities and activity.state.code == "ACT_EN_C" %}
-                                    <button class="button" disable>En cours</button>
-                                {% endif %}
-                                {% if activity not in user.activities and activity.state.code == "ACT_INS_F" %}
-                                    <button class="button close" disable>Fermée</button>
-                                {% endif %}
-                                {% if activity not in user.activities and activity.state.code == "ACT_TER" %}
-                                    <button class="button cancel" disable>Terminée</button>
-                                {% endif %}
-                                {% if activity not in user.activities and activity.state.code == "ACT_ANN" %}
-                                    <button class="button cancel" disable>Annulée</button>
-                                {% endif %}
-                            </span>
-                        </span>
-                    </div>
+                        </div>
                     {% endif %}
                 {% endfor %}
             </div>
@@ -85,10 +94,6 @@
             </div>
         </div>
     </div>
-    <div class="activity-details-tmp">
-
-    </div>
-
 
     <script>
         (g => {
@@ -115,4 +120,5 @@
     </script>
     <script src="/scripts/home.js"></script>
     <script src="/scripts/activity.js"></script>
+    <script src="/scripts/form_filter.js"></script>
 {% endblock %}

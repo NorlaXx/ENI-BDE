@@ -21,33 +21,38 @@ class ActivityFilterType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('name', TextType::class, [
-                'label' => 'Nom de la sortie',
-                'required' => false,
-            ])
             ->add('campus', EntityType::class, [
                 'class' => Campus::class,
+                'label' => 'Campus :',
                 'choice_label' => 'Name',
                 'required' => false,
             ])
-            ->add('dateMin', DateType::class, [
-                'label' => 'Date min',
+            ->add('name', TextType::class, [
+                'label' => 'Nom de la sortie :',
                 'required' => false,
             ])
-            ->add('dateMax', DateType::class, [
-            'label' => 'Date max',
+            ->add('minDate', DateType::class, [
+                'label' => 'Début',
                 'required' => false,
             ])
-            ->add('organisateur', CheckboxType::class, [
-                'label' => 'Organisateur',
-                'required' => false,
-        ])
-            ->add('inscrit', CheckboxType::class, [
-                'label' => 'Inscrit',
+            ->add('maxDate', DateType::class, [
+            'label' => 'Fin',
                 'required' => false,
             ])
-            ->add('finis', CheckboxType::class, [
-                'label' => 'Finis',
+            ->add('organizer', CheckboxType::class, [
+                'label' => 'Je suis l\'organisateur',
+                'required' => false,
+            ])
+            ->add('registered', CheckboxType::class, [
+                'label' => 'Je suis inscrit',
+                'required' => false,
+            ])
+            ->add('notRegistered', CheckboxType::class, [
+                'label' => 'Je ne suis pas inscrit',
+                'required' => false,
+            ])
+            ->add('finished', CheckboxType::class, [
+                'label' => 'Les sorties passées',
                 'required' => false,
             ]);
     }

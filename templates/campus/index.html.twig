@@ -7,12 +7,15 @@
 {% block body %}
     <div class="content">
         <div class="list campus">
-            <h2>Evenements proposer par votre BDE / élèves</h2>
+            <h2>Liste des Campus</h2>
+            {% if is_granted('ROLE_ADMIN') %}
+            <p class="missing">Ajouter un campus ? <a href="{{ path('app_campus_create') }}">Ajoute le !</a></p>
+            {% endif %}
             <div class="separator"></div>
             <div class="activity-content" id="activityContent">
                 {% for campus in campusList %}
-                    <div class="activity" data-lat="{{ campus.lat }}" data-long="{{ campus.longitude }}" data-id="{{campus.id}}">
-                        <img src={{ asset('thumbnails/' ~ campus.pictureFileName) }} alt="activity thumbnails"/>
+                    <div class="activity canClick" data-lat="{{ campus.latitude }}" data-long="{{ campus.longitude }}" data-id="{{campus.id}}">
+                        <img src={{ asset('thumbnails/' ~ campus.fileName) }} alt="activity thumbnails"/>
                         <span class="title-description">
                             <p class="title">{{ campus.name }}</p>
                         </span>

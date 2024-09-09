@@ -3,8 +3,10 @@
 namespace App\Controller;
 
 use App\Entity\Activity;
+use App\Form\ActivityFilterType;
 use App\Form\ActivityType;
 use App\Form\CancelType;
+use App\Model\ActivityFilter;
 use App\Repository\ActivityRepository;
 use App\Service\ActivityService;
 use App\Service\FileUploaderService;
@@ -46,6 +48,16 @@ class ActivityController extends AbstractController
         $this->activityRepository->update($activity);
         return $this->redirectToRoute('app_home');
     }
+    // TODO: REVIEW FRONT AND ACCESS BUTTON FOR ADMIN
+    #[IsGranted('ROLE_ADMIN')]
+    #[Route('/activity/list', name: 'activity_list')]
+    public function listActivity(Request $request): Response
+    {
+        $filter = new ActivityFilter();
+        $form = $this->createForm(ActivityFilterType::class, $filter);
+
+        return $this->render('activity/list.html.twig', $this->activityService->findByFilter($request, $form, $filter));
+    }
 
     #[IsGranted('edit', 'activity')]
     #[Route('/activity/cancel/{id}', name: 'app_cancel_activity')]
@@ -80,11 +92,18 @@ class ActivityController extends AbstractController
         return $this->handleActivityForm($request, $activity, 'update');
     }
 
-    #[Route('/activity/create', name: 'activity_create')]
+    #[Route('/activity/create', name: 'app_activity_create')]
     public function createActivity(Request $request): RedirectResponse|Response
     {
         $activity = new Activity();
         return $this->handleActivityForm($request, $activity, 'create');
+    }
+    #[Route('/activity/user/list/{id}', name: 'app_user_activity_list')]
+    public function listUser(int $id): RedirectResponse|Response
+    {
+        return $this->render('activity/activity.user.list.html.twig', [
+            'userList' => $this->activityRepository->find($id)->getRegistered(),
+        ]);
     }
 
     private function handleActivityForm(Request $request, Activity $activity, string $action): RedirectResponse|Response
@@ -93,15 +112,16 @@ class ActivityController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $file = $form->get('pictureFileName')->getData();
+            $file = $form->get('fileName')->getData();
             if ($file){
-                $activity->setPictureFileName($this->fileUploaderService->upload($file));
+                $activity->setFileName($this->fileUploaderService->upload("thumbnails",$file));
             }else if($action == 'create'){
-                $activity->setPictureFileName('defaut_activity_picture.webp');
+                $activity->setFileName('defaut_activity_picture.webp');
             }
-    
-            $this->activityService->addOtherproperties($activity);
-        
+
+            $isShare = (bool)$form->get('save')->isClicked();
+
+            $this->activityService->addOtherproperties($isShare, $activity);
             $this->activityRepository->update($activity);
             return $this->redirectToRoute('app_home');
         }

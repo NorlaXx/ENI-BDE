@@ -15,4 +15,10 @@ class LieuRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Lieu::class);
     }
+
+    public function update(Lieu $lieu): void
+    {
+        $this->getEntityManager()->persist($lieu);
+        $this->getEntityManager()->flush();
+    }
 }

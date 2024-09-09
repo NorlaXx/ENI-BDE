@@ -14,6 +14,7 @@
                 <p>Personnalisez votre profil pour mieux vous présenter à la communauté du campus !</p>
             </span>
             {{ form_start(form) }}
+            <input type="hidden" name="_csrf_token" value="{{ csrf_token('form') }}">
             {{ form_widget(form.pseudo) }}
             {{ form_widget(form.phone_number) }}
             {{ form_widget(form.campus) }}

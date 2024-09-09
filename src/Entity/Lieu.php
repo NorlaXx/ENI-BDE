@@ -22,7 +22,7 @@ class Lieu
     #[ORM\Column(length: 255)]
     private ?string $name = null;
     #[ORM\Column(length: 255)]
-    private ?string $Lat = null;
+    private ?string $latitude = null;
 
     #[ORM\Column(length: 255)]
     private ?string $longitude = null;
@@ -30,12 +30,12 @@ class Lieu
     #[Assert\NotBlank]
     #[Assert\Length(max: 255)]
     #[ORM\Column(length: 255)]
-    private ?string $ville = null;
+    private ?string $city = null;
 
     #[Assert\NotBlank]
     #[Assert\Positive]
     #[ORM\Column(length: 255)]
-    private ?string $cp = null;
+    private ?string $postalCode = null;
 
     #[ORM\Column(length: 255)]
     private ?string $fileName = null;
@@ -49,7 +49,7 @@ class Lieu
     #[Assert\NotBlank]
     #[Assert\Length(max: 255, min: 5)]
     #[ORM\Column(length: 255)]
-    private ?string $addresse = null;
+    private ?string $address = null;
 
     public function __construct()
     {
@@ -73,14 +73,14 @@ class Lieu
         return $this;
     }
 
-    public function getLat(): ?string
+    public function getLatitude(): ?string
     {
-        return $this->Lat;
+        return $this->latitude;
     }
 
-    public function setLat(string $Lat): static
+    public function setLatitude(string $latitude): static
     {
-        $this->Lat = $Lat;
+        $this->latitude = $latitude;
 
         return $this;
     }
@@ -97,26 +97,26 @@ class Lieu
         return $this;
     }
 
-    public function getVille(): ?string
+    public function getCity(): ?string
     {
-        return $this->ville;
+        return $this->city;
     }
 
-    public function setVille(string $ville): static
+    public function setCity(string $city): static
     {
-        $this->ville = $ville;
+        $this->city = $city;
 
         return $this;
     }
 
-    public function getCp(): ?string
+    public function getPostalCode(): ?string
     {
-        return $this->cp;
+        return $this->postalCode;
     }
 
-    public function setCp(string $cp): static
+    public function setPostalCode(string $postalCode): static
     {
-        $this->cp = $cp;
+        $this->postalCode = $postalCode;
 
         return $this;
     }
@@ -163,14 +163,14 @@ class Lieu
         return $this;
     }
 
-    public function getAddresse(): ?string
+    public function getAddress(): ?string
     {
-        return $this->addresse;
+        return $this->address;
     }
 
-    public function setAddresse(string $addresse): static
+    public function setAddress(string $address): static
     {
-        $this->addresse = $addresse;
+        $this->address = $address;
 
         return $this;
     }

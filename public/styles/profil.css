@@ -1,6 +1,6 @@
 .myContent {
   width: 100%;
-  height: calc(100vh - 101px);
+  height: var(--content-height);
   display: flex;
 }
 
@@ -14,13 +14,13 @@
 
 .box h2 {
   margin: 0;
-  color: #3f4250;
-  font-size: 22px;
-  margin-top: 10px;
+  color: var(--color-secondary);
+  font-size: var(--font-size-xxl);
+  margin-top: var(--spacing-s);
 }
 
 .box.right {
-  border-left: 1px solid #d9dadd;
+  border-left: 1px solid var(--color-border);
 }
 
 .createActivity {
@@ -30,27 +30,27 @@
 .createActivity button {
   width: 395px;
   height: 40px;
-  font-size: 20px;
-  margin-top: 20px;
+  font-size: var(--font-size-xl);
+  margin-top: var(--spacing-l);
 }
 
 .profilPicture {
   width: 200px;
   height: 200px;
-  border-radius: 50%;
-  margin-top: 20px;
+  border-radius: var(--border-radius-large);
+  margin-top: var(--spacing-l);
 }
 
 .title {
-  margin-top: 10px !important;
-  font-size: 22px;
+  margin-top: var(--spacing-s) !important;
+  font-size: var(--font-size-xxl);
   font-weight: bold;
-  color: #3f4250;
+  color: var(--color-secondary);
 }
 
 .email {
-  font-size: 18px;
-  color: #86878d;
+  font-size: var(--font-size-large);
+  color: var(--color-text-lighter);
 }
 
 .text {
@@ -59,9 +59,9 @@
 
 .more-information {
   width: 60%;
-  border-radius: 10px;
-  border: 1px solid #d9dadd;
-  margin-top: 40px;
+  border-radius: var(--border-radius-medium);
+  border: 1px solid var(--color-border);
+  margin-top: var(--spacing-xxxl);
   display: flex;
   align-items: center;
   flex-direction: column;
@@ -75,8 +75,8 @@
 
 .myInformation p {
   margin: 20px 40px;
-  font-size: 18px;
-  color: #3f4250;
+  font-size: var(--font-size-large);
+  color: var(--color-secondary);
 }
 
 .information-title {
@@ -85,8 +85,8 @@
 
 .modifyProfil {
   position: absolute;
-  bottom: 20px;
-  left: 20px;
+  bottom: var(--spacing-l);
+  left: var(--spacing-l);
 }
 
 @media (max-width: 1300px) {
@@ -96,12 +96,12 @@
 
   .box.right {
     border-left: none;
-    border-top: 1px solid #d9dadd;
+    border-top: 1px solid var(--color-border);
   }
 
   .modifyProfil {
     position: relative;
-    margin-top: 20px;
+    margin-top: var(--spacing-l);
     margin-left: 0 !important;
   }
 

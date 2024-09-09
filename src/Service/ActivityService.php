@@ -3,6 +3,8 @@
 namespace App\Service;
 
 use App\Entity\Activity;
+use App\Form\ActivityFilterType;
+use App\Model\ActivityFilter;
 use App\Repository\ActivityRepository;
 use App\Repository\ActivityStateRepository;
 use DateTime;
@@ -25,11 +27,15 @@ class ActivityService
      * @param Activity $activity
      * @return void
      */
-    public function addOtherproperties(Activity $activity): void
+    public function addOtherproperties(bool $isShare,Activity $activity): void
     {
-        $activity->setState($this->activityStateRepository->getDefaultState());
-        $activity->setOrganisateur($this->security->getUser());
-        $activity->setDateCreation(new DateTime());
+        if($isShare){
+            $activity->setState($this->activityStateRepository->getStateByCode("ACT_INS"));
+        } else {
+            $activity->setState($this->activityStateRepository->getDefaultState());
+        }
+        $activity->setOrganizer($this->security->getUser());
+        $activity->setCreationDate(new DateTime());
     }
 
     /**
@@ -45,5 +51,31 @@ class ActivityService
         $activity->setDescription("$description \nMotif : $reason");
         $activity->setState($this->activityStateRepository->getCancelledState());
         $this->activityRepository->update($activity);
+    }
+
+    /**
+     * Filtre les sorties
+     *
+     * @param $request
+     * @param $form
+     * @return array
+     */
+    public function findByFilter($request, $form, $filter): array
+    {
+        $form->handleRequest($request, $form);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $activities = $this->activityRepository->filter(
+                $this->security->getUser()->getId(),
+                $filter
+            );
+        } else {
+            $activities = $this->activityRepository->findAll();
+        }
+
+        return [
+            'form' => $form->createView(),
+            'activities' => $activities,
+            ];
     }
 }

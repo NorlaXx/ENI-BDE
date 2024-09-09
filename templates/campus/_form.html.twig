@@ -1,0 +1,22 @@
+{{ form_start(form) }}
+    {{ form_widget(form.name) }}
+    {{ form_widget(form.nblimitPlaces) }}
+<span class="same_line">
+        {{ form_widget(form.adresse) }}
+    </span>
+
+<span class="same_line">
+        <span>
+            {{ form_label(form.postalCode) }}
+            {{ form_widget(form.postalCode) }}
+        </span>
+        <span>
+            {{ form_label(form.city) }}
+            {{ form_widget(form.city) }}
+        </span>
+    </span>
+{{ form_label(form.fileName) }}
+    {{ form_widget(form.fileName) }}
+
+<button>Enregistré</button>
+{{ form_end(form) }}

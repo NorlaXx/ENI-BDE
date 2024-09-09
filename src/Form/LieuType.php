@@ -30,19 +30,19 @@ class LieuType extends AbstractType
                     'placeholder' => 'Nom du lieu'
                 )
             ])
-            ->add('ville', TextType::class, [
-                'label' => 'ville',
+            ->add('city', TextType::class, [
+                'label' => 'city',
                 'attr' => array(
                     'placeholder' => 'Ville'
                 )
             ])
-            ->add('cp', TextType::class, [
+            ->add('postalCode', TextType::class, [
                 'label' => 'code postal',
                 'attr' => array(
                     'placeholder' => 'Code postal'
                 )
             ])
-            ->add('addresse', TextType::class, [
+            ->add('address', TextType::class, [
                 'label' => 'Adresse',
                 'attr' => array(
                     'placeholder' => 'Adresse'

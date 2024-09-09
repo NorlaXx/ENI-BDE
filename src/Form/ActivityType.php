@@ -10,6 +10,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -46,11 +47,11 @@ class ActivityType extends AbstractType
                     'placeholder' => 'Description'
                 )
             ])
-            ->add('dateDebut', DateTimeType::class, [
+            ->add('startDate', DateTimeType::class, [
                 'label' => 'Date de début',
                 'required' => false,
             ])
-            ->add('dateFinalInscription', DateTimeType::class, [
+            ->add('registrationDateLimit', DateTimeType::class, [
                 'label' => 'Date de fin d\'inscription',
                 'required' => false,
             ])
@@ -60,13 +61,17 @@ class ActivityType extends AbstractType
                     'placeholder' => 'Nombre de place'
                 )
             ])
-            ->add('duree', IntegerType::class, [
+            ->add('duration', IntegerType::class, [
                 'label' => 'Durée',
                 'attr' => array(
                     'placeholder' => 'Durée'
                 )
             ])
-            ->add('pictureFileName', FileType::class, [
+            ->add('share', SubmitType::class, ['label' => 'Enregistrer sans publier'])
+
+            ->add('save', SubmitType::class, ['label' => 'Enregistrer et Publier'])
+
+            ->add('fileName', FileType::class, [
                 'label' => 'Upload une image',
                 'label_attr' => ['class' => 'file-label'],
                 'mapped' => false,

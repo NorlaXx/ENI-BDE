@@ -1,0 +1,96 @@
+.myPopup {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100vw;
+  z-index: 999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.popup-background {
+  height: 100%;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(10px);
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.popup {
+  background-color: var(--color-white);
+  border-radius: var(--border-radius-small);
+  padding: 20px;
+  z-index: 1000;
+}
+
+.close-container {
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
+  margin-bottom: var(--spacing-xs);
+  flex-direction: column;
+}
+
+.close-container i {
+  color: var(--color-secondary);
+  transition: color var(--transition-default);
+  cursor: pointer;
+}
+
+.close-container i:hover {
+  color: var(--color-primary-dark);
+  transition: color var(--transition-default);
+}
+
+.popup-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.user-list {
+  margin-top: var(--spacing-m);
+  margin-right: calc(var(--spacing-s) * 2);
+}
+
+.user-list h2 {
+  margin: 0;
+  color: var(--color-secondary);
+  font-size: var(--font-size-l);
+  margin-bottom: var(--spacing-s);
+  width: 100%;
+  text-align: center;
+}
+
+.user-list img {
+  width: 25px;
+  height: 25px;
+  border-radius: var(--border-radius-large);
+}
+
+.user {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  border-radius: var(--border-radius-small);
+  margin-bottom: var(--spacing-s);
+  transition: var(--transition-default);
+  cursor: pointer;
+  padding: var(--spacing-s);
+}
+
+.user p {
+  margin: 0;
+  margin-left: var(--spacing-m);
+}
+
+.user:hover {
+  box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.1);
+  transform: scale(1.02);
+  transition: var(--transition-default);
+}

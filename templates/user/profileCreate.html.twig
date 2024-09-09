@@ -1,0 +1,39 @@
+{% include 'base_logged.html.twig' %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="/styles/form.css">
+{% endblock %}
+
+{% block body %}
+    <div class="content modify">
+        <div class="overlay"></div>
+        <div class="form-container">
+            <h2>Ajouter un utilisateur</h2>
+            <h2>Ajouter votre profil</h2>
+            <span class="description">
+                <p>Besoin d'ajouter un nouvel utilisateur ?</p>
+                <p>Vous pouvez ajouter de nouveaux membres et gérer leurs profils !</p>
+            </span>
+            {{ form_start(form) }}
+            {{form_label(form.email)}}
+
+            <input type="hidden" name="_token" value="{{ csrf_token('form') }}">
+            {{ form_widget(form.email) }}
+            {{ form_label(form.firstName) }}
+            {{ form_widget(form.firstName) }}
+            {{ form_label(form.lastName) }}
+            {{ form_widget(form.lastName) }}
+            {{form_label(form.password)}}
+            {{ form_widget(form.password) }}
+            {{ form_widget(form.pseudo) }}
+            {{form_label(form.phone_number)}}
+            {{ form_widget(form.phone_number) }}
+            {{ form_widget(form.campus) }}
+            {{ form_label(form.profilePicture) }}
+            {{ form_widget(form.profilePicture) }}
+            <button>Enregistré</button>
+            {{ form_end(form, {'render_rest': false}) }}
+        </div>
+    </div>
+
+{% endblock %}

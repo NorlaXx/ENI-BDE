@@ -1,0 +1,29 @@
+{% include 'base_logged.html.twig' %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="/styles/home.css">
+{% endblock %}
+
+{% block body %}
+    <div class="content">
+        <div class="list campus">
+            <h2>Liste des Inscrits</h2>
+            <div class="separator"></div>
+            <div class="activity-content" id="activityContent">
+                {% for user in userList %}
+                    <div class="activity canClick">
+                        <span class="flex">
+                            <img src={{ asset('profilePictures/' ~ user.fileName) }} alt="activity thumbnails"/>
+                            <span class="title-description">
+                                <p class="title">{{ user.pseudo }}</p>
+                                <p class="title">{{ user.lastName }}</p>
+                                <p class="title">{{ user.firstName }}</p>
+                            </span>
+                        </span>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    <script src="/scripts/home.js"></script>
+{% endblock %}

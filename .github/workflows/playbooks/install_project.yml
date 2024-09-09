@@ -17,6 +17,11 @@
           - composer
         state: present
 
+    - name: Remove all Symfony project files
+      ansible.builtin.file:
+        path: "{{ project_dest }}"
+        state: absent
+
     - name: Ensure /var/www directory exists
       ansible.builtin.file:
         path: /var/www
@@ -24,7 +29,6 @@
         owner: www-data
         group: www-data
         mode: '0755'
-
 
     - name: Add git safe var/www/project_name
       ansible.builtin.command:
@@ -48,21 +52,12 @@
           - apt-transport-https
           - software-properties-common
 
-    - name: Run composer install in project folder
+    - name: Run composer require bundle
       ansible.builtin.command:
         cmd: composer install
         chdir: "{{ project_dest }}"
       environment:
         COMPOSER_ALLOW_SUPERUSER: 1
-
-    # Set prod env on Symfony .env
-    - name: Run shell
-      ansible.builtin.shell:
-        cmd: |
-          export APP_ENV=prod
-          export APP_DEBUG=0
-          php bin/console cache:clear
-        chdir: "{{ project_dest }}"
 
     # Custom database url
     - name: Replace DATABASE_URL in .env for Production
@@ -70,6 +65,24 @@
         path: "{{ project_dest }}/.env"
         regexp: '^DATABASE_URL=.*'
         replace: "DATABASE_URL={{ db_url }}"
+
+    - name: Replace APP_ENV in .env for Production for fixture execution
+      ansible.builtin.replace:
+        path: "{{ project_dest }}/.env"
+        regexp: '^APP_ENV=.*'
+        replace: "APP_ENV=dev"
+
+    - name: Replace APP_DEBUG in .env for Production
+      ansible.builtin.replace:
+        path: "{{ project_dest }}/.env"
+        regexp: '^APP_DEBUG=.*'
+        replace: "APP_DEBUG=0"
+
+    - name: Run cache:clear
+      ansible.builtin.shell:
+        cmd: |
+          php bin/console cache:clear
+        chdir: "{{ project_dest }}"
 
     - name: Ensure MySQL root user has all privileges
       community.mysql.mysql_user:
@@ -84,10 +97,16 @@
         cmd: php bin/console doctrine:migrations:migrate --no-interaction
         chdir: "{{ project_dest }}"
 
-    - name: Execute fixtures
+    - name: Execute fixture load
       ansible.builtin.command:
         cmd: php bin/console doctrine:fixtures:load --no-interaction
         chdir: "{{ project_dest }}"
+
+    - name: Replace APP_ENV in .env for Production after fixture execution
+      ansible.builtin.replace:
+        path: "{{ project_dest }}/.env"
+        regexp: '^APP_ENV=.*'
+        replace: "APP_ENV=prod"
 
   handlers:
     - name: Set permissions for project folder

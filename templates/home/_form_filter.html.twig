@@ -1,0 +1,42 @@
+{{ form_start(form) }}
+    {% if errorMessage|default(null) %}
+        <div class="alert alert-danger">{{ errorMessage }}</div>
+    {% endif %}
+
+    <div class="column">
+        {{ form_label(form.campus) }}
+        {{ form_widget(form.campus) }}
+    </div>
+    <div class="column">
+        {{ form_label(form.name) }}
+        {{ form_widget(form.name) }}
+    </div>
+    <p class="form-subtitle form-date">Date :</p>
+    <div class="column">
+        {{ form_label(form.minDate) }}
+        {{ form_widget(form.minDate) }}
+    </div>
+    <div class="column">
+        {{ form_label(form.maxDate) }}
+        {{ form_widget(form.maxDate) }}
+    </div>
+    <p class="form-subtitle form-others">Autres :</p>
+    <div>
+        {{ form_widget(form.organizer) }}
+        {{ form_label(form.organizer) }}
+    </div>
+    <div>
+        {{ form_widget(form.registered) }}
+        {{ form_label(form.registered) }}
+    </div>
+    <div>
+        {{ form_widget(form.notRegistered) }}
+        {{ form_label(form.notRegistered) }}
+    </div>
+    <div>
+        {{ form_widget(form.finished) }}
+        {{ form_label(form.finished) }}
+    </div>
+
+<button class="button" id="filter-button"><i class="fa-solid fa-filter"></i> {{ button_label|default('Filtrer') }}</button>
+{{ form_end(form) }}

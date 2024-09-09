@@ -43,11 +43,11 @@ class ActivityUpdateType extends AbstractType
                     'placeholder' => 'Description'
                 )
             ])
-            ->add('dateDebut', DateTimeType::class, [
+            ->add('startDate', DateTimeType::class, [
                 'label' => 'Date de début',
                 'required' => false,
             ])
-            ->add('dateFinalInscription', DateTimeType::class, [
+            ->add('registrationDateLimit', DateTimeType::class, [
                 'label' => 'Date de fin d\'inscription',
                 'required' => false,
             ])
@@ -55,11 +55,11 @@ class ActivityUpdateType extends AbstractType
                 'label' => 'nombre de place',
                 'required' => false,
             ])
-            ->add('duree', IntegerType::class, [
+            ->add('duration', IntegerType::class, [
                 'label' => 'Durée',
                 'required' => false,
             ])
-            ->add('pictureFileName', FileType::class, [
+            ->add('fileName', FileType::class, [
                 'label' => 'Upload une image',
                 'label_attr' => ['class' => 'file-label'],
                 'mapped' => false,

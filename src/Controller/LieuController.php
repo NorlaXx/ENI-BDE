@@ -16,19 +16,21 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 class LieuController extends AbstractController
 {
 
     public function __construct(
-        private FileUploaderService $fileUploaderService,
+        private FileUploaderService    $fileUploaderService,
         private EntityManagerInterface $entityManager,
-        private LieuRepository $lieuRepository,
-        private LieuService $lieuService
+        private LieuRepository         $lieuRepository,
+        private LieuService            $lieuService
     )
     {
     }
 
+    #[IsGranted("ROLE_USER")]
     #[Route('/lieu/liste', name: 'app_lieu_list')]
     public function listLieu(): Response
     {
@@ -36,14 +38,15 @@ class LieuController extends AbstractController
             'lieuList' => $this->lieuRepository->findAll(),
         ]);
     }
-    
+
+    #[IsGranted("ROLE_USER")]
     #[Route('/lieu/create', name: 'app_lieu_create')]
     public function createLieu(Request $request): Response
     {
-        $lieu = new Lieu();
-        return $this->handleLieuForm($request, $lieu, 'create');
+        return $this->handleLieuForm($request, new Lieu(), 'create');
     }
 
+    #[IsGranted("ROLE_USER")]
     #[Route('/lieu/update/{id}', name: 'app_lieu_update')]
     public function updateLieu(int $id, Request $request): Response
     {
@@ -62,16 +65,14 @@ class LieuController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $profilePicture = $form->get('fileName')->getData();
             if ($profilePicture) {
-                $lieu->setFileName($this->fileUploaderService->upload($profilePicture));
+                $lieu->setFileName($this->fileUploaderService->upload("thumbnails", $profilePicture));
             }
 
-            $latlng = $this->lieuService->getLatLng($lieu->getAddresse(), $lieu->getVille(), $lieu->getCp());
-            $lieu->setLat($latlng['lat']);
+            $latlng = $this->lieuService->getLatLng($lieu->getAddress(), $lieu->getCity(), $lieu->getPostalCode());
+            $lieu->setLatitude($latlng['lat']);
             $lieu->setLongitude($latlng['lng']);
 
-            $this->entityManager->persist($lieu);
-            $this->entityManager->flush();
-
+            $this->lieuRepository->update($lieu);
             return $this->redirectToRoute('app_lieu_list');
         }
 
