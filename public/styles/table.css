@@ -13,22 +13,6 @@ html {
   box-sizing: border-box;
 }
 
-:root {
-  --white: #fff;
-  --black: #000;
-  --gray: #2b3c56;
-  --lite: #f1f1f1;
-  --yellow: #f5b409;
-  --red: #f33e5d;
-  --green: #9bd846;
-  --blue: #029ef6;
-  --orange: #ee712f;
-  --pink: #ef5890;
-
-  --primary: #5487fa;
-  --primary_dark: ;
-}
-
 ::-webkit-scrollbar {
   height: 6px;
   width: 2px;
@@ -196,13 +180,43 @@ h2 {
   margin-top: var(--spacing-s);
 }
 
-.fa-solid:hover {
+.hover-fa:hover {
   color: red;
   transition: var(--transition-default);
 }
 
-.fa-solid {
+.hover-fa {
   transition: var(--transition-default);
+}
+
+.button-container {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 1rem;
+  gap: 1rem;
+  margin-right: 1rem;
+}
+
+.action-button {
+  background-color: var(--color-primary);
+  color: var(--color-white);
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: var(--border-radius-small);
+  cursor: pointer;
+  font-size: var(--font-size-small);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: background-color 0.3s ease;
+}
+
+.action-button:hover {
+  background-color: var(--color-primary-dark);
+}
+
+.action-button i {
+  font-size: var(--font-size-normal);
 }
 
 @media (max-width: 768px) {
@@ -215,6 +229,16 @@ h2 {
   .padding_3,
   .padding_4 {
     padding: 1rem;
+  }
+
+  .button-container {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .action-button {
+    width: 100%;
+    justify-content: center;
   }
 
   a {
