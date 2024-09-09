@@ -28,32 +28,39 @@ class UserType extends AbstractType
         $builder
             ->add('phone_number', TextType::class, [
                 'label' => 'Phone Number',
+                'attr' => ['placeholder' => 'Numéro de téléphone'],
                 'required' => false,
             ])
             ->add('pseudo', TextType::class, [
                 'label' => 'Pseudo',
+                'attr' => ['placeholder' => 'Pseudo'],
                 'required' => false,
             ])
             ->add('lastName', TextType::class, [
                 'label' => 'Nom',
+                'attr' => ['placeholder' => 'Nom'],
                 'required' => true,
             ])
             ->add('firstName', TextType::class, [
                 'label' => 'Prénom',
+                'attr' => ['placeholder' => 'Prénom'],
                 'required' => true,
             ])
             ->add('campus', EntityType::class, [
                 'class' => Campus::class,
                 'choice_label' => 'name',
+                'placeholder' => 'Choisir un campus',
                 'label' => 'Campus',
                 'required' => false,
             ])
             ->add('email', EmailType::class, [
                 'label' => 'Email',
+                'attr' => ['placeholder' => 'Email'],
                 'required' => true,
             ])
             ->add('password', TextType::class, [
                 'label' => 'password',
+                'attr' => ['placeholder' => 'password'],
                 'required' => true,
             ])
             ->add('profilePicture', FileType::class, [

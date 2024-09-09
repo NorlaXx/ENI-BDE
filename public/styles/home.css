@@ -1,6 +1,6 @@
 .content {
   width: 100%;
-  height: calc(100vh - 71px);
+  height: var(--content-height);
   display: flex;
 }
 
@@ -19,7 +19,7 @@
 #activity-details {
   width: 100%;
   padding: 45px 15px 15px;
-  border-left: 1px solid #d9dadd;
+  border-left: 1px solid var(--color-border);
 }
 
 #activity-details p {
@@ -30,7 +30,7 @@
 #activity-details .img-container img {
   width: 660px;
   height: 430px;
-  border-radius: 5px;
+  border-radius: var(--border-radius-small);
 }
 
 #activity-details .title-description-container .title-container {
@@ -43,7 +43,7 @@
 }
 
 #activity-details .title-description-container .title-container p img {
-  margin-left: 5px;
+  margin-left: var(--spacing-xs);
 }
 
 #activity-details .title-description-container .separator {
@@ -52,8 +52,8 @@
 
 #activity-details .details-container {
   display: flex;
-  margin-top: 15px;
-  gap: 20px;
+  margin-top: var(--spacing-m);
+  gap: var(--spacing-l);
   justify-content: space-between;
 }
 
@@ -62,7 +62,7 @@
 }
 
 #activity-details .actions-container {
-  margin-top: 30px;
+  margin-top: var(--spacing-xxl);
   display: flex;
   justify-content: space-between;
 }
@@ -70,7 +70,7 @@
 .map {
   width: 100%;
   height: 100%;
-  border-left: 1px solid #d9dadd;
+  border-left: 1px solid var(--color-border);
 }
 
 #map {
@@ -80,7 +80,7 @@
 
 .filter {
   width: 15%;
-  border-right: 1px solid #d9dadd;
+  border-right: 1px solid var(--color-border);
 }
 
 .list,
@@ -92,8 +92,8 @@
 
 .list h2,
 .filter h2 {
-  margin-top: 20px;
-  color: #3f4250;
+  margin-top: var(--spacing-l);
+  color: var(--color-secondary);
   font-weight: bold;
   text-align: center;
 }
@@ -101,7 +101,7 @@
 .separator {
   width: 85%;
   height: 1px;
-  background-color: #d9dadd;
+  background-color: var(--color-border);
   margin-top: 10px;
 }
 
@@ -155,44 +155,44 @@
 }
 
 .activity {
-  border-radius: 5px;
-  -webkit-box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
-  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+  border-radius: var(--border-radius-small);
+  -webkit-box-shadow: var(--box-shadow-default);
+  box-shadow: var(--box-shadow-default);
   width: calc(98% - 35px);
   display: flex;
   padding: 10px;
   align-items: center;
   max-height: 85px;
-  margin-top: 25px;
+  margin-top: var(--spacing-xl);
   justify-content: space-between;
-  transition: 0.2s;
-  margin-bottom: 5px;
+  transition: var(--transition-default);
+  margin-bottom: var(--spacing-xs);
   cursor: pointer;
 }
 
 .activity:hover {
   transform: scale(1.01);
-  transition: 0.2s;
+  transition: var(--transition-default);
   box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25),
     0px 0px 0px 5px rgba(20, 74, 127, 0.5);
 }
 
 .activity img {
-  border-radius: 5px;
+  border-radius: var(--border-radius-small);
   width: 150px;
   height: 85px;
 }
 
 .title strong {
-  color: #3f4250;
-  font-size: 18px;
+  color: var(--color-primary);
+  font-size: var(--font-size-large);
   font-weight: bold;
   margin: 0;
 }
 
 .description {
-  color: #3f4250;
-  font-size: 12px;
+  color: var(--color-secondary);
+  font-size: var(--font-size-small);
   line-height: 15px;
   margin: 0;
 }
@@ -203,7 +203,7 @@
   flex-direction: column;
   height: 85px;
   max-width: 350px;
-  margin-left: 10px;
+  margin-left: var(--spacing-s);
 }
 
 .information {
@@ -215,8 +215,8 @@
 }
 
 .information p {
-  color: #3f4250;
-  font-size: 12px;
+  color: var(--color-secondary);
+  font-size: var(--font-size-small);
   margin: 0;
 }
 
@@ -229,12 +229,12 @@
 .button {
   height: 25.65px;
   width: 120px;
-  margin-left: 10px;
-  background-color: #144a7f;
+  margin-left: var(--spacing-s);
+  background-color: var(--color-primary);
   color: white;
-  font-size: 14px;
+  font-size: var(--font-size-medium);
   border: none;
-  border-radius: 5px;
+  border-radius: var(--border-radius-small);
   position: relative;
   cursor: pointer;
 }
@@ -249,16 +249,16 @@
 }
 
 .cancel {
-  background-color: #800020;
+  background-color: var(--color-cancel);
 }
 
 .modify {
-  background-color: #c4651a;
+  background-color: var(--color-modify);
 }
 
 .highlight {
   transform: scale(1.01);
-  transition: 0.2s;
+  transition: var(--transition-default);
   box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25),
     0px 0px 0px 5px rgba(20, 74, 127, 0.5);
 }
@@ -269,13 +269,13 @@
 
 .missing {
   margin: 0;
-  color: #91939b;
-  font-size: 14px;
+  color: var(--color-text-light);
+  font-size: var(--font-size-medium);
 }
 
 .missing a {
   text-decoration: none;
-  color: #144a7f;
+  color: var(--color-primary);
 }
 
 @media (max-width: 1300px) {
