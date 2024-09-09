@@ -360,7 +360,6 @@
 
   .list #activityContent .activity .flex{
     width: 100%;
-    justify-content: space-between;
   }
 
   .list #activityContent .activity .flex .title-description .title{
