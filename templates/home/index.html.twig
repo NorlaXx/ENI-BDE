@@ -65,19 +65,19 @@
                                     </span>
                                     <span class="state">
                                         {% if activity.state.code == "ACT_CR" %}
-                                            <button class="button" disable><i class="fa-solid fa-check"></i> Créée</button>
+                                            <button class="status" disable><i class="fa-solid fa-check"></i> Créée</button>
                                         {% endif %}
                                         {% if activity.state.code == "ACT_EN_C" %}
-                                            <button class="button" disable><i class="fa-solid fa-bars-progress"></i> En cours</button>
+                                            <button class="status" disable><i class="fa-solid fa-bars-progress"></i> En cours</button>
                                         {% endif %}
                                         {% if activity.state.code == "ACT_INS_F" %}
-                                            <button class="button close" disable><i class="fa-solid fa-circle-xmark"></i> Fermée</button>
+                                            <button class="status status-close" disable><i class="fa-solid fa-circle-xmark"></i> Fermée</button>
                                         {% endif %}
                                         {% if activity.state.code == "ACT_TER" %}
-                                            <button class="button cancel" disable><i class="fa-solid fa-hourglass-end"></i> Terminée</button>
+                                            <button class="status status-cancel" disable><i class="fa-solid fa-hourglass-end"></i> Terminée</button>
                                         {% endif %}
                                         {% if activity.state.code == "ACT_ANN" %}
-                                            <button class="button cancel" disable><i class="fa-solid fa-ban"></i> Annulée</button>
+                                            <button class="status status-cancel" disable><i class="fa-solid fa-ban"></i> Annulée</button>
                                         {% endif %}
                                     </span>
                                 </span>

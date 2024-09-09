@@ -14,15 +14,15 @@
   overflow-x: hidden;
 }
 
-.list{
+.list {
   width: 55%;
 }
 
-.list #activityContent{
+.list #activityContent {
   width: 100%;
 }
 
-.activity-map{
+.activity-map {
   width: 30%;
 }
 
@@ -43,9 +43,9 @@
 }
 
 #activity-details .img-container img {
-    width: 100%;
-    height: auto;
-    border-radius: var(--border-radius-small);
+  width: 100%;
+  height: auto;
+  border-radius: var(--border-radius-small);
 }
 
 #activity-details .title-description-container .title-container {
@@ -120,11 +120,11 @@
   margin-top: 10px;
 }
 
-#toggle-form-button{
+#toggle-form-button {
   display: none;
 }
 
-.filter #form-container{
+.filter #form-container {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -269,7 +269,7 @@
   justify-content: space-between;
 }
 
-.buttons .actions{
+.buttons .actions {
   display: flex;
   flex-direction: row;
 }
@@ -308,6 +308,26 @@
   color: var(--color-primary);
 }
 
+.status {
+  background-color: var(--color-primary-opacity-50);
+  color: var(--color-white);
+  font-size: var(--font-size-medium);
+  border-radius: 50px;
+  padding: 5px 15px;
+  margin: 0;
+  border: none;
+  height: 25.65px;
+  margin-left: 10px;
+}
+
+.status-close {
+  background-color: var(--color-cancel-opacity-50);
+}
+
+.status-cancel {
+  background-color: var(--color-cancel-opacity-50);
+}
+
 @media (max-width: 1300px) {
   .map {
     display: none;
@@ -321,56 +341,56 @@
     width: 100% !important;
   }
 
-  .content{
+  .content {
     display: flex;
     flex-direction: column;
     height: unset;
   }
 
-  .filter{
+  .filter {
     width: 100%;
     z-index: 10;
   }
 
-  #toggle-form-button{
+  #toggle-form-button {
     display: block;
   }
 
-  .filter #form-container.hidden{
+  .filter #form-container.hidden {
     max-height: 0;
     overflow: hidden;
     transition: max-height 0.5s ease-in-out;
   }
 
-  .filter #form-container.active{
+  .filter #form-container.active {
     max-height: 600px;
     transition: max-height 0.5s ease-in-out;
   }
 
-  .list{
+  .list {
     width: 100%;
     background: white;
     z-index: 100;
   }
 
-  .list #activityContent .activity{
+  .list #activityContent .activity {
     flex-direction: column;
     max-height: unset;
   }
 
-  .list #activityContent .activity .flex{
+  .list #activityContent .activity .flex {
     width: 100%;
   }
 
-  .list #activityContent .activity .flex .title-description .title{
+  .list #activityContent .activity .flex .title-description .title {
     margin: 4px 0;
   }
 
-  .list #activityContent .activity .information{
+  .list #activityContent .activity .information {
     width: 100%;
   }
 
-  .list #activityContent .activity .information .information_text{
+  .list #activityContent .activity .information .information_text {
     width: 100%;
     display: flex;
     flex-direction: row;
@@ -381,56 +401,55 @@
     width: 100%;
   }
 
-  .activity-map{
+  .activity-map {
     width: 100%;
   }
 
-  .activity-map #activity-details{
+  .activity-map #activity-details {
     width: 100%;
   }
 
-  .activity-map #activity-details .img-container{
+  .activity-map #activity-details .img-container {
     display: flex;
     justify-content: center;
   }
 
-  .activity-map #activity-details .img-container img{
+  .activity-map #activity-details .img-container img {
     width: 50%;
     height: auto;
   }
 
-  .activity-map #activity-details .details-container{
+  .activity-map #activity-details .details-container {
     flex-direction: column;
   }
 
-  .activity-map #activity-details .details-container img{
+  .activity-map #activity-details .details-container img {
     max-width: 350px;
   }
 }
 
-@media (max-width: 768px){
-  .activity-map #activity-details .img-container img{
+@media (max-width: 768px) {
+  .activity-map #activity-details .img-container img {
     width: 100%;
   }
 }
 
-@media (min-width: 1300px) and (max-width: 1700px){
-  .list #activityContent .activity{
+@media (min-width: 1300px) and (max-width: 1700px) {
+  .list #activityContent .activity {
     width: 93%;
   }
 
-  .list #activityContent .activity .flex .title-description .title{
+  .list #activityContent .activity .flex .title-description .title {
     margin: 0;
   }
 }
 
-
-@media (min-width: 1300px) and (max-width: 2000px){
+@media (min-width: 1300px) and (max-width: 2000px) {
   #activity-details .details-container {
     flex-direction: column;
   }
 
-  #activity-details .details-container img{
+  #activity-details .details-container img {
     max-width: 350px;
     height: auto;
   }
