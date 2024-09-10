@@ -35,8 +35,8 @@ jobs:
 
       - name: Deploy to server
         run: |
-          sshpass -p ${{ secrets.SERVER_PASSWORD }} scp -p 22103 -o StrictHostKeyChecking=no -r build/* root@api.manageti.fr:/var/www/manageti.com/public_html
+          sshpass -p ${{ secrets.SERVER_PASSWORD }} scp -p 22103 -o StrictHostKeyChecking=no -r ./* root@private.blizzfull.fr:/var/www/manageti.com/public_html
 
       - name: Migrations
         run: |
-          sshpass -p ${{ secrets.SERVER_PASSWORD }} scp -p 22103 -o StrictHostKeyChecking=no root@private.blizzfull.fr "cd /var/www/enibde && php bin/console doctrine:schema:update --force"
+          sshpass -p ${{ secrets.SERVER_PASSWORD }} ssh -p 22103 -o StrictHostKeyChecking=no root@private.blizzfull.fr "cd /var/www/enibde && php bin/console doctrine:schema:update --force"
