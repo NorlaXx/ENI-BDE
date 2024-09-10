@@ -212,7 +212,8 @@ form button:hover {
     font-size: var(--font-size-normal);
   }
 
-  .actions button, button {
+  .actions button,
+  button {
     width: 300px;
   }
 
@@ -220,4 +221,16 @@ form button:hover {
     display: flex;
     flex-direction: column;
   }
+}
+
+.error ul {
+  list-style-type: none;
+  color: var(--color-cancel);
+  font-size: var(--font-size-standard);
+  margin: 0;
+  padding: 0;
+}
+
+.error li {
+  margin-top: var(--spacing-xs);
 }

@@ -60,8 +60,12 @@ class UserController extends AbstractController
     #[Route(path: '/profil/search/{id}', name: 'app_profile_view')]
     public function profileView(int $id): Response
     {
-        return $this->render('user/profileView.html.twig', [
-            'user' => $this->userRepository->find($id),
+        $userSearch = $this->userRepository->find($id);
+        $activitesSearch = $this->activityRepository->findByCreator($userSearch);
+
+        return $this->render('user/profile.html.twig', [
+            'user' => $userSearch,
+            'activities' => $activitesSearch,
         ]);
     }
 

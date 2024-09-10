@@ -10,19 +10,19 @@
     <div class="box">
         <h2>Vos informations</h2>
         <div class="separator"></div>
-        <img src="{{ asset('profilePictures/'~ app.user.fileName) }}" class="profilPicture" alt="ProfilePicture">
-        <p class="text title">{{app.user.pseudo}}</p>
-        <p class="text email">{{app.user.email}}</p>
+        <img src="{{ asset('profilePictures/'~ user.fileName) }}" class="profilPicture" alt="ProfilePicture">
+        <p class="text title">{{user.pseudo}}</p>
+        <p class="text email">{{user.email}}</p>
         <div class="more-information">
             <h2>Plus d’information</h2>
             <div class="separator"></div>
             <div class="myInformation">
-                <p><span class="information-title">Téléphone : </span>{{app.user.phoneNumber}}</p>
-                <p><span class="information-title">Campus : </span>{{app.user.campus.name}}</p>
+                <p><span class="information-title">Téléphone : </span>{{user.phoneNumber}}</p>
+                <p><span class="information-title">Campus : </span>{{user.campus.name}}</p>
             </div>
             <div class="myInformation">
-                <p><span class="information-title">Nom : </span>{{app.user.lastName}}</p>
-                <p><span class="information-title">Prénom : </span>{{app.user.firstName}}</p>
+                <p><span class="information-title">Nom : </span>{{user.lastName}}</p>
+                <p><span class="information-title">Prénom : </span>{{user.firstName}}</p>
             </div>
         </div>
         <a href={{path("app_profile_edit")}} class="profile-button modifyProfil"><button class="button">Modifier le compte</button></a>

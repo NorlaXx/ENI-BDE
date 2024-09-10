@@ -40,7 +40,7 @@ class CampusType extends AbstractType
                     'placeholder' => 'Code Postale'
                 )
             ])
-            ->add('adresse', TextType::class, [
+            ->add('address', TextType::class, [
                 'label' => 'Adresse',
                 'attr' => array(
                     'placeholder' => 'Adresse'
