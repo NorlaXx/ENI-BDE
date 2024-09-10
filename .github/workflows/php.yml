@@ -2,7 +2,7 @@ name: Symfony project
 
 on:
   push:
-    branches: ["main"]
+    branches: ["Blizz"]
 
 jobs:
   build:
