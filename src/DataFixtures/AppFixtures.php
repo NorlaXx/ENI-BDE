@@ -17,7 +17,7 @@ class AppFixtures extends Fixture
         $campuses = [
             [
                 'id' => 1,
-                'name' => 'Rennes',
+                'name' => 'Eni - Rennes',
                 'latitude' => 48.03914488370492,
                 'longitude' => -1.6920911818491027,
                 'nbLimitPlaces' => 20,
@@ -27,7 +27,7 @@ class AppFixtures extends Fixture
             ],
             [
                 'id' => 2,
-                'name' => 'Nantes',
+                'name' => 'Eni - Nantes',
                 'latitude' => 47.55166565445708,
                 'longitude' => -1.4327962718513467,
                 'nbLimitPlaces' => 18,
@@ -37,7 +37,7 @@ class AppFixtures extends Fixture
             ],
             [
                 'id' => 3,
-                'name' => 'Quimper',
+                'name' => 'Eni - Quimper',
                 'latitude' => 47.97754750308657,
                 'longitude' => -4.083039206994787,
                 'nbLimitPlaces' => 15,
@@ -51,7 +51,7 @@ class AppFixtures extends Fixture
         $lieux = [
             [
                 'id' => 1,
-                'name' => 'piscine de bréquigny',
+                'name' => 'Piscine de bréquigny',
                 'latitude' => 48.0890177959865,
                 'longitude' => -1.690158649607449,
                 'postalCode' => 35000,
@@ -75,8 +75,108 @@ class AppFixtures extends Fixture
                 'postalCode' => 29000,
                 'city' => 'Quimper',
                 'address' => '10 rue du stade'
-            ]
+            ],
+            [
+                'id' => 4,
+                'name' => 'Stade de la route de Lorient',
+                'latitude' => 48.085013,
+                'longitude' => -1.698211,
+                'postalCode' => 35000,
+                'city' => 'Rennes',
+                'address' => '111 route de Lorient'
+            ],
+            [
+                'id' => 5,
+                'name' => 'Stade de la Beaujoire',
+                'latitude' => 47.248611,
+                'longitude' => -1.526389,
+                'postalCode' => 44000,
+                'city' => 'Nantes',
+                'address' => '5 boulevard de la Beaujoire'
+            ],
+            [
+                'id' => 6,
+                'name' => 'Stade de la Rabine',
+                'latitude' => 47.660833,
+                'longitude' => -2.760556,
+                'postalCode' => 56000,
+                'city' => 'Vannes',
+                'address' => '20 rue de la Rabine'
+            ],
+            [
+                'id' => 7,
+                'name' => 'Tour Eiffel',
+                'latitude' => 48.858370,
+                'longitude' => 2.294481,
+                'postalCode' => 75007,
+                'city' => 'Paris',
+                'address' => '5 avenue Anatole France'
+            ],
+            [
+                'id' => 8,
+                'name' => 'Arc de Triomphe',
+                'latitude' => 48.873792,
+                'longitude' => 2.295028,
+                'postalCode' => 75017,
+                'city' => 'Paris',
+                'address' => 'Place Charles de Gaulle'
+            ],
+            [
+                'id' => 9,
+                'name' => 'Château de Versailles',
+                'latitude' => 48.804864,
+                'longitude' => 2.120355,
+                'postalCode' => 78000,
+                'city' => 'Versailles',
+                'address' => 'Place d\'Armes'
+            ],
+            [
+                'id' => 10,
+                'name' => 'Mont Saint-Michel',
+                'latitude' => 48.636111,
+                'longitude' => -1.511389,
+                'postalCode' => 50170,
+                'city' => 'Le Mont-Saint-Michel',
+                'address' => '50170 Le Mont-Saint-Michel'
+            ],
+            [
+                'id' => 11,
+                'name' => 'Cathédrale Notre-Dame de Paris',
+                'latitude' => 48.852968,
+                'longitude' => 2.349902,
+                'postalCode' => 75004,
+                'city' => 'Paris',
+                'address' => '6 Parvis Notre-Dame - Pl. Jean-Paul II'
+            ],
+            [
+                'id' => 12,
+                'name' => 'Basilique du Sacré-Cœur de Montmartre',
+                'latitude' => 48.886667,
+                'longitude' => 2.343056,
+                'postalCode' => 75018,
+                'city' => 'Paris',
+                'address' => '35 Rue du Chevalier de la Barre'
+            ],
+            [
+                'id' => 13,
+                'name' => 'Château de Chambord',
+                'latitude' => 47.616389,
+                'longitude' => 1.515833,
+                'postalCode' => 41250,
+                'city' => 'Chambord',
+                'address' => '41250 Chambord'
+            ],
+            [
+                'id' => 14,
+                'name' => 'Château de Chantilly',
+                'latitude' => 49.194167,
+                'longitude' => 2.481944,
+                'postalCode' => 60500,
+                'city' => 'Chantilly',
+                'address' => '60500 Chantilly'
+            ],
         ];
+
         // Création des campus
         foreach ($campuses as $campusData) {
             $campusVar = "campus" . $campusData['id'];
@@ -106,74 +206,62 @@ class AppFixtures extends Fixture
             $manager->persist($$lieuVar);
         }
 
+        $allState = [
+            'ACT_CR' => 'crées',
+            'ACT_INS' => 'inscription',
+            'ACT_INS_F' => 'inscription fermé',
+            'ACT_EN_C' => 'en cours',
+            'ACT_TER' => 'terminée',
+            'ACT_ARC' => 'archivée',
+            'ACT_ANN' => 'annulée'
+        ];
+
         //Création des états des sorties
-        $activityState = new ActivityState();
-        $activityState->setWording('crées');
-        $activityState->setCode('ACT_CR');
-        $manager->persist($activityState);
-        $activityState2 = new ActivityState();
-        $activityState2->setWording('inscription');
-        $activityState2->setCode('ACT_INS');
-        $manager->persist($activityState2);
-        $activityState3 = new ActivityState();
-        $activityState3->setWording('inscription fermé');
-        $activityState3->setCode('ACT_INS_F');
-        $manager->persist($activityState3);
-        $activityState4 = new ActivityState();
-        $activityState4->setWording('en cours');
-        $activityState4->setCode('ACT_EN_C');
-        $manager->persist($activityState4);
-        $activityState5 = new ActivityState();
-        $activityState5->setWording('terminée');
-        $activityState5->setCode('ACT_TER');
-        $manager->persist($activityState5);
-        $activityState6 = new ActivityState();
-        $activityState6->setWording('archivée');
-        $activityState6->setCode('ACT_ARC');
-        $manager->persist($activityState6);
-        $activityState7 = new ActivityState();
-        $activityState7->setWording('annulée');
-        $activityState7->setCode('ACT_ANN');
-        $manager->persist($activityState7);
+        foreach ($allState as $key => $value) {
+            $activityState = new ActivityState();
+            $activityState->setWording($value);
+            $activityState->setCode($key);
+            $manager->persist($activityState);
+        }
 
 
         // Création des utilisateurs
         $user1 = new User();
         $user1->setPseudo('user1');
-        $user1->setLastName('Jean');
-        $user1->setFirstName('Lasalle');
+        $user1->setLastName('Marie');
+        $user1->setFirstName('Jean');
         $user1->setActive(true);
         $user1->setPhoneNumber('0123456789');
         $user1->setEmail('email@email.com');
         $user1->setPassword('$2y$10$MkOCJMhXB7tecvn52C1BG.El9oVvZ4CuwCTlaaNnVSvZxJEQ0wdMC');
         $user1->setRoles(['ROLE_USER', 'ROLE_ADMIN']);
-        $user1->setCampus($campus1); // Assuming $campus1 is an instance of Campus
+        $user1->setCampus($campus1);
         $user1->setFileName('default.jpg');
         $manager->persist($user1);
 
         $user2 = new User();
         $user2->setPseudo('user2');
-        $user2->setFirstName('Jean');
-        $user2->setLastName('Lasalle');
+        $user2->setFirstName('Loic');
+        $user2->setLastName('Dupont');
         $user2->setActive(true);
         $user2->setPhoneNumber('0123456789');
         $user2->setEmail('email2@email.com');
         $user2->setPassword('$2y$10$8ArdLO2Y0Li.HUR5R9fOWO4UMiihLOCdf1bARdT/yc/h1GgCbW9eK');
         $user2->setRoles(['ROLE_USER']);
-        $user2->setCampus($campus2); // Assuming $campus2 is an instance of Campus
+        $user2->setCampus($campus2);
         $user2->setFileName('default.jpg');
         $manager->persist($user2);
 
         $user3 = new User();
         $user3->setPseudo('user3');
-        $user3->setFirstName('Jean');
-        $user3->setLastName('Lasalle');
+        $user3->setFirstName('Pierre');
+        $user3->setLastName('Durand');
         $user3->setActive(true);
         $user3->setPhoneNumber('0123456789');
         $user3->setEmail('email3@email.com');
         $user3->setPassword('$2y$10$Dc.xI0OeyS5fGJEhV5TwUOASYMQQiR7wzA7OmPA3M12ckLjoJ8y4i');
         $user3->setRoles(['ROLE_USER']);
-        $user3->setCampus($campus3); // Assuming $campus3 is an instance of Campus
+        $user3->setCampus($campus3);
         $user3->setFileName('default.jpg');
         $manager->persist($user3);
 
@@ -187,10 +275,10 @@ class AppFixtures extends Fixture
                 'registrationDateLimit' => new \DateTime('2024-10-01 08:00:00'),
                 'duration' => 120,
                 'nbLimitParticipants' => 50,
-                'campus' => $campus1, // Assuming $campus1 is an instance of Campus
-                'lieu' => $lieu1, // Assuming $lieu1 is an instance of Lieu
-                'state' => $activityState, // Assuming $activityState2 is an instance of ActivityState
-                'organizer' => $user1 // Assuming $user1 is an instance of User
+                'campus' => $campus1,
+                'lieu' => $lieu1,
+                'state' => $activityState,
+                'organizer' => $user1
             ],
             [
                 'name' => 'Park Cleanup',
@@ -199,10 +287,10 @@ class AppFixtures extends Fixture
                 'registrationDateLimit' => new \DateTime('2024-10-01 08:00:00'),
                 'duration' => 180,
                 'nbLimitParticipants' => 30,
-                'campus' => $campus2, // Assuming $campus2 is an instance of Campus
-                'lieu' => $lieu2, // Assuming $lieu2 is an instance of Lieu
-                'state' => $activityState, // Assuming $activityState2 is an instance of ActivityState
-                'organizer' => $user2 // Assuming $user2 is an instance of User
+                'campus' => $campus2,
+                'lieu' => $lieu2,
+                'state' => $activityState,
+                'organizer' => $user2
             ],
             [
                 'name' => 'Football Match',
@@ -211,10 +299,10 @@ class AppFixtures extends Fixture
                 'registrationDateLimit' => new \DateTime('2024-10-01 08:00:00'),
                 'duration' => 90,
                 'nbLimitParticipants' => 22,
-                'campus' => $campus3, // Assuming $campus3 is an instance of Campus
-                'lieu' => $lieu3, // Assuming $lieu3 is an instance of Lieu
-                'state' => $activityState, // Assuming $activityState2 is an instance of ActivityState
-                'organizer' => $user3 // Assuming $user3 is an instance of User
+                'campus' => $campus3,
+                'lieu' => $lieu3,
+                'state' => $activityState,
+                'organizer' => $user3
             ]
         ];
 

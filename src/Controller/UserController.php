@@ -63,7 +63,7 @@ class UserController extends AbstractController
         $userSearch = $this->userRepository->find($id);
         $activitesSearch = $this->activityRepository->findByCreator($userSearch);
 
-        return $this->render('user/profile.html.twig', [
+        return $this->render('user/profileView.html.twig', [
             'user' => $userSearch,
             'activities' => $activitesSearch,
         ]);

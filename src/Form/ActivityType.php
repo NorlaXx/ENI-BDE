@@ -40,6 +40,9 @@ class ActivityType extends AbstractType
             ->add('lieu', EntityType::class, [
                 'class' => Lieu::class,
                 'choice_label' => 'name',
+                'choice_attr' => function(Lieu $lieu) {
+                    return ['data-ville' => $lieu->getCity()];
+                },
             ])
             ->add('description', TextareaType::class, [
                 'label' => 'Description',
