@@ -20,21 +20,30 @@ class AppFixtures extends Fixture
                 'name' => 'Rennes',
                 'latitude' => 48.03914488370492,
                 'longitude' => -1.6920911818491027,
-                'nbLimitPlaces' => 20
+                'nbLimitPlaces' => 20,
+                'address' => '8 Rue Léo Lagrange',
+                'postalCode' => 35000,
+                'city' => 'Chartres de Bretagne'
             ],
             [
                 'id' => 2,
                 'name' => 'Nantes',
                 'latitude' => 47.55166565445708,
                 'longitude' => -1.4327962718513467,
-                'nbLimitPlaces' => 18
+                'nbLimitPlaces' => 18,
+                'address' => '3 rue Michael Faraday',
+                'postalCode' => 44000,
+                'city' => 'Nantes'
             ],
             [
                 'id' => 3,
                 'name' => 'Quimper',
                 'latitude' => 47.97754750308657,
                 'longitude' => -4.083039206994787,
-                'nbLimitPlaces' => 15
+                'nbLimitPlaces' => 15,
+                'address' => '2 Rue Georges Perros',
+                'postalCode' => 29000,
+                'city' => 'Quimper'
             ]
         ];
 
@@ -77,6 +86,9 @@ class AppFixtures extends Fixture
             $$campusVar->setLongitude($campusData['longitude']);
             $$campusVar->setNblimitPlaces($campusData['nbLimitPlaces']);
             $$campusVar->setFileName('campus_ident.jpg');
+            $$campusVar->setAddress($campusData['address']);
+            $$campusVar->setPostalCode($campusData['postalCode']);
+            $$campusVar->setCity($campusData['city']);
             $manager->persist($$campusVar);
         }
 

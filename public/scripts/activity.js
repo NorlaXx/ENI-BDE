@@ -2,7 +2,14 @@ let activities = document.querySelectorAll(".activity");
 let activityDetails = document.getElementById("activity-details");
 const myPopup = new popup();
 
+window.addEventListener('resize', function(event) {
+  activities.forEach((activity) => {
+    mobileContent(activity);
+  })
+}, true);
+
 activities.forEach((activity) => {
+  mobileContent(activity);
   activity.addEventListener("click", () => {
     let latitude = activity.dataset.lat;
     let longitude = activity.dataset.long;
@@ -242,3 +249,13 @@ const userHandler = (id, userList) => {
 
   myPopup.importHTMLComponent(div);
 };
+
+function mobileContent(activity){
+  let campus = activity.dataset.campus;
+  let userCampus = activity.dataset.usercampus;
+  if (window.screen.width <= 768 && campus !== userCampus) {
+    activity.style.display = "none";
+  }else{
+    activity.style.display = "flex";
+  }
+}

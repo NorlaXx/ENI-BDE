@@ -9,7 +9,7 @@
         <div class="list campus">
             <h2>Liste des Campus</h2>
             {% if is_granted('ROLE_ADMIN') %}
-            <p class="missing">Ajouter un campus ? <a href="{{ path('app_campus_create') }}">Ajoute le !</a></p>
+            <p class="missing">Un campus manquant ? <a href="{{ path('app_campus_create') }}">Ajoute le !</a></p>
             {% endif %}
             <div class="separator"></div>
             <div class="activity-content" id="activityContent">

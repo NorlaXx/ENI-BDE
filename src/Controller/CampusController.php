@@ -59,7 +59,7 @@ class CampusController extends AbstractController
             }else if($action == 'create'){
                 $campus->setFileName('defaut_activity_picture.webp');
             }
-            $latlng = $this->lieuService->getLatLng($campus->getAdresse(), $campus->getCity(), $campus->getPostalCode());
+            $latlng = $this->lieuService->getLatLng($campus->getAddress(), $campus->getCity(), $campus->getPostalCode());
             $campus->setLatitude($latlng['lat']);
             $campus->setLongitude($latlng['lng']);
 

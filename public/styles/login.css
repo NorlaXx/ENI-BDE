@@ -92,3 +92,20 @@ form button:hover {
   width: 100px;
   height: 100px;
 }
+
+.alert {
+  width: 445px;
+  height: 50px;
+  background-color: var(--color-alert);
+  border-radius: var(--border-radius-small);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  font-size: var(--font-size-large);
+  margin-top: var(--spacing-m);
+}
+
+.alert-danger {
+  background-color: var(--color-danger);
+}

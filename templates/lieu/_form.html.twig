@@ -1,10 +1,30 @@
 {{ form_start(form) }}
+    
     {{form_widget(form.name)}}
+    <div class="error">
+        {{ form_errors(form.name) }}
+    </div>
+    
     {{form_widget(form.city)}}
+    <div class="error">
+        {{ form_errors(form.city) }}
+    </div>
+    
     {{form_widget(form.postalCode)}}
+    <div class="error">
+        {{ form_errors(form.postalCode) }}
+    </div>
+    
     {{form_widget(form.address)}}
+    <div class="error">
+        {{ form_errors(form.address) }}
+    </div>
+    
     {{form_label(form.fileName)}}
     {{form_widget(form.fileName)}}
+    <div class="error">
+        {{ form_errors(form.fileName) }}
+    </div>
 
     <button>Enregistré</button>
 {{ form_end(form)}}

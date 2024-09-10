@@ -5,6 +5,7 @@
 
   /* Colors */
   --color-primary: #144a7f;
+  --color-primary-opacity-50: rgba(20, 74, 127, 0.5);
   --color-primary-dark: #0e3a5f;
   --color-primary-lite: #e4ecfe;
   --color-secondary: #3f4250;
@@ -16,7 +17,11 @@
   --color-black: #000000;
   --color-overlay: rgba(0, 0, 0, 0.2);
   --color-cancel: #800020;
+  --color-cancel-opacity-50: rgba(128, 0, 32, 0.5);
   --color-modify: #c4651a;
+  --background-color: #fff;
+  --color-alert: #ff0000;
+  --color-danger: #800020;
 
   /* Font Sizes */
   --font-size-xxs: 10px;
