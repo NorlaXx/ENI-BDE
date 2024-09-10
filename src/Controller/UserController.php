@@ -121,8 +121,6 @@ class UserController extends AbstractController
         ]);
     }
 
-    // TODO CHECK WHY USER CAN'T BE FIND WITH ID AUTOMATICALLY
-
     /**
      * @throws TransportExceptionInterface
      */
@@ -148,14 +146,14 @@ class UserController extends AbstractController
         return $this->redirectToRoute("app_profil_list");
     }
 
-    // TODO CHECK WHY USER CAN'T BE FIND WITH ID AUTOMATICALLY
     #[IsGranted("ROLE_ADMIN")]
     #[Route(path: '/profil/desactivate/{id}', name: 'app_user_desactivate')]
     public function desactivateUser(int $id): Response
     {
-        // TODO QUE FAIRE DU USER, PROPRIETE A AJOUTER
         $user = $this->userRepository->find($id);
         $user->setActive(false);
+        $this->entityManager->persist($user);
+        $this->entityManager->flush();
         return $this->redirectToRoute("app_profil_list");
 
     }

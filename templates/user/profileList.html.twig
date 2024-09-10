@@ -28,7 +28,11 @@
                 </thead>
                 <tbody>
                     {% for user in users %}
-                        <tr>
+                            {% if user.isActive != true %}
+                            <tr style="background-color: #ded8d7">
+                            {% else %}
+                                <tr>
+                            {% endif %}
                         <td data-label="ID">{{user.id}}</td>
                         <td data-label="Profil" class="profil"><img src="/profilePictures/{{user.fileName}}" alt="" />{{user.pseudo}}</td>
                         <td data-label="Prénom" class="textcenter">{{user.firstName}}</td>
