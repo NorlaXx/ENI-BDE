@@ -155,6 +155,10 @@ button {
   margin-bottom: var(--spacing-l);
 }
 
+.actions button {
+  width: 250px;
+}
+
 form button:hover {
   background-color: var(--color-primary-dark);
   transition: var(--transition-default);
@@ -208,7 +212,25 @@ form button:hover {
     font-size: var(--font-size-normal);
   }
 
+  .actions button,
   button {
     width: 300px;
   }
+
+  .actions {
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+.error ul {
+  list-style-type: none;
+  color: var(--color-cancel);
+  font-size: var(--font-size-standard);
+  margin: 0;
+  padding: 0;
+}
+
+.error li {
+  margin-top: var(--spacing-xs);
 }

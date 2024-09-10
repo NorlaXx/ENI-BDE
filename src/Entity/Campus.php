@@ -45,7 +45,7 @@ class Campus
     private ?string $postalCode = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $adresse = null;
+    private ?string $address = null;
 
     #[ORM\Column(length: 255)]
     private ?string $city = null;
@@ -191,14 +191,14 @@ class Campus
         $this->postalCode = $postalCode;
     }
 
-    public function getAdresse(): ?string
+    public function getAddress(): ?string
     {
-        return $this->adresse;
+        return $this->address;
     }
 
-    public function setAdresse(?string $adresse): void
+    public function setAddress(?string $address): void
     {
-        $this->adresse = $adresse;
+        $this->address = $address;
     }
 
     public function getCity(): ?string

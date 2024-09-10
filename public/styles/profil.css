@@ -27,7 +27,7 @@
   text-decoration: none;
 }
 
-.createActivity button {
+.profile-button button {
   width: 395px;
   height: 40px;
   font-size: var(--font-size-xl);
@@ -103,9 +103,12 @@
     position: relative;
     margin-top: var(--spacing-l);
     margin-left: 0 !important;
+    left: 0;
   }
+}
 
-  .createActivity button {
-    margin-left: 0 !important;
+@media (max-width: 768px) {
+  .createActivity {
+    display: none;
   }
 }

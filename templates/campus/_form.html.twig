@@ -1,22 +1,37 @@
 {{ form_start(form) }}
-    {{ form_widget(form.name) }}
-    {{ form_widget(form.nblimitPlaces) }}
-<span class="same_line">
-        {{ form_widget(form.adresse) }}
-    </span>
 
-<span class="same_line">
+    {{ form_widget(form.name) }}
+    <div class="error">
+        {{ form_errors(form.name) }}
+    </div>
+    {{ form_widget(form.nblimitPlaces) }}
+    <div class="error">
+        {{ form_errors(form.nblimitPlaces) }}
+    </div>
+    {{ form_widget(form.address) }}
+    <div class="error">
+        {{ form_errors(form.address) }}
+    </div>
+
+    <span class="same_line">
         <span>
-            {{ form_label(form.postalCode) }}
             {{ form_widget(form.postalCode) }}
+            <div class="error">
+                {{ form_errors(form.postalCode) }}
+            </div>
         </span>
         <span>
-            {{ form_label(form.city) }}
             {{ form_widget(form.city) }}
+            <div class="error">
+                {{ form_errors(form.city) }}
+            </div>
         </span>
     </span>
-{{ form_label(form.fileName) }}
+    {{ form_label(form.fileName) }}
     {{ form_widget(form.fileName) }}
+    <div class="error">
+        {{ form_errors(form.fileName) }}
+    </div>
 
 <button>Enregistré</button>
 {{ form_end(form) }}

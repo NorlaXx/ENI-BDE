@@ -1,23 +1,52 @@
 {{ form_start(form) }}
     {{form_widget(form.name)}}
+    <div class="error">
+        {{ form_errors(form.name) }}
+    </div>
     {{form_widget(form.campus)}}
+    <div class="error">
+        {{ form_errors(form.campus) }}
+    </div>
     {{form_widget(form.lieu)}}
+    <div class="error">
+        {{ form_errors(form.lieu) }}
+    </div>
     {{form_widget(form.description)}}
+    <div class="error">
+        {{ form_errors(form.description) }}
+    </div>
     <span class="same_line">
         <span>
             {{form_label(form.startDate)}}
             {{form_widget(form.startDate)}}
+            <div class="error">
+                {{ form_errors(form.startDate) }}
+            </div>
         </span>
         <span>
             {{form_label(form.registrationDateLimit)}}
             {{form_widget(form.registrationDateLimit)}}
+            <div class="error">
+                {{ form_errors(form.registrationDateLimit) }}
+            </div>
         </span>
     </span>
     {{form_widget(form.nbLimitParticipants)}}
+    <div class="error">
+        {{ form_errors(form.nbLimitParticipants) }}
+    </div>
     {{form_widget(form.duration)}}
+    <div class="error">
+        {{ form_errors(form.duration) }}
+    </div>
     {{form_label(form.fileName)}}
     {{form_widget(form.fileName)}}
-    {{form_widget(form.share)}}
-    {{form_widget(form.save)}}
+    <div class="error">
+        {{ form_errors(form.fileName) }}
+    </div>
+    <span class="actions">
+        {{form_widget(form.share)}}
+        {{form_widget(form.save)}}
+    </span>
 
 {{ form_end(form)}}
