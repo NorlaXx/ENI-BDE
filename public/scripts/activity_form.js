@@ -1,12 +1,13 @@
-const citySelector = document.getElementById("activity_campus");
 const lieuSelector = document.getElementById("activity_lieu");
+const citySelector = document.getElementById("city_selector");
 const allLieux = [];
 
 const loadAllLieux = () => {
   for (let i = 0; i < lieuSelector.options.length; i++) {
-    allLieux.push(lieuSelector.options[i].dataset.ville.toLowerCase());
+    const city = lieuSelector.options[i].dataset.ville;
+    if (allLieux.includes(city)) continue;
+    allLieux.push(city);
   }
-  console.log(allLieux);
 };
 
 const init = () => {
@@ -43,10 +44,17 @@ const getSelectedById = (id, text) => {
 };
 
 document.addEventListener("DOMContentLoaded", () => {
+  loadAllLieux();
+
+  allLieux.forEach((lieu) => {
+    citySelector.innerHTML += `<option value="${
+      allLieux.indexOf(lieu) + 1
+    }">${lieu}</option>`;
+  });
+
+  init();
+
   const idSelected = citySelector.value;
   const selected = getSelectedById(idSelected, citySelector.innerText);
   updateByCity(selected);
-
-  loadAllLieux();
-  init();
 });
