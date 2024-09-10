@@ -31,7 +31,7 @@
         <div class="separator"></div>
         <div class="activity-content" id="activityContent">
             {% for activity in activities %}
-                {% if activity.state.id != 6 %}
+                {% if activity.state.id != 6 and activity.state.id != 1 %}
                 <div class="activity" data-lat="{{ activity.lieu.latitude }}" data-long="{{ activity.lieu.longitude }}" data-id="{{ activity.id }}">
                     <span class="flex">
                         <img src={{ asset('thumbnails/' ~ activity.fileName) }} alt="activity thumbnails"/>
@@ -45,18 +45,27 @@
                             <p>Date limite d'inscription : {{ activity.registrationDateLimit|date('Y-m-d') }}</p>
                             <p>Nombre de places : {{ activity.nbLimitParticipants - activity.registered|length }}</p>
                         </span>
-                        <span class="buttons">
-                            {% if activity not in user.activities and activity.state.code == "ACT_EN_C" %}
-                                <button class="button cancel" disable>En cour</button>
+                        <span class="state">
+                            {% if activity.state.code == "ACT_CR" %}
+                                <button class="status" disable><i class="fa-solid fa-check"></i> Créée</button>
                             {% endif %}
-                            {% if activity not in user.activities and activity.state.code == "ACT_INS_F" %}
-                                <button class="button close" disable>Fermé</button>
+                            {% if activity.state.code == "ACT_INS" %}
+                                <button class="status" disable><i class="fa-solid fa-check"></i> Inscription</button>
                             {% endif %}
-                            {% if activity not in user.activities and activity.state.code == "ACT_TER" %}
-                                <button class="button cancel" disable>Terminé</button>
+                            {% if activity.state.code == "ACT_INS_F" %}
+                                <button class="status" disable><i class="fa-solid fa-ban"></i> Inscription Fermé</button>
                             {% endif %}
-                            {% if activity not in user.activities and activity.state.code == "ACT_ANN" %}
-                                <button class="button cancel" disable>Annulé</button>
+                            {% if activity.state.code == "ACT_EN_C" %}
+                                <button class="status" disable><i class="fa-solid fa-bars-progress"></i> En cours</button>
+                            {% endif %}
+                            {% if activity.state.code == "ACT_INS_F" %}
+                                <button class="status status-close" disable><i class="fa-solid fa-circle-xmark"></i> Fermée</button>
+                            {% endif %}
+                            {% if activity.state.code == "ACT_TER" %}
+                                <button class="status status-cancel" disable><i class="fa-solid fa-hourglass-end"></i> Terminée</button>
+                            {% endif %}
+                            {% if activity.state.code == "ACT_ANN" %}
+                                <button class="status status-cancel" disable><i class="fa-solid fa-ban"></i> Annulée</button>
                             {% endif %}
                         </span>
                     </span>
