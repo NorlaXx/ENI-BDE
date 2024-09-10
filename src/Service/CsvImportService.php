@@ -4,10 +4,8 @@ namespace App\Service;
 
 use App\Entity\Campus;
 use App\Entity\User;
-use App\Repository\UserRepository;
 use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
 use Doctrine\ORM\EntityManagerInterface;
-use PHPUnit\Exception;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\PasswordHasher\EventListener\PasswordHasherListener;
@@ -19,49 +17,47 @@ class CsvImportService extends AbstractController
 
     public function __construct(
         private UserPasswordHasherInterface $passwordHasher,
-        private EntityManagerInterface      $entityManager,
-        private UserRepository              $userRepository
-    )
+        private EntityManagerInterface      $entityManager)
     {
     }
 
-    public function importCsv(string $filePath): void
+    public function importCsv(string $filePath): array
     {
+        $results = ['success' => 0, 'errors' => []];
+
         try {
 
             if (!file_exists($filePath) || !is_readable($filePath)) {
-                throw new \Exception('le fichier n.\'est pas trouvé ou n.\'est pas lisible');
+                throw new \Exception('CSV file not found or not readable.');
             }
 
             $handle = fopen($filePath, 'r');
             if ($handle === false) {
-                throw new \Exception('Le fichier ne peut pas être ouvert');
+                throw new \Exception('Could not open the CSV file.');
             }
 
             fgetcsv($handle);
-        } catch (\Exception $e) {
-            dd($e->getMessage());
-            $this->redirectToRoute("app_profil_list");
-        }
-        while (($data = fgetcsv($handle )) !== false) {
-            if($data[0] != "") {
-                $this->processRow($data);
+
+            while (($data = fgetcsv($handle)) !== false) {
+                try {
+                    $this->processRow($data);
+                    $results['success']++;
+                } catch (\Exception $e) {
+                    $results['errors'][] = "Row " . ($results['success'] + count($results['errors']) + 1) . ": " . $e->getMessage();
+                }
             }
+
+            fclose($handle);
+            $this->entityManager->flush();
+            } catch (\Exception $e) {
+                $results['errors'][] = "File error: " . $e->getMessage();
+            }
+            return $results;
         }
 
-        fclose($handle);
-
-    }
-
-    private
-    function processRow(array $data): void
+    private function processRow(array $data): void
     {
-        $email = $data[0] ?? '';
-        $phoneNumber = $data[1] ?? '';
-        $pseudo = $data[2] ?? '';
-        $campusName = $data[3] ?? '';
-        $lastName = $data[4] ?? '';
-        $firstName = $data[5] ?? '';
+        [$email, $phoneNumber, $pseudo, $campusName, $lastName, $firstName] = $data;
 
         $user = new User();
         if($this->entityManager->getRepository(User::class)->findOneBy(['email' => $email])){
