@@ -31,12 +31,9 @@ const callPosition = () => {
 
         map.setCenter(pos);
       },
-      () => {
-        alert("Une erreur est survenue lors de la géolocalisation");
-      }
+      () => {}
     );
   } else {
-    alert("Une erreur est survenue lors de la géolocalisation");
   }
 };
 

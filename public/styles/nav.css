@@ -125,7 +125,7 @@
   .secondary_ul.active {
     display: flex;
     border-bottom: 1px solid var(--color-border);
-    z-index: 100;
+    z-index: 1000;
   }
 
   .secondary_ul li {

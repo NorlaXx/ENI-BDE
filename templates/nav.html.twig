@@ -13,6 +13,7 @@
           <li><a href="{{ path('app_profil_list') }}">Utilisateurs</a></li>
         {% endif %}
         <li class="profil-nav"><a href="{{ path('app_profile') }}">Profil</a></li>
+        <li><a href="{{ path('app_logout') }}">Déconnexion</a></li>
       </ul>
     </li>
     <li><a href="{{ path("app_profile") }}"><img class="profil-picture" src="{{ asset('profilePictures/'~ app.user.fileName) }}" alt="icon" /></a></li>

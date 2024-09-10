@@ -10,7 +10,12 @@
         <div class="filter">
             <div class="subtitle">
                 <h2>Filtres (0)</h2>
-                <button id="toggle-form-button">Afficher le formulaire</button>
+                <img id="toggle-form-button" src="{{ asset("pictos/picto_chevron_up.svg") }}" alt="chevron" onclick="rotateElement(this)"/>
+                <script>
+                    function rotateElement(element) {
+                        element.classList.toggle('active');
+                    }
+                </script>
             </div>
             <div class="separator"></div>
             <div id="form-container" class="hidden">

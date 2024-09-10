@@ -2,7 +2,7 @@ name: Symfony project
 
 on:
   push:
-    branches: [ "main" ]
+    branches: ["main"]
 
 jobs:
   build:
@@ -33,14 +33,9 @@ jobs:
       - name: Install dependencies
         run: composer install --prefer-dist --no-progress
 
-#      - name: Deploy to servers
-#        run: |
-#          sudo apt-get install -y sshpass
-#          sshpass -p "${{ secrets.SERVER_PASSWORD }}" rsync -av -e 'ssh -o StrictHostKeyChecking=no -p 22103' ./ root@private.blizzfull.fr:/var/www/enibde
-
       - name: Deploy to server
         run: |
-          sshpass -p ${{ secrets.SERVER_PASSWORD }} ssh -p 22103 -o StrictHostKeyChecking=no root@private.blizzfull.fr "cd /var/www/enibde && git config --global --add safe.directory /var/www/enibde && git clone "
+          sshpass -p ${{ secrets.SERVER_PASSWORD }} scp -P 22103 -o StrictHostKeyChecking=no -r ./* root@private.blizzfull.fr:/var/www/enibde
 
       - name: Migrations
         run: |

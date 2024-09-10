@@ -27,13 +27,17 @@ class ActivityService
      * @param Activity $activity
      * @return void
      */
-    public function addOtherproperties(bool $isShare,Activity $activity): void
+    public function addOtherproperties(bool $isShare,Activity $activity, string $action): void
     {
         if($isShare){
             $activity->setState($this->activityStateRepository->getStateByCode("ACT_INS"));
+            if (!in_array($this->security->getUser(), (array)$activity->getRegistered())){
+                $activity->addInscrit($this->security->getUser());
+            }
         } else {
             $activity->setState($this->activityStateRepository->getDefaultState());
         }
+
         $activity->setOrganizer($this->security->getUser());
         $activity->setCreationDate(new DateTime());
     }
