@@ -109,3 +109,15 @@ form button:hover {
 .alert-danger {
   background-color: var(--color-danger);
 }
+
+@media (max-width: 1300px){
+  .body{
+    background-image: none;
+  }
+
+  .content {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+}
