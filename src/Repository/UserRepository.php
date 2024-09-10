@@ -5,6 +5,7 @@ namespace App\Repository;
 use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Symfony\Bridge\Doctrine\Security\User\UserLoaderInterface;
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\PasswordUpgraderInterface;
@@ -12,7 +13,7 @@ use Symfony\Component\Security\Core\User\PasswordUpgraderInterface;
 /**
  * @extends ServiceEntityRepository<User>
  */
-class UserRepository extends ServiceEntityRepository implements PasswordUpgraderInterface
+class UserRepository extends ServiceEntityRepository implements PasswordUpgraderInterface,UserLoaderInterface
 {
     public function __construct(ManagerRegistry $registry)
     {
@@ -33,5 +34,39 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
     {
         $this->getEntityManager()->persist($user);
         $this->getEntityManager()->flush();
+    }
+
+    public function removeAllRelations(User $user): void
+    {
+        $entityManager = $this->getEntityManager();
+        if ($user->getCampus() !== null) {
+            $user->setCampus(null);
+            $entityManager->persist($user); // Persist user update
+        }
+        foreach ($user->getActivities() as $activity) {
+            $activity->removeInscrit($user);
+            $entityManager->persist($activity); // Persist updated activity
+        }
+        foreach ($this->activityRepository->findBy(["organizer" => $user->getId()]) as $activity) {
+            $activity->removeOrganizer($this->activityStateRepository, $this->getEntityManager());
+            $entityManager->persist($activity);
+        }
+        $entityManager->remove($user);
+        $entityManager->flush();
+    }
+
+    public function loadUserByIdentifier(string $usernameOrEmail): ?User
+    {
+        $entityManager = $this->getEntityManager();
+
+        return $entityManager->createQuery(
+            'SELECT u
+                FROM App\Entity\User u
+                WHERE u.pseudo = :query
+                OR u.email = :query
+                AND u.isActive = true'
+        )
+            ->setParameter('query', $usernameOrEmail)
+            ->getOneOrNullResult();
     }
 }

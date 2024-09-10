@@ -28,7 +28,11 @@
                 </thead>
                 <tbody>
                     {% for user in users %}
-                        <tr>
+                            {% if user.isActive != true %}
+                            <tr style="background-color: #ded8d7">
+                            {% else %}
+                                <tr>
+                            {% endif %}
                         <td data-label="ID">{{user.id}}</td>
                         <td data-label="Profil" class="profil"><img src="/profilePictures/{{user.fileName}}" alt="" />{{user.pseudo}}</td>
                         <td data-label="Prénom" class="textcenter">{{user.firstName}}</td>
@@ -43,15 +47,25 @@
         </main>
         <div class="button-container">
             <a class="action-click" href="{{path('app_user_create')}}"><button class="action-button"><i class="fa-solid fa-user-plus"></i> Ajouter un utilisateur</button></a>
-            <a class="action-click" href="#"><button class="action-button"><i class="fa-solid fa-file-import"></i> Importer un CSV</button></a>
             <a class="action-click" href="#"><button class="action-button"><i class="fa-solid fa-file-arrow-down"></i> Télécharger la template CSV</button></a>
+            {{ form_start(form,{'attr': {'id': 'csv_import'}}) }}
+            {{ form_widget(form.csvFile) }}
+            {{ form_end(form) }}
         </div>
+
     </div>
     <script >
-{#        js method for auto-submit csvFile form on file upload #}
-        function submitForm() {
+document.addEventListener('DOMContentLoaded', (event) => {
+    // Get the file input element
+    var fileInput = document.querySelector('#csv_import input[type="file"]');
+
+    if (fileInput) {
+        fileInput.addEventListener('change', function() {
+            // Submit the form when a file is selected
             document.getElementById('csv_import').submit();
-        }
+        });
+    }
+});
     </script>
 
 {% endblock %}  
