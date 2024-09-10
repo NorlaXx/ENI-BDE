@@ -2,6 +2,7 @@
 
 namespace App\Repository;
 
+use App\Entity\Activity;
 use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
@@ -14,7 +15,8 @@ use Symfony\Component\Security\Core\User\PasswordUpgraderInterface;
  */
 class UserRepository extends ServiceEntityRepository implements PasswordUpgraderInterface
 {
-    public function __construct(ManagerRegistry $registry)
+
+    public function __construct(private ActivityStateRepository $activityStateRepository, private ActivityRepository $activityRepository, ManagerRegistry $registry)
     {
         parent::__construct($registry, User::class);
     }
@@ -33,5 +35,23 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
     {
         $this->getEntityManager()->persist($user);
         $this->getEntityManager()->flush();
+    }
+    public function removeAllRelations(User $user): void
+    {
+        $entityManager = $this->getEntityManager();
+        if ($user->getCampus() !== null) {
+            $user->setCampus(null);
+            $entityManager->persist($user); // Persist user update
+        }
+        foreach ($user->getActivities() as $activity) {
+            $activity->removeInscrit($user);
+            $entityManager->persist($activity); // Persist updated activity
+        }
+        foreach ($this->activityRepository->findBy(["organizer" => $user->getId()]) as $activity) {
+            $activity->removeOrganizer($this->activityStateRepository, $this->getEntityManager());
+            $entityManager->persist($activity);
+        }
+        $entityManager->remove($user);
+        $entityManager->flush();
     }
 }
