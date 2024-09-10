@@ -8,15 +8,16 @@
     {{ include('components/popup.html.twig')}}
     <div class="content">
         <div class="filter">
-            <div class="subtitle">
+            <div id="toggle-form-filter" class="subtitle" onclick="rotateElement(this)">
                 <h2>Filtres (0)</h2>
-                <img id="toggle-form-button" src="{{ asset("pictos/picto_chevron_up.svg") }}" alt="chevron" onclick="rotateElement(this)"/>
-                <script>
-                    function rotateElement(element) {
-                        element.classList.toggle('active');
-                    }
-                </script>
+                <img id="toggle-form-button" src="{{ asset("pictos/picto_chevron_up.svg") }}" alt="chevron"/>
             </div>
+            <script>
+                function rotateElement(element) {
+                    console.log(element);
+                    element.children[1].classList.toggle('active');
+                }
+            </script>
             <div class="separator"></div>
             <div id="form-container" class="hidden">
                 {{ include('home/_form_filter.html.twig') }}
