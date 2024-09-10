@@ -234,3 +234,15 @@ form button:hover {
 .error li {
   margin-top: var(--spacing-xs);
 }
+
+.missing {
+  margin: 0;
+  color: var(--color-text-light);
+  font-size: var(--font-size-medium);
+  margin-top: var(--spacing-xs);
+}
+
+.missing a {
+  text-decoration: none;
+  color: var(--color-primary);
+}

@@ -1,18 +1,79 @@
-{% extends 'base.html.twig' %}
+{% include 'base_logged.html.twig' %}
 
-{% block title %}Profil de {{ user.pseudo }}{% endblock %}
+{% block stylesheets %}
+    <link rel="stylesheet" href="/styles/home.css">
+    <link rel="stylesheet" href="/styles/profil.css">
+{% endblock %}
 
 {% block body %}
-<div style="text-align: center">
-    {{ user.pseudo }}
-    {{ user.email }}
-    <img src="{{ asset('profilePictures/'~ user.fileName) }}" height="200px" alt="ProfilePicture">
-    {{ user.getPhoneNumber }}
-    {{ user.campus.name }}
-    {# Here is display all the activities user is relation with #}
-    {% for activity in user.activities %}
-        {{ activity.name }}
-    {% endfor %}
+<div class="myContent">
+    <div class="box">
+        <h2>Informations de {{user.pseudo}}</h2>
+        <div class="separator"></div>
+        <img src="{{ asset('profilePictures/'~ user.fileName) }}" class="profilPicture" alt="ProfilePicture">
+        <p class="text title">{{user.pseudo}}</p>
+        <p class="text email">{{user.email}}</p>
+        <div class="more-information">
+            <h2>Plus d’information</h2>
+            <div class="separator"></div>
+            <div class="myInformation">
+                <p><span class="information-title">Téléphone : </span>{{user.phoneNumber}}</p>
+                <p><span class="information-title">Campus : </span>{{user.campus.name}}</p>
+            </div>
+            <div class="myInformation">
+                <p><span class="information-title">Nom : </span>{{user.lastName}}</p>
+                <p><span class="information-title">Prénom : </span>{{user.firstName}}</p>
+            </div>
+        </div>  
+    </div>
+    <div class="box right">
+        <h2>Activitées proposé par {{user.pseudo}}</h2>
+        <div class="separator"></div>
+        <div class="activity-content" id="activityContent">
+            {% for activity in activities %}
+                {% if activity.state.id != 6 and activity.state.id != 1 %}
+                <div class="activity" data-lat="{{ activity.lieu.latitude }}" data-long="{{ activity.lieu.longitude }}" data-id="{{ activity.id }}">
+                    <span class="flex">
+                        <img src={{ asset('thumbnails/' ~ activity.fileName) }} alt="activity thumbnails"/>
+                        <span class="title-description">
+                            <p class="title">{{ activity.name }}</p>
+                            <p class="description">{{ activity.description }}</p>
+                        </span>
+                    </span>
+                    <span class="information">
+                        <span class="information_text">
+                            <p>Date limite d'inscription : {{ activity.registrationDateLimit|date('Y-m-d') }}</p>
+                            <p>Nombre de places : {{ activity.nbLimitParticipants - activity.registered|length }}</p>
+                        </span>
+                        <span class="state">
+                            {% if activity.state.code == "ACT_CR" %}
+                                <button class="status" disable><i class="fa-solid fa-check"></i> Créée</button>
+                            {% endif %}
+                            {% if activity.state.code == "ACT_INS" %}
+                                <button class="status" disable><i class="fa-solid fa-check"></i> Inscription</button>
+                            {% endif %}
+                            {% if activity.state.code == "ACT_INS_F" %}
+                                <button class="status" disable><i class="fa-solid fa-ban"></i> Inscription Fermé</button>
+                            {% endif %}
+                            {% if activity.state.code == "ACT_EN_C" %}
+                                <button class="status" disable><i class="fa-solid fa-bars-progress"></i> En cours</button>
+                            {% endif %}
+                            {% if activity.state.code == "ACT_INS_F" %}
+                                <button class="status status-close" disable><i class="fa-solid fa-circle-xmark"></i> Fermée</button>
+                            {% endif %}
+                            {% if activity.state.code == "ACT_TER" %}
+                                <button class="status status-cancel" disable><i class="fa-solid fa-hourglass-end"></i> Terminée</button>
+                            {% endif %}
+                            {% if activity.state.code == "ACT_ANN" %}
+                                <button class="status status-cancel" disable><i class="fa-solid fa-ban"></i> Annulée</button>
+                            {% endif %}
+                        </span>
+                    </span>
+                </div>
+                {% endif %}
+            {% endfor %}
+        </div>
+    </div>
 </div>
 
 {% endblock %}

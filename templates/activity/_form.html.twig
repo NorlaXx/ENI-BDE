@@ -7,10 +7,12 @@
     <div class="error">
         {{ form_errors(form.campus) }}
     </div>
+    <select id="city_selector"></select>
     {{form_widget(form.lieu)}}
     <div class="error">
         {{ form_errors(form.lieu) }}
     </div>
+    <p class="missing">Un lieu manquant ? <a href="{{ path('app_lieu_create') }}">Ajoute le !</a></p>
     {{form_widget(form.description)}}
     <div class="error">
         {{ form_errors(form.description) }}
@@ -50,3 +52,5 @@
     </span>
 
 {{ form_end(form)}}
+
+<script src="/scripts/activity_form.js"></script>
