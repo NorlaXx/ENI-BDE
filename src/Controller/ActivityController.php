@@ -121,7 +121,7 @@ class ActivityController extends AbstractController
 
             $isShare = (bool)$form->get('save')->isClicked();
 
-            $this->activityService->addOtherproperties($isShare, $activity);
+            $this->activityService->addOtherproperties($isShare, $activity, $action);
             $this->activityRepository->update($activity);
             return $this->redirectToRoute('app_home');
         }
