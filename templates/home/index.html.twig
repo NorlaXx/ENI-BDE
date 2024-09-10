@@ -27,7 +27,9 @@
                          data-activity={{ activity.convertToJson }} data-edit={% if is_granted('edit', activity) %} true {% else %} false {% endif %}
                          data-register={% if is_granted('withdraw', activity) %} true {% else %} false {% endif %}
                          data-lat="{{ activity.lieu.latitude }}" data-long="{{ activity.lieu.longitude }}"
-                         data-id="{{ activity.id }}">
+                         data-id="{{ activity.id }}"
+                         data-campus="{{ activity.campus.name }}"
+                         data-usercampus="{{ app.user.campus.name }}">
                             <span class="flex">
                                 <img src={{ asset('thumbnails/' ~ activity.fileName) }} alt="activity thumbnails"/>
                                 <span class="title-description">
