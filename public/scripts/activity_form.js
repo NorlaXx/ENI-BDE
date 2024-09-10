@@ -16,7 +16,7 @@ const init = () => {
 
 const citySelectorChange = (e) => {
   const idSelected = e.target.value;
-  const selected = getSelectedById(idSelected, citySelector.innerText);
+  const selected = getSelectedById(idSelected, citySelector);
 
   updateByCity(selected);
 };
@@ -39,7 +39,8 @@ const updateByCity = (city) => {
 };
 
 const getSelectedById = (id, text) => {
-  const toList = text.split("\n");
+  const allOptions = text.querySelectorAll("option");
+  const toList = Array.from(allOptions).map((option) => option.textContent);
   return toList[id - 1].toLowerCase();
 };
 
@@ -55,6 +56,6 @@ document.addEventListener("DOMContentLoaded", () => {
   init();
 
   const idSelected = citySelector.value;
-  const selected = getSelectedById(idSelected, citySelector.innerText);
+  const selected = getSelectedById(idSelected, citySelector);
   updateByCity(selected);
 });
