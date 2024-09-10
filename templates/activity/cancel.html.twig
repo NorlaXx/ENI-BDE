@@ -16,8 +16,10 @@
             <p>Lieu : {{ activity.lieu.name }}</p>
 
             {{ form_start(form) }}
-                {{ form_errors(form) }}
                 {{form_widget(form.reason)}}
+                <div class="error">
+                    {{ form_errors(form.reason) }}
+                </div>
                 <button>Annuler</button>
             {{ form_end(form)}}
         </div>
