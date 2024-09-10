@@ -61,7 +61,7 @@ class CsvImportService extends AbstractController
 
         $user = new User();
         if($this->entityManager->getRepository(User::class)->findOneBy(['email' => $email])){
-            $this->addFlash('error', 'Tous les emails doivent être uniques!');
+            $this->addFlash('error', 'Tous les emails doivent être uniques !');
             $this->redirectToRoute("app_profil_liste");
         } else {
             $user->setEmail($email);
