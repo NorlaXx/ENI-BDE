@@ -256,6 +256,6 @@ function mobileContent(activity){
   if (window.screen.width <= 768 && campus !== userCampus) {
     activity.style.display = "none";
   }else{
-    activity.style.display = "block";
+    activity.style.display = "flex";
   }
 }
