@@ -217,7 +217,7 @@ h2 {
   font-size: var(--font-size-normal);
 }
 
-@media (max-width: 768px) {
+@media screen and (max-width: 768px) {
   .flex {
     flex-wrap: wrap;
   }
@@ -254,7 +254,7 @@ h2 {
   }
 }
 
-@media (max-width: 300px) {
+@media screen and (max-width: 300px) {
   .padding_1,
   .padding_2,
   .padding_3,
@@ -267,7 +267,7 @@ h2 {
   }
 }
 
-@media (max-width: 768px) {
+@media screen and (max-width: 768px) {
   table {
     background-color: transparent;
   }

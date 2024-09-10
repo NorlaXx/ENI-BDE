@@ -34,7 +34,7 @@ function getNbFilter(){
 }
 
 function responsiveFilter(){
-    document.getElementById("toggle-form-button").addEventListener("click", function() {
+    document.getElementById("toggle-form-filter").addEventListener("click", function() {
         const formContainer = document.getElementById("form-container");
 
         // Toggle the "active" class to show or hide the form
