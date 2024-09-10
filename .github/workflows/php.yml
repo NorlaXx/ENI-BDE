@@ -40,4 +40,4 @@ jobs:
 
       - name: migrations
         run: |
-          sshpass -p ${{ secrets.SERVER_PASSWORD }} ssh -p 22103 -o StrictHostKeyChecking=no root@private.blizzfull.fr "cd /var/www/enibde php bin/console doctrine:migrations:migrate --no-interaction"
+          sshpass -p ${{ secrets.SERVER_PASSWORD }} ssh -p 22103 -o StrictHostKeyChecking=no root@private.blizzfull.fr "cd /var/www/enibde && php bin/console doctrine:migrations:migrate --no-interaction"
