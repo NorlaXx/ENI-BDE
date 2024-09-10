@@ -360,8 +360,23 @@
     z-index: 10;
   }
 
-  #toggle-form-button {
+  .filter .subtitle{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .filter .subtitle #toggle-form-button {
     display: block;
+    width: 28px;
+    margin-top: var(--spacing-l);
+    cursor: pointer;
+    transform: rotate(90deg);
+    transition: transform 0.5s ease-in-out;
+  }
+
+  .filter .subtitle #toggle-form-button.active {
+    transform: rotate(180deg);
   }
 
   .filter #form-container.hidden {
