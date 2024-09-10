@@ -219,7 +219,7 @@ class AppFixtures extends Fixture
         //Création des états des sorties
         foreach ($allState as $key => $value) {
             $activityState = new ActivityState();
-            $activityState->setLibelle($value);
+            $activityState->setWording($value);
             $activityState->setCode($key);
             $manager->persist($activityState);
         }
