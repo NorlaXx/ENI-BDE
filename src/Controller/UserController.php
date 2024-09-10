@@ -143,8 +143,7 @@ class UserController extends AbstractController
             dd($e->getMessage());
         }
 
-        // TODO QUE FAIRE DU USER, PROPRIETE A AJOUTER
-        $this->entityManager->remove($user);
+        $this->userRepository->removeAllRelations($user);
         $this->entityManager->flush();
         return $this->redirectToRoute("app_profil_list");
     }
