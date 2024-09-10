@@ -16,7 +16,7 @@ jobs:
           php-version: 8.3
 
       - name: update http-client
-        run: composer update amphp/http-client
+        run: composer require amphp/http-client
 
       - name: Validate composer.json and composer.lock
         run: composer validate --strict
