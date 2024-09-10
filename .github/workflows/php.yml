@@ -1,0 +1,43 @@
+name: Symfony project
+
+on:
+  push:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: 8.3
+
+      - name: update http-client
+        run: composer update amphp/http-client
+
+      - name: Validate composer.json and composer.lock
+        run: composer validate --strict
+
+      - name: Cache Composer packages
+        id: composer-cache
+        uses: actions/cache@v3
+        with:
+          path: vendor
+          key: ${{ runner.os }}-php-${{ hashFiles('**/composer.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-php-
+
+      - name: Install dependencies
+        run: composer install --prefer-dist --no-progress
+
+      - name: Deploy to servers
+        run: |
+          sudo apt-get install -y sshpass
+          sshpass -p "${{ secrets.SERVER_PASSWORD }}" rsync -av -e 'ssh -o StrictHostKeyChecking=no -p 22103' ./ root@private.blizzfull.fr:/var/www/enibde
+
+      - name: migrations
+        run: |
+          sshpass -p ${{ secrets.SERVER_PASSWORD }} ssh -p 22103 -o StrictHostKeyChecking=no root@private.blizzfull.fr "cd /var/www/enibde && php bin/console doctrine:migrations:migrate --no-interaction"
