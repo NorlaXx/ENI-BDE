@@ -138,7 +138,6 @@ class UserController extends AbstractController
         try {
             $this->mailer->send($email);
         } catch (TransportExceptionInterface $e) {
-            dd($e->getMessage());
         }
 
         $this->userRepository->removeAllRelations($user);
@@ -151,7 +150,7 @@ class UserController extends AbstractController
     public function desactivateUser(int $id): Response
     {
         $user = $this->userRepository->find($id);
-        $user->setActive(false);
+        $user->setActive(!$user->isActive());
         $this->entityManager->persist($user);
         $this->entityManager->flush();
         return $this->redirectToRoute("app_profil_list");
