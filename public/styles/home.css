@@ -364,13 +364,13 @@
     display: flex;
     align-items: center;
     gap: 10px;
+    cursor: pointer;
   }
 
   .filter .subtitle #toggle-form-button {
     display: block;
     width: 28px;
     margin-top: var(--spacing-l);
-    cursor: pointer;
     transform: rotate(90deg);
     transition: transform 0.5s ease-in-out;
   }
