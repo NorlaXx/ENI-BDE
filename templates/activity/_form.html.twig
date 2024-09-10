@@ -11,6 +11,7 @@
     <div class="error">
         {{ form_errors(form.lieu) }}
     </div>
+    <p class="missing">Un lieu manquant ? <a href="{{ path('app_lieu_create') }}">Ajoute le !</a></p>
     {{form_widget(form.description)}}
     <div class="error">
         {{ form_errors(form.description) }}

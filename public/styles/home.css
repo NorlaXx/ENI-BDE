@@ -156,7 +156,7 @@
   line-height: 27px;
 }
 
-.filter form select{
+.filter form select {
   height: 31px;
 }
 
@@ -278,7 +278,7 @@
   flex-direction: row;
 }
 
-.buttons .state button{
+.buttons .state button {
   cursor: default;
 }
 
