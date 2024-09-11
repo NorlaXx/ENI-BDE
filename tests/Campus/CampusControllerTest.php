@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Tests\Lieu;
+namespace App\Tests\Campus;
 
 use App\Entity\Activity;
 use App\Entity\ActivityState;
@@ -12,7 +12,7 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
-class LieuControllerTest extends WebTestCase
+class CampusControllerTest extends WebTestCase
 {
     private KernelBrowser $client;
 
@@ -80,8 +80,7 @@ class LieuControllerTest extends WebTestCase
         $em->flush();
     }
 
-    public function testCreateLieu(): void
-    {
+    public function testCreateCampus(){
         $this->client->request('GET', '/login');
         //Connexion d'un utilisateur
         $this->client->submitForm('Se connecter', [
@@ -95,17 +94,16 @@ class LieuControllerTest extends WebTestCase
             'image/png',
         );
 
-        $this->client->request('GET', '/lieu/create');
-        $this->assertResponseIsSuccessful();
+        $this->client->request('GET', '/campus/create');
         $this->client->submitForm('Enregistrer', [
-            'lieu[name]' => 'picine de Bréquiny',
-            'lieu[city]' => 'Rennes',
-            'lieu[postalCode]' => '35000',
-            'lieu[address]' => '12 Bd Albert 1er',
-            'lieu[fileName]' => $file,
+            'campus[name]' => 'ENI - Rennes',
+            'campus[nblimitPlaces]' => 10,
+            'campus[postalCode]' => '35131',
+            'campus[address]' => '8 rue Léo Lagrange',
+            'campus[city]' => 'Chartres de bretagne',
+            'campus[fileName]' => $file,
         ]);
 
-        $this->assertResponseRedirects('/lieu/liste');
-
+        $this->assertResponseRedirects('/campus');
     }
 }
