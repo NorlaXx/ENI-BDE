@@ -223,4 +223,31 @@ class ActivityControllerTest extends WebTestCase
 
         $this->assertResponseRedirects('/');
     }
+
+    public function testFilterActivity(){
+        $this->client->request('GET', '/login');
+
+        //Connexion d'un utilisateur
+        $this->client->submitForm('Se connecter', [
+            '_username' => 'email@example.com',
+            '_password' => 'password',
+        ]);
+
+        $this->client->request('GET', '/');
+
+        $campus = $this->client->getContainer()->get('doctrine.orm.entity_manager')->getRepository(Campus::class)->findOneBy(['name' => 'ENI - Rennes']);
+
+        $this->client->submitForm('filter-button', [
+            'activity_filter[campus]' => $campus->getId(),
+            'activity_filter[name]' => 'Activity 1',
+            'activity_filter[minDate]' => '2023-10-01',
+            'activity_filter[maxDate]' => '2024-10-01',
+            'activity_filter[organizer]' => false,
+            'activity_filter[registered]' => false,
+            'activity_filter[notRegistered]' => true,
+            'activity_filter[finished]' => false,
+        ]);
+
+        $this->assertResponseIsSuccessful();
+    }
 }
