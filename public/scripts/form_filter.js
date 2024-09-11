@@ -1,53 +1,62 @@
-const subtitle = document.querySelector('.content .filter h2');
+const getNbFilter = () => {
+  document
+    .querySelector(".content .filter form")
+    .addEventListener("submit", formSubmitHandler);
+};
 
-function getNbFilter(){
-    document.querySelector('.content .filter form').addEventListener('submit', (e) => {
-        const inputs = document.querySelectorAll('input, select');
+const formSubmitHandler = () => {
+  const inputs = document.querySelectorAll("input, select");
 
-        let filledFieldsCount = 0;
+  let filledFieldsCount = 0;
 
-        inputs.forEach(input => {
-            // Pour les champs de type 'text', 'email', 'number', et les 'select'
-            console.log(input.type);
-            if ((input.type === 'text' || input.type === 'email' || input.type === 'number' || input.type === 'date' || input.tagName.toLowerCase() === 'select') && input.value) {
-                filledFieldsCount++;
-            }
+  inputs.forEach((input) => {
+    if (
+      (input.type === "text" ||
+        input.type === "email" ||
+        input.type === "number" ||
+        input.type === "date" ||
+        input.tagName.toLowerCase() === "select") &&
+      input.value
+    ) {
+      filledFieldsCount++;
+    }
 
-            // Pour les champs de type 'checkbox' et 'radio'
-            if ((input.type === 'checkbox' || input.type === 'radio') && input.checked) {
-                filledFieldsCount++;
-            }
-        })
-        localStorage.setItem('filledFieldsCount', filledFieldsCount);
-    })
+    if (
+      (input.type === "checkbox" || input.type === "radio") &&
+      input.checked
+    ) {
+      filledFieldsCount++;
+    }
+  });
 
-    document.addEventListener('DOMContentLoaded', () => {
-        const filledFieldsCount = localStorage.getItem('filledFieldsCount');
-        localStorage.removeItem('filledFieldsCount');
+  localStorage.setItem("filledFieldsCount", filledFieldsCount);
+};
 
-        if (filledFieldsCount !== null) {
-            subtitle.innerHTML = '';
-            subtitle.innerHTML = `Filtres (${filledFieldsCount})`;
-        }
+const responsiveFilter = () => {
+  document
+    .getElementById("toggle-form-filter")
+    .addEventListener("click", function () {
+      const formContainer = document.getElementById("form-container");
 
+      formContainer.classList.toggle("active");
+      formContainer.classList.toggle("hidden");
     });
-}
+};
 
-function responsiveFilter(){
-    document.getElementById("toggle-form-filter").addEventListener("click", function() {
-        const formContainer = document.getElementById("form-container");
+const resetFilterNumber = () => {
+  const subtitle = document.querySelector(".content .filter h2");
+  const filledFieldsCount = localStorage.getItem("filledFieldsCount");
+  localStorage.removeItem("filledFieldsCount");
 
-        // Toggle the "active" class to show or hide the form
-        if (formContainer.classList.contains("active")) {
-            formContainer.classList.remove("active");
-            formContainer.classList.add("hidden");
-        } else {
-            formContainer.classList.remove("hidden");
-            formContainer.classList.add("active");
-        }
-    });
-}
+  if (filledFieldsCount !== null) {
+    subtitle.innerHTML = `Filtres (${filledFieldsCount})`;
+  }
+};
 
-responsiveFilter();
+const init = () => {
+  resetFilterNumber();
+  responsiveFilter();
+  getNbFilter();
+};
 
-getNbFilter();
+document.addEventListener("DOMContentLoaded", init);

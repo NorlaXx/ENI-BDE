@@ -11,20 +11,6 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 });
 
-let konamiCode = [];
-let konami = "38384040373937396665";
-
-document.addEventListener("keydown", function (e) {
-  konamiCode.push(e.keyCode);
-  if (konamiCode.length > konami.length) {
-    konamiCode.shift();
-  }
-  if (konamiCode.join("").includes(konami)) {
-    playConfetti();
-    konamiCode = [];
-  }
-});
-
 const playConfetti = () => {
   for (let i = 0; i < 3; i++) {
     setTimeout(() => {
@@ -57,3 +43,17 @@ const generateRandomColors = (count) => {
   }
   return colors;
 };
+
+let konamiCode = [];
+let konami = "38384040373937396665";
+
+document.addEventListener("keydown", function (e) {
+  konamiCode.push(e.keyCode);
+  if (konamiCode.length > konami.length) {
+    konamiCode.shift();
+  }
+  if (konamiCode.join("").includes(konami)) {
+    playConfetti();
+    konamiCode = [];
+  }
+});
