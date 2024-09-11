@@ -58,7 +58,7 @@
 }
 
 .more-information {
-  width: 60%;
+  width: 80%;
   border-radius: var(--border-radius-medium);
   border: 1px solid var(--color-border);
   margin-top: var(--spacing-xxxl);
@@ -110,6 +110,38 @@
 
 @media (max-width: 768px) {
   .createActivity {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 1050px) {
+  .myInformation {
+    flex-direction: column;
+  }
+
+  .title {
+    font-size: var(--font-size-xl);
+    margin-bottom: 0;
+    margin-top: 0 !important;
+    line-height: 25px;
+  }
+
+  .information p {
+    text-wrap: nowrap;
+  }
+
+  .more-information {
+    width: 90%;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .myInformation p {
+    margin: 10px 20px;
+    font-size: var(--font-size-medium);
+  }
+
+  .activity img {
     display: none;
   }
 }
