@@ -23,9 +23,15 @@ jobs:
             git stash
             git pull origin main
             git stash pop
-            composer install --no-dev --optimize-autoloader
+            composer install --optimize-autoloader
             php bin/console doctrine:migrations:migrate --no-interaction
             php bin/console cache:clear
+            sudo chown -R www-data:www-data /var/www/enibde/var
+            sudo chmod -R 775 /var/www/enibde/var
+            sudo -u www-data php /var/www/enibde/bin/console cache:clear --env=prod
+            sudo mkdir -p /var/www/enibde/var/cache/prod/asset_mapper
+            sudo chown www-data:www-data /var/www/enibde/var/cache/prod/asset_mapper
+            sudo chmod 775 /var/www/enibde/var/cache/prod/asset_mapper
             sudo find /var/www/enibde -type d -exec chmod 755 {} \;
             sudo find /var/www/enibde -type f -exec chmod 644 {} \;
             sudo chown -R www-data:www-data /var/www/enibde
