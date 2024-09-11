@@ -283,12 +283,5 @@ class Activity
 
         return json_encode($array);
     }
-    public function removeOrganizer($activityStateRepository, $entityManager): void{
-        $state = $activityStateRepository->getCancelledState();
-        $this->setOrganizer(null);
-        $this->setState($state);
-        $entityManager->persist($this);
-        $entityManager->flush();
-    }
 
 }
