@@ -18,12 +18,12 @@ class CsvImport extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('csvFile', FileType::class, [
-                'label' => '',
-                'mapped' => false,
-                'attr' => [
-                    'class' => 'action-button',
+            ->add('fileName', FileType::class, [
+                'label' => 'Importer une liste',
+                'label_attr' => [
+                    'class' => 'file-label'
                 ],
+                'mapped' => false,
                 'required' => true,
                 'constraints' => [
                     new File([

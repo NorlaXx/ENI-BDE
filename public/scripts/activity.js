@@ -1,38 +1,47 @@
 let activities = document.querySelectorAll(".activity");
 let activityDetails = document.getElementById("activity-details");
+const google_key = "AIzaSyBMO3LVl_v7xhApZEBfLfG0N6oU5yQUHjA";
 const myPopup = new popup();
 
-window.addEventListener('resize', function(event) {
+const init = () => {
+  window.addEventListener(
+    "resize",
+    () => {
+      activities.forEach((activity) => {
+        mobileContent(activity);
+      });
+    },
+    true
+  );
+
   activities.forEach((activity) => {
     mobileContent(activity);
-  })
-}, true);
-
-activities.forEach((activity) => {
-  mobileContent(activity);
-  activity.addEventListener("click", () => {
-    let latitude = activity.dataset.lat;
-    let longitude = activity.dataset.long;
-    let jsonData = JSON.parse(activity.dataset.activity);
-    let canEdit = activity.dataset.edit === "true";
-    let register = activity.dataset.register === "true";
-    createComponents(jsonData, latitude, longitude, canEdit, register);
-    customCss();
+    activity.addEventListener("click", () => {
+      let latitude = activity.dataset.lat;
+      let longitude = activity.dataset.long;
+      let jsonData = JSON.parse(activity.dataset.activity);
+      let canEdit = activity.dataset.edit === "true";
+      let register = activity.dataset.register === "true";
+      createComponents(jsonData, latitude, longitude, canEdit, register);
+      customCss();
+    });
   });
-});
+};
 
-function customCss() {
+const customCss = () => {
   let activityDetails = document.getElementById("activity-details");
   let map = document.getElementsByClassName("map");
-  // Vérifie si le div activity-details est vide
-  if (activityDetails.innerHTML !== "") {
-    map[0].style.display = "none";
-  } else {
-    map[0].style.display = "block";
-  }
-}
 
-function createComponents($activity, latitude, longitude, canEdit, register) {
+  map[0].style.display = activityDetails.innerHTML !== "" ? "none" : "block";
+};
+
+const createComponents = (
+  $activity,
+  latitude,
+  longitude,
+  canEdit,
+  register
+) => {
   //Récupération de toutes les données
   let id = $activity.id.replaceAll("&@^", " ");
   let name = $activity.name.replaceAll("&@^", " ");
@@ -47,7 +56,6 @@ function createComponents($activity, latitude, longitude, canEdit, register) {
     " "
   );
   let duration = $activity.duration.replaceAll("&@^", " ");
-  let creationDate = $activity.creationDate.replaceAll("&@^", " ");
   let nbLimitParticipants = $activity.nbLimitParticipants.replaceAll(
     "&@^",
     " "
@@ -78,18 +86,16 @@ function createComponents($activity, latitude, longitude, canEdit, register) {
   //Titre de la sortie + infos date et participants
   let titleContainer = document.createElement("div");
   titleContainer.className = "title-container";
-  let titleDom = document.createElement("p");
-  let titleStrong = document.createElement("strong");
-  titleStrong.innerHTML = name;
-  let dateDom = document.createElement("p");
-  dateDom.innerHTML = "(" + startDate + ")";
+  let titleDom = getText("<strong>" + name + "</strong>");
+  let dateDom = getText("(" + startDate + ")");
 
-  titleDom.appendChild(titleStrong);
   titleDom.appendChild(dateDom);
 
-  let partcipantsDom = document.createElement("p");
-  partcipantsDom.id = "participants";
-  partcipantsDom.innerHTML = nbParticipants + "/" + nbLimitParticipants;
+  let partcipantsDom = getText(
+    nbParticipants + "/" + nbLimitParticipants,
+    "participants"
+  );
+
   let picto = document.createElement("img");
   picto.src = "/pictos/picto_participants.svg";
   partcipantsDom.appendChild(picto);
@@ -99,8 +105,7 @@ function createComponents($activity, latitude, longitude, canEdit, register) {
   titleContainer.appendChild(partcipantsDom);
 
   //Description de la sortie
-  let descriptionDom = document.createElement("p");
-  descriptionDom.innerHTML = description;
+  let descriptionDom = getText(description);
 
   let separator = document.createElement("div");
   separator.className = "separator";
@@ -113,16 +118,14 @@ function createComponents($activity, latitude, longitude, canEdit, register) {
   let detailsMapContainer = document.createElement("div");
   detailsMapContainer.className = "details-container";
   let detailsDom = document.createElement("div");
+
   //Détails
-  let locationDom = document.createElement("p");
-  locationDom.innerHTML = "Lieu : " + lieu;
-  let cityDom = document.createElement("p");
-  cityDom.innerHTML = "Ville : " + city;
-  let durationDom = document.createElement("p");
-  durationDom.innerHTML = "Duree : " + duration + " min";
-  let endRegisterDateDom = document.createElement("p");
-  endRegisterDateDom.innerHTML =
-    "Date fin inscription : " + registrationDateLimit;
+  let locationDom = getText("Lieu : " + lieu);
+  let cityDom = getText("Ville : " + city);
+  let durationDom = getText("Duree : " + duration + " min");
+  let endRegisterDateDom = getText(
+    "Date fin inscription : " + registrationDateLimit
+  );
 
   detailsDom.appendChild(locationDom);
   detailsDom.appendChild(cityDom);
@@ -131,74 +134,81 @@ function createComponents($activity, latitude, longitude, canEdit, register) {
 
   //Map
   let imgMapDom = document.createElement("img");
-  imgMapDom.src =
-    "https://maps.googleapis.com/maps/api/staticmap?center=" +
-    latitude +
-    "," +
-    longitude +
-    "&zoom=13&size=350x200&markers=color:red%7Clabel:%7C" +
-    latitude +
-    "," +
-    longitude +
-    "&key=AIzaSyBMO3LVl_v7xhApZEBfLfG0N6oU5yQUHjA";
-
+  imgMapDom.src = getImageLink(longitude, latitude);
   detailsMapContainer.appendChild(detailsDom);
   detailsMapContainer.appendChild(imgMapDom);
 
-  //Actions
   let actionsContainer = document.createElement("div");
   actionsContainer.className = "actions-container";
   let nbAvailablePlaces = nbLimitParticipants - nbParticipants;
-  //Bouton Fermer
-  let closeBtn = document.createElement("button");
-  closeBtn.innerHTML = '<i class="fa-solid fa-xmark"></i> Fermer';
-  closeBtn.className = "button cancel";
+
+  //close Button
+  let closeBtn = getButton(
+    "button close",
+    '<i class="fa-solid fa-times"></i> Fermer'
+  );
   closeBtn.addEventListener("click", () => {
     activityDetails.innerHTML = "";
     customCss();
   });
   actionsContainer.appendChild(closeBtn);
 
-  //Bouton Modifier
+  //Boutons d'actions
   if (canEdit && state === "ACT_CR") {
-    let editLinkDom = document.createElement("a");
-    editLinkDom.href = "/activity/update/" + id;
-    let editBtn = document.createElement("button");
-    editBtn.className = "button modify";
-    editBtn.innerHTML = '<i class="fa-solid fa-pen"></i> Modifier';
-    editLinkDom.appendChild(editBtn);
-    actionsContainer.appendChild(editLinkDom);
+    let updateButton = getButtonLink(
+      "/activity/update/" + id,
+      "button modify",
+      '<i class="fa-solid fa-pen"></i> Modifier'
+    );
+    actionsContainer.appendChild(updateButton);
   }
 
-  //Bouton rejoindre
   if (nbAvailablePlaces > 0 && state === "ACT_INS" && !register) {
-    let registerLinkDom = document.createElement("a");
-    registerLinkDom.href = "/activity/add/inscrit/" + id;
-    let registerBtn = document.createElement("button");
-    registerBtn.className = "button";
-    registerBtn.innerHTML =
-      '<i class="fa-solid fa-right-to-bracket"></i> Rejoindre';
-    registerLinkDom.appendChild(registerBtn);
-    actionsContainer.appendChild(registerLinkDom);
+    let joinButton = getButtonLink(
+      "/activity/add/inscrit/" + id,
+      "button",
+      '<i class="fa-solid fa-right-to-bracket"></i> Rejoindre'
+    );
+    actionsContainer.appendChild(joinButton);
   }
 
-  //Bouton Désister
   if (register) {
-    let unregisterLinkDom = document.createElement("a");
-    unregisterLinkDom.href = "/activity/remove/inscrit/" + id;
-    let unregisterBtn = document.createElement("button");
-    unregisterBtn.className = "button cancel";
-    unregisterBtn.innerHTML =
-      '<i class="fa-solid fa-right-to-bracket fa-reverse"></i> Désister';
-    unregisterLinkDom.appendChild(unregisterBtn);
-    actionsContainer.appendChild(unregisterLinkDom);
+    let desisterButton = getButtonLink(
+      "/activity/remove/inscrit/" + id,
+      "button cancel",
+      '<i class="fa-solid fa-right-to-bracket fa-reverse"></i> Désister'
+    );
+    actionsContainer.appendChild(desisterButton);
   }
 
   activityDetails.appendChild(imgContainer);
   activityDetails.appendChild(titleDescriptionContainer);
   activityDetails.appendChild(detailsMapContainer);
   activityDetails.appendChild(actionsContainer);
-}
+};
+
+const getButtonLink = (href, className, innerHTML) => {
+  let buttonLink = document.createElement("a");
+  buttonLink.href = href;
+  let button = getButton(className, innerHTML);
+  buttonLink.appendChild(button);
+  return buttonLink;
+};
+
+const getButton = (className, innerHTML) => {
+  let button = document.createElement("button");
+  button.className = className;
+  button.innerHTML = innerHTML;
+
+  return button;
+};
+
+const getText = (text, id = "") => {
+  const p = document.createElement("p");
+  p.id = id;
+  p.innerHTML = text;
+  return p;
+};
 
 const formatUserList = (userList) => {
   let result = [];
@@ -209,6 +219,10 @@ const formatUserList = (userList) => {
   });
 
   return result;
+};
+
+const getImageLink = (longitude, latitude) => {
+  return `https://maps.googleapis.com/maps/api/staticmap?center=${latitude},${longitude}&zoom=13&size=350x200&markers=color:red%7Clabel:%7C${latitude},${longitude}&key=${google_key}`;
 };
 
 const userHandler = (id, userList) => {
@@ -250,12 +264,12 @@ const userHandler = (id, userList) => {
   myPopup.importHTMLComponent(div);
 };
 
-function mobileContent(activity){
+const mobileContent = (activity) => {
   let campus = activity.dataset.campus;
   let userCampus = activity.dataset.usercampus;
-  if (window.screen.width <= 768 && campus !== userCampus) {
-    activity.style.display = "none";
-  }else{
-    activity.style.display = "flex";
-  }
-}
+
+  activity.style.display =
+    window.screen.width <= 768 && campus !== userCampus ? "none" : "flex";
+};
+
+document.addEventListener("DOMContentLoaded", init);

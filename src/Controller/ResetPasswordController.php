@@ -170,9 +170,7 @@ class ResetPasswordController extends AbstractController
         try {
             $mailer->send($email);
         } catch (\Exception $e) {
-            dd($e->getMessage());
         } catch (TransportExceptionInterface $e) {
-            dd($e->getMessage());
         }
 
         // Store the token object in session for retrieval in check-email route.

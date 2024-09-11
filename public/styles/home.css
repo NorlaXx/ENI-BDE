@@ -290,6 +290,10 @@
   background-color: var(--color-cancel);
 }
 
+.createActivity {
+  text-decoration: none;
+}
+
 .modify {
   background-color: var(--color-modify);
 }
@@ -299,6 +303,13 @@
   transition: var(--transition-default);
   box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25),
     0px 0px 0px 5px rgba(20, 74, 127, 0.5);
+}
+
+.profile-button button {
+  width: 395px;
+  height: 40px;
+  font-size: var(--font-size-xl);
+  margin-top: var(--spacing-l);
 }
 
 .campus {
@@ -336,6 +347,17 @@
   background-color: var(--color-cancel-opacity-50);
 }
 
+@media (max-width: 450px) {
+  .list #activityContent .activity .flex img {
+    display: none;
+  }
+
+  .list #activityContent .activity .flex .title-description {
+    height: unset;
+    margin: 0 0 8px 0;
+  }
+}
+
 @media (max-width: 1300px) {
   .map {
     display: none;
@@ -360,7 +382,7 @@
     z-index: 10;
   }
 
-  .filter .subtitle{
+  .filter .subtitle {
     display: flex;
     align-items: center;
     gap: 10px;
@@ -372,7 +394,7 @@
     width: 28px;
     margin-top: var(--spacing-l);
     transform: rotate(90deg);
-    transition: transform 0.5s ease-in-out;
+    transition: transform 0.3s ease-in-out;
   }
 
   .filter .subtitle #toggle-form-button.active {
@@ -430,11 +452,13 @@
 
   .activity-map #activity-details {
     width: 100%;
+    padding: 45px 0 0;
   }
 
   .activity-map #activity-details .img-container {
     display: flex;
     justify-content: center;
+    padding: 0 15px;
   }
 
   .activity-map #activity-details .img-container img {
@@ -442,8 +466,17 @@
     height: auto;
   }
 
+  .activity-map #activity-details .title-description-container {
+    padding: 0 15px;
+  }
+
+  .activity-map #activity-details .actions-container {
+    padding: 0 15px;
+  }
+
   .activity-map #activity-details .details-container {
     flex-direction: column;
+    padding: 0 15px;
   }
 
   .activity-map #activity-details .details-container img {
@@ -453,7 +486,7 @@
 
 @media (max-width: 768px) {
   .activity-map #activity-details .img-container img {
-    width: 100%;
+    width: 80%;
   }
 }
 

@@ -8,7 +8,7 @@
     {% for message in app.flashes('error') %}
         <div class="alert alert-danger">{{ message }}</div>
     {% endfor %}
-     <div class="content">
+    <div class="content">
         <span class="flex-center">
         <h2>Listes des utilisateurs</h2>
         <div class="separator"></div>
@@ -16,56 +16,78 @@
         <main>
             <table>
                 <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Profil</th>
-                        <th>Prénom</th>
-                        <th>Nom</th>
-                        <th>Roles</th>
-                        <th>Téléphone</th>
-                        <th>Action</th>
-                    </tr>
+                <tr>
+                    <th>ID</th>
+                    <th>Profil</th>
+                    <th>Prénom</th>
+                    <th>Nom</th>
+                    <th>Roles</th>
+                    <th>Téléphone</th>
+                    <th>Action</th>
+                </tr>
                 </thead>
                 <tbody>
-                    {% for user in users %}
-                            {% if user.isActive != true %}
-                            <tr style="background-color: #ded8d7">
-                            {% else %}
-                                <tr>
-                            {% endif %}
-                        <td data-label="ID">{{user.id}}</td>
-                        <td data-label="Profil" class="profil"><img src="/profilePictures/{{user.fileName}}" alt="" />{{user.pseudo}}</td>
-                        <td data-label="Prénom" class="textcenter">{{user.firstName}}</td>
-                        <td data-label="Nom">{{user.lastName}}</td>
-                        <td data-label="Roles">{{user.roles|join(", ")}}</td>
-                        <td data-label="Téléphone">{{user.phoneNumber}}</td>
-                        <td data-label="Action"><a href="{{ path('app_user_delete', {'id' : user.id}) }}" target="_blank" class="action"><i class="hover-fa fa-solid fa-trash"></i></a><a href="{{ path('app_user_desactivate', {'id' : user.id}) }}" target="_blank"><i class="hover-fa fa-solid fa-user-xmark"></i></a></td>
+                {% for user in users %}
+                    {% if user.isActive != true %}
+                        <tr style="background-color: #ded8d7">
+                    {% else %}
+                        <tr>
+                    {% endif %}
+                    <td data-label="ID">{{ user.id }}</td>
+                    <td data-label="Profil" class="profil"><img src="/profilePictures/{{ user.fileName }}"
+                                                                alt=""/>{{ user.pseudo }}</td>
+                    <td data-label="Prénom" class="textcenter">{{ user.firstName }}</td>
+                    <td data-label="Nom">{{ user.lastName }}</td>
+                    <td data-label="Roles">{{ user.roles|join(", ") }}</td>
+                    <td data-label="Téléphone">{{ user.phoneNumber }}</td>
+                    <td data-label="Action"><a href="{{ path('app_user_delete', {'id' : user.id}) }}" class="action"><i
+                                    class="hover-fa fa-solid fa-trash"></i></a><a
+                                href="{{ path('app_user_desactivate', {'id' : user.id}) }}"><i
+                                    class="hover-fa fa-solid fa-user-xmark"></i></a></td>
                     </tr>
                     {% endfor %}
                 </tbody>
             </table>
         </main>
         <div class="button-container">
-            <a class="action-click" href="{{path('app_user_create')}}"><button class="action-button"><i class="fa-solid fa-user-plus"></i> Ajouter un utilisateur</button></a>
-            <a class="action-click" href="#"><button class="action-button"><i class="fa-solid fa-file-arrow-down"></i> Télécharger la template CSV</button></a>
-            {{ form_start(form,{'attr': {'id': 'csv_import'}}) }}
-            {{ form_widget(form.csvFile) }}
-            {{ form_end(form) }}
+            <a class="action-click" href="{{ path('app_user_create') }}">
+                <button class="action-button"><i class="fa-solid fa-user-plus"></i> Ajouter un utilisateur</button>
+            </a>
+            <a class="action-click" href="#">
+                <button class="action-button"><i class="fa-solid fa-file-arrow-down"></i> Télécharger la template CSV
+                </button>
+            </a>
+            <a class="action-click" href="#">
+                <button class="action-button"><i class="fa-solid fa-file-arrow-down"></i>
+                    {{ form_start(form,{'attr': {'id': 'fileName'}}) }}
+
+                    {{ form_label(form.fileName) }}
+                    <div style="display: none">
+                        {{ form_widget(form.fileName) }}
+                    </div>
+                    {{ form_end(form) }}
+                </button>
+            </a>
+                <div class="file_label">
+
+                </div>
+
         </div>
 
     </div>
-    <script >
-document.addEventListener('DOMContentLoaded', (event) => {
-    // Get the file input element
-    var fileInput = document.querySelector('#csv_import input[type="file"]');
+    <script src="/scripts/form.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', (event) => {
+            // Get the file input element
+            var fileInput = document.querySelector('#fileName input[type="file"]');
 
-    if (fileInput) {
-        fileInput.addEventListener('change', function() {
-            // Submit the form when a file is selected
-            document.getElementById('csv_import').submit();
+            if (fileInput) {
+                fileInput.addEventListener('change', function () {
+                    // Submit the form when a file is selected
+                    document.getElementById('fileName').submit();
+                });
+            }
         });
-    }
-});
     </script>
 
 {% endblock %}  

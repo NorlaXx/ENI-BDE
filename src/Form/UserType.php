@@ -10,6 +10,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\DataTransformerInterface;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormTypeInterface;
@@ -58,9 +59,11 @@ class UserType extends AbstractType
                 'attr' => ['placeholder' => 'Email'],
                 'required' => true,
             ])
-            ->add('password', TextType::class, [
+            ->add('password', PasswordType::class, [
                 'label' => 'password',
-                'attr' => ['placeholder' => 'password'],
+                'attr' => ['placeholder' => 'password',
+                    'type' => 'password',
+                    ],
                 'required' => false,
             ])
             ->add('profilePicture', FileType::class, [
