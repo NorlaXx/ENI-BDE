@@ -2,10 +2,12 @@ name: Symfony project
 
 on:
   push:
-    branches: ["main"]
+    branches:
+      - main
+  
 
 jobs:
-  build:
+  build_and_deploy:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
