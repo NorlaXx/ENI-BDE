@@ -28,24 +28,30 @@
                 </thead>
                 <tbody>
                 {% for user in users %}
-                    {% if user.isActive != true %}
+                    <a href="{{ path('app_profile_view', {'id' : user.id}) }}">
+                        {% if user.isActive != true %}
                         <tr style="background-color: #ded8d7">
-                    {% else %}
+                            {% else %}
                         <tr>
-                    {% endif %}
-                    <td data-label="ID">{{ user.id }}</td>
-                    <td data-label="Profil" class="profil"><img src="/profilePictures/{{ user.fileName }}"
-                                                                alt=""/>{{ user.pseudo }}</td>
-                    <td data-label="Prénom" class="textcenter">{{ user.firstName }}</td>
-                    <td data-label="Nom">{{ user.lastName }}</td>
-                    <td data-label="Roles">{{ user.roles|join(", ") }}</td>
-                    <td data-label="Téléphone">{{ user.phoneNumber }}</td>
+                            {% endif %}
+                            <td data-label="ID">{{ user.id }}</td>
+                            <td data-label="Profil" class="profil"><img src="/profilePictures/{{ user.fileName }}"
+                                                                        alt=""/>{{ user.pseudo }}</td>
+                            <td data-label="Prénom" class="textcenter">{{ user.firstName }}</td>
+                            <td data-label="Nom">{{ user.lastName }}</td>
+                            <td data-label="Roles">{{ user.roles|join(", ") }}</td>
+                            <td data-label="Téléphone">{{ user.phoneNumber }}</td>
+                    </a>
                     <td data-label="Action"><a href="{{ path('app_user_delete', {'id' : user.id}) }}" class="action"><i
                                     class="hover-fa fa-solid fa-trash"></i></a><a
                                 href="{{ path('app_user_desactivate', {'id' : user.id}) }}"><i
-                                    class="hover-fa fa-solid fa-user-xmark"></i></a></td>
+                                    class="hover-fa fa-solid fa-user-xmark"></i></a>
+                        <a
+                                href="{{ path('app_profile_view', {'id' : user.id}) }}"><i
+                                    class="fa-solid fa-user"></i></a>
+                    </td>
                     </tr>
-                    {% endfor %}
+                {% endfor %}
                 </tbody>
             </table>
         </main>
@@ -68,9 +74,9 @@
                     {{ form_end(form) }}
                 </button>
             </a>
-                <div class="file_label">
+            <div class="file_label">
 
-                </div>
+            </div>
 
         </div>
 

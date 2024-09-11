@@ -6,6 +6,7 @@ namespace App\Controller;
 use App\Entity\User;
 use App\Form\CsvImport;
 use App\Form\UserType;
+use App\Form\UserTypeUpdate;
 use App\Repository\UserRepository;
 use App\Repository\ActivityRepository;
 use App\Security\UserProvider;
@@ -32,13 +33,13 @@ class UserController extends AbstractController
 {
 
     public function __construct(
-        private MailerInterface $mailer,
-        private UserRepository         $userRepository,
-        private Security               $security,
-        private CsvImportService     $csvImportService,
-        private FileUploaderService    $fileUploaderService,
-        private ActivityRepository     $activityRepository,
-        private EntityManagerInterface $entityManager,
+        private MailerInterface             $mailer,
+        private UserRepository              $userRepository,
+        private Security                    $security,
+        private CsvImportService            $csvImportService,
+        private FileUploaderService         $fileUploaderService,
+        private ActivityRepository          $activityRepository,
+        private EntityManagerInterface      $entityManager,
         private UserPasswordHasherInterface $passwordHasher,
     )
     {
@@ -77,15 +78,29 @@ class UserController extends AbstractController
         $form = $this->createForm(UserType::class, $user);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            if(!$this->userRepository->findBy(['email' => $user->getEmail()])) {
+            if (!$this->userRepository->findBy(['email' => $user->getEmail()])) {
                 /*  set default PictureFileName on Entity */
-                $hashedPassword = $this->passwordHasher->hashPassword(
-                    $user,
-                    "password"
-                );
-                $user->setPassword($hashedPassword);
+                if ($form->get("password")->getData() != null && $form->get("passwordConfirm")->getData() != null) {
+                    if ($form->get("password")->getData() !== $form->get("passwordConfirm")->getData()) {
+                        $hashedPassword = $this->passwordHasher->hashPassword(
+                            $user,
+                            "password"
+                        );
+                        $user->setPassword($hashedPassword);
+                    } else {
+                        $hashedPassword = $this->passwordHasher->hashPassword(
+                            $user,
+                            $form->get("password")->getData()
+                        );
+                        $user->setPassword($hashedPassword);
+                    }
+                }
                 $user->setActive(true);
-                $user->setFileName($this->fileUploaderService->upload('profilePictures', $form->get('profilePicture')->getData()));
+                if ($form->get("profilePicture")->getData() != null) {
+                    $user->setFileName($this->fileUploaderService->upload('profilePictures', $form->get('profilePicture')->getData()));
+                } else {
+                    $user->setFileName("default.jpg");
+                }
                 $this->entityManager->persist($user);
                 $this->entityManager->flush();
                 return $this->redirectToRoute('app_profil_list');
@@ -105,7 +120,7 @@ class UserController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $csvFile = $this->fileUploaderService->upload("csv",$form->get("fileName")->getData());
+            $csvFile = $this->fileUploaderService->upload("csv", $form->get("fileName")->getData());
             $results = $this->csvImportService->importCsv("csv/" . $csvFile);
             if (!empty($results['errors'])) {
                 foreach ($results['errors'] as $error) {
@@ -134,12 +149,11 @@ class UserController extends AbstractController
             ->to($user->getEmail())
             ->subject('Compte ENI-BDE supprimé')
             ->text('Votre compte ENI-BDE a été supprimé')
-            ->html('<p>Votre compte '. $user->getPseudo() .'ENI-BDE a été supprimé</p>');
-       try {
-           $this->mailer->send($email);
-       } catch (\Exception $e){
-           dd($e->getMessage());
-       }
+            ->html('<p>Votre compte ' . $user->getPseudo() . 'ENI-BDE a été supprimé</p>');
+        try {
+            $this->mailer->send($email);
+        } catch (\Exception $e) {
+        }
         $this->userRepository->removeAllRelations($user);
         $this->entityManager->flush();
         return $this->redirectToRoute("app_profil_list");
@@ -166,12 +180,19 @@ class UserController extends AbstractController
     public function edit(Request $request, SluggerInterface $slugger): Response
     {
         $user = $this->getUser();
-        $form = $this->createForm(UserType::class, $user);
+        $form = $this->createForm(UserTypeUpdate::class, $user);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $profilePicture = $form->get('profilePicture')->getData();
             /* Upload file using fileUploader Service + set PictureFileName on Entity*/
+            if ($form->get("password")->getData() != null && $form->get("passwordConfirm")->getData() != null) {
+                if ($form->get("password")->getData() === $form->get("passwordConfirm")->getData()) {
+                    $user->setPassword($this->passwordHasher->hashPassword($user, $form->get("password")->getData()));
+                    $this->entityManager->persist($user);
+                    $this->entityManager->flush();
+                }
+            }
             if ($profilePicture) {
                 $user->setFileName($this->fileUploaderService->upload("thumbnails", $profilePicture));
             }

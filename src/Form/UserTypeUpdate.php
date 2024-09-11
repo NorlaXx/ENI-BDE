@@ -17,7 +17,7 @@ use Symfony\Component\Form\FormTypeInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\File;
 
-class UserType extends AbstractType
+class UserTypeUpdate extends AbstractType
 {
 
     public function __construct()
@@ -30,34 +30,34 @@ class UserType extends AbstractType
             ->add('phone_number', TextType::class, [
                 'label' => 'Phone Number',
                 'attr' => ['placeholder' => 'Numéro de téléphone'],
-                'required' => true,
+                'required' => false,
             ])
             ->add('pseudo', TextType::class, [
                 'label' => 'Pseudo',
                 'attr' => ['placeholder' => 'Pseudo'],
-                'required' => true,
+                'required' => false,
             ])
             ->add('lastName', TextType::class, [
                 'label' => 'Nom',
                 'attr' => ['placeholder' => 'Nom'],
-                'required' => true,
+                'required' => false,
             ])
             ->add('firstName', TextType::class, [
                 'label' => 'Prénom',
                 'attr' => ['placeholder' => 'Prénom'],
-                'required' => true,
+                'required' => false,
             ])
             ->add('campus', EntityType::class, [
                 'class' => Campus::class,
                 'choice_label' => 'name',
                 'placeholder' => 'Choisir un campus',
                 'label' => 'Campus',
-                'required' => true,
+                'required' => false,
             ])
             ->add('email', EmailType::class, [
                 'label' => 'Email',
                 'attr' => ['placeholder' => 'Email'],
-                'required' => true,
+                'required' => false,
             ])
             ->add('password', PasswordType::class, [
                 'label' => 'password',
@@ -65,7 +65,7 @@ class UserType extends AbstractType
                 'attr' => ['placeholder' => 'password',
                     'type' => 'password',
                     ],
-                'required' => true,
+                'required' => false,
             ])
             ->add('passwordConfirm', PasswordType::class, [
                 'label' => '',
@@ -74,7 +74,7 @@ class UserType extends AbstractType
                     'placeholder' => 'confirmer son mot de passe',
                     'type' => 'password',
                 ],
-                'required' => true,
+                'required' => false,
             ])
             ->add('profilePicture', FileType::class, [
                 'label' => 'Profile Picture (PDF, PNG, JPG file)',
