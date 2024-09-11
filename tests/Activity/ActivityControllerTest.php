@@ -197,4 +197,30 @@ class ActivityControllerTest extends WebTestCase
 
         $this->assertResponseRedirects('/');
     }
+
+    public function testUpdateActivity(){
+        $this->client->request('GET', '/login');
+
+        //Connexion d'un utilisateur
+        $this->client->submitForm('Se connecter', [
+            '_username' => 'email@example.com',
+            '_password' => 'password',
+        ]);
+
+        $activity = $this->client->getContainer()->get('doctrine.orm.entity_manager')->getRepository(Activity::class)->findOneBy(['name' => 'Activity 1']);
+
+        $this->client->request('GET', '/activity/update/'.$activity->getId());
+        $this->client->submitForm('Publier', [
+            'activity[name]' => 'Activité modifiée',
+            'activity[campus]' => $activity->getCampus()->getid(),
+            'activity[lieu]' => $activity->getLieu()->getid(),
+            'activity[description]' => 'une description de fou',
+            'activity[startDate]' => '2024-10-01 14:00:00',
+            'activity[registrationDateLimit]' => '2024-09-30 23:59:00',
+            'activity[nbLimitParticipants]' => 10,
+            'activity[duration]' => 50,
+        ]);
+
+        $this->assertResponseRedirects('/');
+    }
 }
