@@ -85,8 +85,13 @@ class ActivityControllerTest extends WebTestCase
         $activityState2->setCode('ACT_ANN');
         $activityState2->setWording('annulée');
 
+        $activityState3 = new ActivityState();
+        $activityState3->setCode('ACT_INS');
+        $activityState3->setWording('inscription');
+
         $em->persist($activityState);
         $em->persist($activityState2);
+        $em->persist($activityState3);
         $em->flush();
 
         // Create a User fixture
@@ -138,7 +143,7 @@ class ActivityControllerTest extends WebTestCase
         $this->assertResponseIsSuccessful();
     }
 
-    public function testRegisterActivity(){
+    public function testPublyActivity(){
         $this->client->request('GET', '/login');
 
         //Connexion d'un utilisateur
@@ -160,9 +165,36 @@ class ActivityControllerTest extends WebTestCase
             'activity[registrationDateLimit]' => '2024-09-30 23:59:00',
             'activity[nbLimitParticipants]' => 10,
             'activity[duration]' => 40,
-            'activity[fileName]' => 'file.jpg',
         ]);
-        //TODO Essayer avec post
+
+        $this->assertResponseRedirects('/');
+    }
+
+    public function testRegisterActivity()
+    {
+        $this->client->request('GET', '/login');
+
+        //Connexion d'un utilisateur
+        $this->client->submitForm('Se connecter', [
+            '_username' => 'email@example.com',
+            '_password' => 'password',
+        ]);
+
+        $lieu = $this->client->getContainer()->get('doctrine.orm.entity_manager')->getRepository(Lieu::class)->findOneBy(['name' => 'picine de Bréquiny']);
+        $campus = $this->client->getContainer()->get('doctrine.orm.entity_manager')->getRepository(Campus::class)->findOneBy(['name' => 'ENI - Rennes']);
+
+        $this->client->request('GET', '/activity/create');
+        $this->client->submitForm('Enregistrer', [
+            'activity[name]' => 'Activity 2',
+            'activity[campus]' => $campus->getid(),
+            'activity[lieu]' => $lieu->getid(),
+            'activity[description]' => 'Description 2',
+            'activity[startDate]' => '2024-10-01 14:00:00',
+            'activity[registrationDateLimit]' => '2024-09-30 23:59:00',
+            'activity[nbLimitParticipants]' => 10,
+            'activity[duration]' => 40,
+        ]);
+
         $this->assertResponseRedirects('/');
     }
 }
