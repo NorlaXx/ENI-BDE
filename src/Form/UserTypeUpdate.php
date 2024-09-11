@@ -30,34 +30,34 @@ class UserTypeUpdate extends AbstractType
             ->add('phone_number', TextType::class, [
                 'label' => 'Phone Number',
                 'attr' => ['placeholder' => 'Numéro de téléphone'],
-                'required' => false,
+                'required' => true,
             ])
             ->add('pseudo', TextType::class, [
                 'label' => 'Pseudo',
                 'attr' => ['placeholder' => 'Pseudo'],
-                'required' => false,
+                'required' => true,
             ])
             ->add('lastName', TextType::class, [
                 'label' => 'Nom',
                 'attr' => ['placeholder' => 'Nom'],
-                'required' => false,
+                'required' => true,
             ])
             ->add('firstName', TextType::class, [
                 'label' => 'Prénom',
                 'attr' => ['placeholder' => 'Prénom'],
-                'required' => false,
+                'required' => true,
             ])
             ->add('campus', EntityType::class, [
                 'class' => Campus::class,
                 'choice_label' => 'name',
                 'placeholder' => 'Choisir un campus',
                 'label' => 'Campus',
-                'required' => false,
+                'required' => true,
             ])
             ->add('email', EmailType::class, [
                 'label' => 'Email',
                 'attr' => ['placeholder' => 'Email'],
-                'required' => false,
+                'required' => true,
             ])
             ->add('password', PasswordType::class, [
                 'label' => 'password',
