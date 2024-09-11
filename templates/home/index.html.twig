@@ -26,6 +26,7 @@
             <h2>Evenements proposer par votre BDE / élèves</h2>
             <div class="separator"></div>
             <div class="activity-content" id="activityContent">
+                <a href={{path("app_activity_create")}} class="profile-button createActivity"><button class="button">Créer une nouvelle sortie</button></a>
                 {% for activity in activities %}
                     {% if activity.state.id != 6 %}
                         <div class="activity canClick"
