@@ -380,6 +380,7 @@
   .filter {
     width: 100%;
     z-index: 10;
+    border-right: none;
   }
 
   .filter .subtitle {
@@ -481,6 +482,10 @@
 
   .activity-map #activity-details .details-container img {
     max-width: 350px;
+  }
+
+  .activity {
+    margin-top: 0;
   }
 }
 
