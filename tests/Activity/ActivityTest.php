@@ -1,5 +1,7 @@
 <?php
 
+namespace App\Tests\Activity;
+
 use App\Entity\Activity;
 use App\Repository\ActivityRepository;
 use PHPUnit\Framework\TestCase;
