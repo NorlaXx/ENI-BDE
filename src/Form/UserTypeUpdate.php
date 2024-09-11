@@ -19,7 +19,6 @@ use Symfony\Component\Validator\Constraints\File;
 
 class UserTypeUpdate extends AbstractType
 {
-
     public function __construct()
     {
     }
