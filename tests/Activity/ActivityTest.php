@@ -71,6 +71,7 @@ class ActivityTest extends TestCase
         $activity1->setStartDate(new \DateTime('2024-10-01 14:00:00'));
         $activity1->setCreationDate(new \DateTime());
         $activity1->setState($activityState);
+        $activity1->addInscrit($user);
 
         $activityRepository = $this->createMock(ActivityRepository::class);
         $activityRepository->method('findAll')
@@ -80,5 +81,18 @@ class ActivityTest extends TestCase
 
         $this->assertEquals('Activity 1', $activities[0]->getName());
         $this->assertEquals('Description 1', $activities[0]->getDescription());
+        $this->assertEquals(40, $activities[0]->getDuration());
+        $this->assertEquals("ENI - Rennes", $activities[0]->getCampus()->getName());
+        $this->assertEquals("picine de Bréquiny", $activities[0]->getLieu()->getName());
+        $this->assertEquals("email@email.com", $activities[0]->getOrganizer()->getEmail());
+        $this->assertEquals('file.jpg', $activities[0]->getFileName());
+        $this->assertEquals(10, $activities[0]->getNbLimitParticipants());
+        $this->assertEquals(new \DateTime('2024-09-30 23:59:00'), $activities[0]->getRegistrationDateLimit());
+        $this->assertEquals(new \DateTime('2024-10-01 14:00:00'), $activities[0]->getStartDate());
+        $this->assertEquals("ACT_CR", $activities[0]->getState()->getCode());
+        $this->assertCount(1, $activities[0]->getRegistered());
+
+        $activity1->removeInscrit($user);
+        $this->assertCount(0, $activities[0]->getRegistered());
     }
 }
