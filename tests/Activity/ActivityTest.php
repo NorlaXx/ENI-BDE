@@ -8,6 +8,7 @@ use App\Entity\Campus;
 use App\Entity\Lieu;
 use App\Entity\User;
 use App\Repository\ActivityRepository;
+use App\Service\ActivityService;
 use PHPUnit\Framework\TestCase;
 
 class ActivityTest extends TestCase

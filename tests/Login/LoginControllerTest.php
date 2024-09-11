@@ -2,6 +2,7 @@
 
 namespace App\Tests\Login;
 
+use App\Entity\Activity;
 use App\Entity\Campus;
 use App\Entity\User;
 use App\Kernel;
@@ -21,6 +22,11 @@ class LoginControllerTest extends WebTestCase
         $em = $container->get('doctrine.orm.entity_manager');
         $userRepository = $em->getRepository(User::class);
         $campusRepository = $em->getRepository(Campus::class);
+        $activityRepository = $em->getRepository(Activity::class);
+
+        foreach ($activityRepository->findAll() as $activity) {
+            $em->remove($activity);
+        }
 
         // Remove any existing users from the test database
         foreach ($userRepository->findAll() as $user) {
