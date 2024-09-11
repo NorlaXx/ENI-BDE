@@ -18,7 +18,11 @@
             {{ form_widget(form.pseudo) }}
             {{ form_widget(form.phone_number) }}
             {{ form_widget(form.campus) }}
-            {{form_label(form.profilePicture)}}
+            {{form_widget(form.lastName)}}
+            {{form_widget(form.firstName)}}
+            {{form_widget(form.email)}}
+            {{form_widget(form.password)}}
+            {{form_widget(form.passwordConfirm)}}
             {{form_widget(form.profilePicture)}}
             <button>Enregistré</button>
             {{ form_end(form) }}

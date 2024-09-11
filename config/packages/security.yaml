@@ -45,6 +45,7 @@ security:
   access_control:
     - { path: ^/admin, roles: ROLE_ADMIN }
     - { path: ^/login, roles: PUBLIC_ACCESS }
+    - { path: ^/reset-password/*, roles: PUBLIC_ACCESS }
     - { path: ^/*, roles: IS_AUTHENTICATED_FULLY }
 
 when@test:

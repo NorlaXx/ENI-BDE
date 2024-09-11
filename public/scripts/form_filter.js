@@ -53,10 +53,10 @@ const resetFilterNumber = () => {
   }
 };
 
-const init = () => {
+const init_form = () => {
   resetFilterNumber();
   responsiveFilter();
   getNbFilter();
 };
 
-document.addEventListener("DOMContentLoaded", init);
+document.addEventListener("DOMContentLoaded", init_form);
