@@ -19,7 +19,7 @@ class CsvImport extends AbstractType
     {
         $builder
             ->add('fileName', FileType::class, [
-                'label' => 'Image (jpeg, png)',
+                'label' => 'Importer une liste',
                 'label_attr' => [
                     'class' => 'file-label'
                 ],

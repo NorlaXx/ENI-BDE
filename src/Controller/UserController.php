@@ -85,7 +85,7 @@ class UserController extends AbstractController
                 );
                 $user->setPassword($hashedPassword);
                 $user->setActive(true);
-                $user->setFileName("icons8-avatar-48-66d71c8776738.png");
+                $user->setFileName($this->fileUploaderService->upload('profilePictures', $form->get('profilePicture')->getData()));
                 $this->entityManager->persist($user);
                 $this->entityManager->flush();
                 return $this->redirectToRoute('app_profil_list');
@@ -105,7 +105,7 @@ class UserController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $csvFile = $this->fileUploaderService->upload("csv",$form->get("csvFile")->getData());
+            $csvFile = $this->fileUploaderService->upload("csv",$form->get("fileName")->getData());
             $results = $this->csvImportService->importCsv("csv/" . $csvFile);
             if (!empty($results['errors'])) {
                 foreach ($results['errors'] as $error) {
@@ -135,11 +135,11 @@ class UserController extends AbstractController
             ->subject('Compte ENI-BDE supprimé')
             ->text('Votre compte ENI-BDE a été supprimé')
             ->html('<p>Votre compte '. $user->getPseudo() .'ENI-BDE a été supprimé</p>');
-        try {
-            $this->mailer->send($email);
-        } catch (TransportExceptionInterface $e) {
-        }
-
+       try {
+           $this->mailer->send($email);
+       } catch (\Exception $e){
+           dd($e->getMessage());
+       }
         $this->userRepository->removeAllRelations($user);
         $this->entityManager->flush();
         return $this->redirectToRoute("app_profil_list");

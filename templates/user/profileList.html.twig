@@ -45,7 +45,7 @@
                                 href="{{ path('app_user_desactivate', {'id' : user.id}) }}"><i
                                     class="hover-fa fa-solid fa-user-xmark"></i></a></td>
                     </tr>
-                {% endfor %}
+                    {% endfor %}
                 </tbody>
             </table>
         </main>
@@ -57,12 +57,21 @@
                 <button class="action-button"><i class="fa-solid fa-file-arrow-down"></i> Télécharger la template CSV
                 </button>
             </a>
-            <div class="form-container">
-                {{ form_start(form,{'attr': {'id': 'fileName'}}) }}
-                {{ form_label(form.fileName) }}
-                {{ form_widget(form.fileName) }}
-                {{ form_end(form) }}
-            </div>
+            <a class="action-click" href="#">
+                <button class="action-button"><i class="fa-solid fa-file-arrow-down"></i>
+                    {{ form_start(form,{'attr': {'id': 'fileName'}}) }}
+
+                    {{ form_label(form.fileName) }}
+                    <div style="display: none">
+                        {{ form_widget(form.fileName) }}
+                    </div>
+                    {{ form_end(form) }}
+                </button>
+            </a>
+                <div class="file_label">
+
+                </div>
+
         </div>
 
     </div>
@@ -70,7 +79,7 @@
     <script>
         document.addEventListener('DOMContentLoaded', (event) => {
             // Get the file input element
-            var fileInput = document.querySelector('#csv_import input[type="file"]');
+            var fileInput = document.querySelector('#fileName input[type="file"]');
 
             if (fileInput) {
                 fileInput.addEventListener('change', function () {
