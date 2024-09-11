@@ -110,8 +110,8 @@ form button:hover {
   background-color: var(--color-danger);
 }
 
-@media (max-width: 1300px){
-  .body{
+@media (max-width: 1300px) {
+  .body {
     background-image: none;
   }
 
@@ -122,24 +122,58 @@ form button:hover {
     padding: 0;
   }
 
-  .content form h2{
+  .content form h2 {
     font-size: var(--font-size-xxl);
-  }
-
-  .content form input {
-
   }
 }
 
-@media (max-width: 768px){
-  .content form .checkbox{
+@media (max-width: 768px) {
+  .content form .checkbox {
     flex-direction: column;
     align-items: start;
   }
 
-  .content form .checkbox > a{
+  .content form .checkbox > a {
     flex-direction: column;
     align-items: start;
     margin-left: 25px;
+  }
+}
+
+@media (max-width: 500px) {
+  .content form h2 {
+    font-size: var(--font-size-xl);
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 350px;
+  }
+
+  form input {
+    width: 330px;
+    height: 40px;
+    font-size: var(--font-size-l);
+  }
+
+  .checkbox label {
+    font-size: var(--font-size-medium);
+  }
+
+  .content form .checkbox {
+    width: 330px;
+  }
+
+  .content form .checkbox > a {
+    font-size: var(--font-size-medium);
+  }
+
+  form button {
+    width: 330px;
+    height: 40px;
+    font-size: var(--font-size-l);
+    margin-top: var(--spacing-l);
   }
 }
