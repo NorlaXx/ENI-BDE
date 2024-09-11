@@ -250,4 +250,22 @@ class ActivityControllerTest extends WebTestCase
 
         $this->assertResponseIsSuccessful();
     }
+
+    public function testCancelActivity(){
+        $this->client->request('GET', '/login');
+        //Connexion d'un utilisateur
+        $this->client->submitForm('Se connecter', [
+            '_username' => 'email@example.com',
+            '_password' => 'password',
+        ]);
+
+        $activity = $this->client->getContainer()->get('doctrine.orm.entity_manager')->getRepository(Activity::class)->findOneBy(['name' => 'Activity 1']);
+
+        $this->client->request('GET', '/activity/cancel/'.$activity->getId());
+        $this->client->submitForm('Annuler', [
+            'cancel[reason]' => 'Raison d\'annulation',
+        ]);
+
+        $this->assertResponseRedirects('/');
+    }
 }
