@@ -14,9 +14,9 @@ class CsvImportService
 
     public function __construct(
         private UserPasswordHasherInterface $passwordHasher,
-        private EntityManagerInterface      $entityManager)
-    {
-    }
+        private EntityManagerInterface      $entityManager
+    )
+    {}
 
     public function importCsv(string $filePath): array
     {
