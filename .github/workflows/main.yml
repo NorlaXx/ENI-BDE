@@ -20,7 +20,9 @@ jobs:
           port: 22103
           script: |
             cd /var/www/enibde
-            git pull
+            git stash
+            git pull origin main
+            git stash pop
             php bin/console doctrine:migrations:migrate --no-interaction
             php bin/console cache:clear
             sudo find /var/www/enibde -type d -exec chmod 755 {} \;
