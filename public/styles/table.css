@@ -124,7 +124,8 @@ td img {
   height: 20px;
   border-radius: var(--border-radius-large);
   overflow: hidden;
-  margin-right: 0px;
+  margin-right: 3px;
+  vertical-align: middle;
 }
 
 .textcenter {
