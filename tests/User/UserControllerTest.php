@@ -115,6 +115,38 @@ class UserControllerTest extends WebTestCase
         ]);
 
         $this->assertResponseRedirects('/profil/list');
+    }
 
+    public function testUpdateUser(){
+        $this->client->request('GET', '/login');
+        //Connexion d'un utilisateur
+        $this->client->submitForm('Se connecter', [
+            '_username' => 'email@example.com',
+            '_password' => 'password',
+        ]);
+
+        $this->client->request('GET', '/profileEdit');
+        $this->assertResponseIsSuccessful();
+
+        $campus = $this->client->getContainer()->get('doctrine')->getRepository(Campus::class)->findOneBy(['name' => 'Campus']);
+        $file = new UploadedFile(
+            'public/images/bdEni.png',
+            'bdEni.png',
+            'image/png',
+        );
+
+        $this->client->submitForm('Enregistrer', [
+            'user_update[phone_number]' => '1234567890',
+            'user_update[pseudo]' => 'pseudoTropCool',
+            'user_update[lastName]' => 'Doe',
+            'user_update[firstName]' => 'John',
+            'user_update[campus]' => $campus->getId(),
+            'user_update[email]' => 'email@example.com',
+            'user_update[password]' => 'password',
+            'user_update[passwordConfirm]' => 'password',
+            'user_update[profilePicture]' => $file,
+        ]);
+
+        $this->assertResponseRedirects('/profil');
     }
 }
