@@ -56,27 +56,17 @@
                                     <button class="button cancel"><span>Annuler</span></button>
                                 </a>
                             {% endif %}
-                            {% if activity in user.activities and activity.state.code == "ACT_INS" or activity.state.code == "ACT_INS_F" %}
-                                <a href="{{ path("activity_remove_inscrit", { 'id': activity .id}) }}">
-                                    <button class="button cancel"><span>Se désister</span></button>
-                                </a>
-                            {% endif %}
-                            {% if activity not in user.activities and activity.state.code == "ACT_INS" %}
-                                <a href="{{ path("activity_add_inscrit", { 'id': activity.id }) }}">
-                                    <button class="button"><span>S'inscrire</span></button>
-                                </a>
-                            {% endif %}
                             {% if activity not in user.activities and activity.state.code == "ACT_EN_C" %}
-                                <button class="button cancel" disable>En cour</button>
+                                <button class="status cancel" disable>En cour</button>
                             {% endif %}
                             {% if activity not in user.activities and activity.state.code == "ACT_INS_F" %}
-                                <button class="button close" disable>Fermé</button>
+                                <button class="status status-close" disable>Fermé</button>
                             {% endif %}
                             {% if activity not in user.activities and activity.state.code == "ACT_TER" %}
-                                <button class="button cancel" disable>Terminé</button>
+                                <button class="status status-cancel" disable>Terminé</button>
                             {% endif %}
                             {% if activity not in user.activities and activity.state.code == "ACT_ANN" %}
-                                <button class="button cancel" disable>Annulé</button>
+                                <button class="status status-cancel" disable>Annulé</button>
                             {% endif %}
                         </span>
                     </span>
