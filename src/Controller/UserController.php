@@ -6,7 +6,7 @@ namespace App\Controller;
 use App\Entity\User;
 use App\Form\CsvImport;
 use App\Form\UserType;
-use App\Form\UserTypeUpdate;
+use App\Form\UserUpdateType;
 use App\Repository\UserRepository;
 use App\Repository\ActivityRepository;
 use App\Security\UserProvider;
@@ -180,7 +180,7 @@ class UserController extends AbstractController
     public function edit(Request $request, SluggerInterface $slugger): Response
     {
         $user = $this->getUser();
-        $form = $this->createForm(UserTypeUpdate::class, $user);
+        $form = $this->createForm(UserUpdateType::class, $user);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {

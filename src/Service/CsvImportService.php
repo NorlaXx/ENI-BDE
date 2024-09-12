@@ -40,7 +40,6 @@ class CsvImportService extends AbstractController
 
             fgetcsv($handle);
         } catch (\Exception $e) {
-            dd($e->getMessage());
             $this->redirectToRoute("app_profil_list");
         }
         while (($data = fgetcsv($handle )) !== false) {
@@ -84,7 +83,6 @@ class CsvImportService extends AbstractController
             $user->setPseudo($pseudo);
 
         } catch (\Exception $e) {
-            dd($e->getMessage());
         }
         try {
             // Find campus or set default to Rennes
@@ -101,7 +99,6 @@ class CsvImportService extends AbstractController
 
             $this->userRepository->update($user);
         } catch (\Exception $e) {
-            dd($e->getMessage());
         }
     }
 

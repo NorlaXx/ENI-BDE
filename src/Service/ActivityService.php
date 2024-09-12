@@ -82,4 +82,12 @@ class ActivityService
             'activities' => $activities,
             ];
     }
+
+    public function removeOrganizer(Activity $activity): void
+    {
+        $state = $this->activityStateRepository->getCancelledState();
+        $activity->setOrganizer(null);
+        $activity->setState($state);
+        $this->activityRepository->update($activity);
+    }
 }

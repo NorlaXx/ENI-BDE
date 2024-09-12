@@ -1,13 +1,25 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Reset your password{% endblock %}
+{% block title %}BD-E-ni | Connexion{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="/styles/login.css">
+    <link rel="stylesheet" href="/styles/customResetPass.css">
+{% endblock %}
 
 {% block body %}
-    <h1>Reset your password</h1>
-
-    {{ form_start(resetForm) }}
-        {{ form_row(resetForm.plainPassword) }}
+    <img src="/images/icon.png" alt="icon" class="icon">
+    <div class="content">
+        {{ form_start(resetForm) }}
+        <div class="error">
+            {{ form_errors(resetForm) }}
+        </div>
+        <h2>Modifier votre mot de passe !</h2>
+        {{ form_widget(resetForm.plainPassword) }}
+        <br>
         <button class="btn btn-primary">Reset password</button>
-    {{ form_end(resetForm) }}
-    <script src="/scripts/form.js"></script>
+        {{ form_end(resetForm) }}
+        <script src="/scripts/form.js"></script>
+    </div>
 {% endblock %}
+

@@ -1,23 +1,30 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Reset your password{% endblock %}
+{% block title %}BD-E-ni{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="/styles/login.css">
+{% endblock %}
 
 {% block body %}
-    {% for flash_error in app.flashes('reset_password_error') %}
-        <div class="alert alert-danger" role="alert">{{ flash_error }}</div>
-    {% endfor %}
-    <h1>Reset your password</h1>
+    <img src="/images/icon.png" alt="icon" class="icon">
+    <div class="content">
+        {{ form_start(requestForm) }}
+        <h2>Mot de passe oublié ?</h2>
 
-    {{ form_start(requestForm) }}
-        {{ form_row(requestForm.email) }}
-        <div>
-            <small>
-                Enter your email address, and we will send you a
-                link to reset your password.
-            </small>
-        </div>
-
-        <button class="btn btn-primary">Send password reset email</button>
-    {{ form_end(requestForm) }}
-    <script src="/scripts/form.js"></script>
+        {% for flash_error in app.flashes('reset_password_error') %}
+            <div class="alert alert-danger" role="alert">Vérifier votre email, ou réessayez plus tard </div>
+        {% endfor %}
+        {{ form_widget(requestForm.email) }}
+        <input type="hidden" name="_csrf_token"
+               value="{{ csrf_token('authenticate') }}"
+        >
+        <br>
+        <button class="btn btn-lg btn-primary">
+            Réinitialiser le mot de passe
+        </button>
+        {{ form_end(requestForm) }}
+    </div>
 {% endblock %}
+
+

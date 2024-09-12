@@ -17,9 +17,8 @@ use Symfony\Component\Form\FormTypeInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\File;
 
-class UserTypeUpdate extends AbstractType
+class UserUpdateType extends AbstractType
 {
-
     public function __construct()
     {
     }
