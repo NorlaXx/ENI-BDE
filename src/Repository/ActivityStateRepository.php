@@ -16,7 +16,14 @@ class ActivityStateRepository extends ServiceEntityRepository
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, ActivityState::class);
-        $this->allState = $this->findAll();
+//        $this->allState = $this->findAll();
+    }
+
+    private function loadStates(): void
+    {
+        if($this->allState == null){
+            $this->allState = $this->findAll();
+        }
     }
 
     public function getDefaultState(){
@@ -24,6 +31,7 @@ class ActivityStateRepository extends ServiceEntityRepository
     }
 
     public function getStateByCode($code){
+        $this->loadStates();
         foreach($this->allState as $state){
             if($state->getCode() == $code){
                 return $state;

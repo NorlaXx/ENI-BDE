@@ -2,10 +2,11 @@
 
 namespace App\Repository;
 
+use App\Entity\Activity;
 use App\Entity\User;
+use App\Service\ActivityService;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
-use Proxies\__CG__\App\Entity\Activity;
 use Symfony\Bridge\Doctrine\Security\User\UserLoaderInterface;
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
@@ -16,7 +17,7 @@ use Symfony\Component\Security\Core\User\PasswordUpgraderInterface;
  */
 class UserRepository extends ServiceEntityRepository implements PasswordUpgraderInterface, UserLoaderInterface
 {
-    public function __construct(ManagerRegistry $registry)
+    public function __construct(private ActivityService $activityService,ManagerRegistry $registry)
     {
         parent::__construct($registry, User::class);
     }
@@ -49,8 +50,7 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
             $entityManager->persist($activity); // Persist updated activity
         }
         foreach ($this->getEntityManager()->getRepository(Activity::class)->findBy(["organizer" => $user->getId()]) as $activity) {
-            $activity->removeOrganizer($this->activityStateRepository, $this->getEntityManager());
-            $entityManager->persist($activity);
+            $this->activityService->removeOrganizer($activity);
         }
         $entityManager->remove($user);
         $entityManager->flush();
